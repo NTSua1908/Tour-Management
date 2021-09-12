@@ -23,6 +23,10 @@ namespace Tour_management
         public MainWindow()
         {
             InitializeComponent();
+
+            //Test man hinh
+            CustomerManagement customer = new CustomerManagement();
+            customer.ShowDialog();
         }
     }
 }

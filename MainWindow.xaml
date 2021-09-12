@@ -3,10 +3,58 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tour_management"
+        xmlns:local="clr-namespace:Tour_management" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Quản lý tour" Height="500" Width="700"
         
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None"
+        Name="main"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:Tour_management.ControlUser">
+    <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=main}"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Background="#FF345EEC" >
+
+                    <Border BorderBrush="Black" BorderThickness="2" Height="100" Width="100"
+                            CornerRadius="100" Background="Transparent">
+                    <Ellipse Height="100" Width="100">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="Resources/tour_ic.png"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    </Border>
+
+                </Grid>
+                <Grid Grid.Column="1"></Grid>
+                
+            </Grid>
+
+        </Grid>
+
     </Grid>
 </Window>
