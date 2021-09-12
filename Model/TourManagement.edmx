@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TourModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DiaDiem">
+          <Key>
+            <PropertyRef Name="MaDD" />
+          </Key>
+          <Property Name="MaDD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDD" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaKhuVuc" Type="int" />
+        </EntityType>
+        <EntityType Name="DoanDuLich">
+          <Key>
+            <PropertyRef Name="MaDoan" />
+          </Key>
+          <Property Name="MaDoan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaTour" Type="int" />
+          <Property Name="NgayKhoiHanh" Type="datetime" />
+          <Property Name="NgayKetThuc" Type="datetime" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="ChiTiet" Type="nvarchar" MaxLength="100" />
+          <Property Name="TongGiaPT" Type="int" />
+          <Property Name="TongGiaKS" Type="int" />
+          <Property Name="TongGiaAU" Type="int" />
+          <Property Name="ChiPhiKhac" Type="int" />
+        </EntityType>
+        <EntityType Name="DSDiaDiem">
+          <Key>
+            <PropertyRef Name="MaDS" />
+          </Key>
+          <Property Name="MaDS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDD" Type="int" />
+          <Property Name="MaTour" Type="int" />
+        </EntityType>
+        <EntityType Name="DSKhachSan">
+          <Key>
+            <PropertyRef Name="MaDSKS" />
+          </Key>
+          <Property Name="MaDSKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKS" Type="int" />
+          <Property Name="MaDoan" Type="int" />
+        </EntityType>
+        <EntityType Name="DSNhanVien">
+          <Key>
+            <PropertyRef Name="MaDSNV" />
+          </Key>
+          <Property Name="MaDSNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaNV" Type="int" />
+          <Property Name="MaDoan" Type="int" />
+          <Property Name="NhiemVu" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DSPhuongTien">
+          <Key>
+            <PropertyRef Name="MaDSPT" />
+          </Key>
+          <Property Name="MaDSPT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaPT" Type="int" />
+          <Property Name="MaDoan" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachDuLich">
+          <Key>
+            <PropertyRef Name="MaKhachDL" />
+          </Key>
+          <Property Name="MaKhachDL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaDoan" Type="int" />
+          <Property Name="MaKH" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Hoten" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
+          <Property Name="Tuoi" Type="int" />
+          <Property Name="CMND_Passport" Type="int" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="int" />
+          <Property Name="MaLoaiKhach" Type="int" />
+          <Property Name="HanVisa" Type="datetime" />
+          <Property Name="HanPassort" Type="datetime" />
+        </EntityType>
+        <EntityType Name="KhachSan">
+          <Key>
+            <PropertyRef Name="MaKS" />
+          </Key>
+          <Property Name="MaKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenKS" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="int" />
+          <Property Name="ChiPhi" Type="int" />
+          <Property Name="MaKhuVuc" Type="int" />
+        </EntityType>
+        <EntityType Name="KhuVuc">
+          <Key>
+            <PropertyRef Name="MaKhuVuc" />
+          </Key>
+          <Property Name="MaKhuVuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenKhuVuc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoaiKhach">
+          <Key>
+            <PropertyRef Name="MaLoaiKhach" />
+          </Key>
+          <Property Name="MaLoaiKhach" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiKhach" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoaiTour">
+          <Key>
+            <PropertyRef Name="MaLoaiTour" />
+          </Key>
+          <Property Name="MaLoaiTour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoaiTour" Type="nvarchar" MaxLength="20" />
+          <Property Name="HeSo" Type="float" />
+        </EntityType>
+        <EntityType Name="LoaiUser">
+          <Key>
+            <PropertyRef Name="MaLoaiUser" />
+          </Key>
+          <Property Name="MaLoaiUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLoai" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNV" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
+          <Property Name="SDT" Type="int" />
+          <Property Name="CMND" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="PhuongTien">
+          <Key>
+            <PropertyRef Name="MaPT" />
+          </Key>
+          <Property Name="MaPT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenPT" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChiPhi" Type="int" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="MaTour" />
+          </Key>
+          <Property Name="MaTour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenTour" Type="nvarchar" MaxLength="20" />
+          <Property Name="MaLoaiTour" Type="int" />
+          <Property Name="GiaTour" Type="float" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Avatar" Type="int" />
+          <Property Name="HoTen" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tuoi" Type="int" />
+          <Property Name="CMND" Type="nvarchar" MaxLength="20" />
+          <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Taikhoan" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaLoaiUser" Type="int" />
+        </EntityType>
+        <EntityContainer Name="TourModelStoreContainer">
+          <EntitySet Name="DiaDiem" EntityType="Self.DiaDiem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DoanDuLich" EntityType="Self.DoanDuLich" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DSDiaDiem" EntityType="Self.DSDiaDiem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DSKhachSan" EntityType="Self.DSKhachSan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DSNhanVien" EntityType="Self.DSNhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DSPhuongTien" EntityType="Self.DSPhuongTien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachDuLich" EntityType="Self.KhachDuLich" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachSan" EntityType="Self.KhachSan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhuVuc" EntityType="Self.KhuVuc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiKhach" EntityType="Self.LoaiKhach" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiTour" EntityType="Self.LoaiTour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiUser" EntityType="Self.LoaiUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhuongTien" EntityType="Self.PhuongTien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TourModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DiaDiem">
+          <Key>
+            <PropertyRef Name="MaDD" />
+          </Key>
+          <Property Name="MaDD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaKhuVuc" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DoanDuLich">
+          <Key>
+            <PropertyRef Name="MaDoan" />
+          </Key>
+          <Property Name="MaDoan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaTour" Type="Int32" />
+          <Property Name="NgayKhoiHanh" Type="DateTime" Precision="3" />
+          <Property Name="NgayKetThuc" Type="DateTime" Precision="3" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="ChiTiet" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TongGiaPT" Type="Int32" />
+          <Property Name="TongGiaKS" Type="Int32" />
+          <Property Name="TongGiaAU" Type="Int32" />
+          <Property Name="ChiPhiKhac" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DSDiaDiem">
+          <Key>
+            <PropertyRef Name="MaDS" />
+          </Key>
+          <Property Name="MaDS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaDD" Type="Int32" />
+          <Property Name="MaTour" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DSKhachSan">
+          <Key>
+            <PropertyRef Name="MaDSKS" />
+          </Key>
+          <Property Name="MaDSKS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKS" Type="Int32" />
+          <Property Name="MaDoan" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DSNhanVien">
+          <Key>
+            <PropertyRef Name="MaDSNV" />
+          </Key>
+          <Property Name="MaDSNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaNV" Type="Int32" />
+          <Property Name="MaDoan" Type="Int32" />
+          <Property Name="NhiemVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DSPhuongTien">
+          <Key>
+            <PropertyRef Name="MaDSPT" />
+          </Key>
+          <Property Name="MaDSPT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaPT" Type="Int32" />
+          <Property Name="MaDoan" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KhachDuLich">
+          <Key>
+            <PropertyRef Name="MaKhachDL" />
+          </Key>
+          <Property Name="MaKhachDL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaDoan" Type="Int32" />
+          <Property Name="MaKH" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hoten" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Tuoi" Type="Int32" />
+          <Property Name="CMND_Passport" Type="Int32" />
+          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="Int32" />
+          <Property Name="MaLoaiKhach" Type="Int32" />
+          <Property Name="HanVisa" Type="DateTime" Precision="3" />
+          <Property Name="HanPassort" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="KhachSan">
+          <Key>
+            <PropertyRef Name="MaKS" />
+          </Key>
+          <Property Name="MaKS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenKS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="Int32" />
+          <Property Name="ChiPhi" Type="Int32" />
+          <Property Name="MaKhuVuc" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KhuVuc">
+          <Key>
+            <PropertyRef Name="MaKhuVuc" />
+          </Key>
+          <Property Name="MaKhuVuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenKhuVuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LoaiKhach">
+          <Key>
+            <PropertyRef Name="MaLoaiKhach" />
+          </Key>
+          <Property Name="MaLoaiKhach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiKhach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LoaiTour">
+          <Key>
+            <PropertyRef Name="MaLoaiTour" />
+          </Key>
+          <Property Name="MaLoaiTour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoaiTour" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="HeSo" Type="Double" />
+        </EntityType>
+        <EntityType Name="LoaiUser">
+          <Key>
+            <PropertyRef Name="MaLoaiUser" />
+          </Key>
+          <Property Name="MaLoaiUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLoai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="Int32" />
+          <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="PhuongTien">
+          <Key>
+            <PropertyRef Name="MaPT" />
+          </Key>
+          <Property Name="MaPT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenPT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChiPhi" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="MaTour" />
+          </Key>
+          <Property Name="MaTour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenTour" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MaLoaiTour" Type="Int32" />
+          <Property Name="GiaTour" Type="Double" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Avatar" Type="Int32" />
+          <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tuoi" Type="Int32" />
+          <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Taikhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaLoaiUser" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="TourEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DiaDiems" EntityType="Self.DiaDiem" />
+          <EntitySet Name="DoanDuLiches" EntityType="Self.DoanDuLich" />
+          <EntitySet Name="DSDiaDiems" EntityType="Self.DSDiaDiem" />
+          <EntitySet Name="DSKhachSans" EntityType="Self.DSKhachSan" />
+          <EntitySet Name="DSNhanViens" EntityType="Self.DSNhanVien" />
+          <EntitySet Name="DSPhuongTiens" EntityType="Self.DSPhuongTien" />
+          <EntitySet Name="KhachDuLiches" EntityType="Self.KhachDuLich" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="KhachSans" EntityType="Self.KhachSan" />
+          <EntitySet Name="KhuVucs" EntityType="Self.KhuVuc" />
+          <EntitySet Name="LoaiKhaches" EntityType="Self.LoaiKhach" />
+          <EntitySet Name="LoaiTours" EntityType="Self.LoaiTour" />
+          <EntitySet Name="LoaiUsers" EntityType="Self.LoaiUser" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="PhuongTiens" EntityType="Self.PhuongTien" />
+          <EntitySet Name="Tours" EntityType="Self.Tour" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TourModelStoreContainer" CdmEntityContainer="TourEntities">
+          <EntitySetMapping Name="DiaDiems">
+            <EntityTypeMapping TypeName="TourModel.DiaDiem">
+              <MappingFragment StoreEntitySet="DiaDiem">
+                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
+                <ScalarProperty Name="TenDD" ColumnName="TenDD" />
+                <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DoanDuLiches">
+            <EntityTypeMapping TypeName="TourModel.DoanDuLich">
+              <MappingFragment StoreEntitySet="DoanDuLich">
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="TenDoan" ColumnName="TenDoan" />
+                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
+                <ScalarProperty Name="NgayKhoiHanh" ColumnName="NgayKhoiHanh" />
+                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+                <ScalarProperty Name="TongGiaPT" ColumnName="TongGiaPT" />
+                <ScalarProperty Name="TongGiaKS" ColumnName="TongGiaKS" />
+                <ScalarProperty Name="TongGiaAU" ColumnName="TongGiaAU" />
+                <ScalarProperty Name="ChiPhiKhac" ColumnName="ChiPhiKhac" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DSDiaDiems">
+            <EntityTypeMapping TypeName="TourModel.DSDiaDiem">
+              <MappingFragment StoreEntitySet="DSDiaDiem">
+                <ScalarProperty Name="MaDS" ColumnName="MaDS" />
+                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
+                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DSKhachSans">
+            <EntityTypeMapping TypeName="TourModel.DSKhachSan">
+              <MappingFragment StoreEntitySet="DSKhachSan">
+                <ScalarProperty Name="MaDSKS" ColumnName="MaDSKS" />
+                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DSNhanViens">
+            <EntityTypeMapping TypeName="TourModel.DSNhanVien">
+              <MappingFragment StoreEntitySet="DSNhanVien">
+                <ScalarProperty Name="MaDSNV" ColumnName="MaDSNV" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="NhiemVu" ColumnName="NhiemVu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DSPhuongTiens">
+            <EntityTypeMapping TypeName="TourModel.DSPhuongTien">
+              <MappingFragment StoreEntitySet="DSPhuongTien">
+                <ScalarProperty Name="MaDSPT" ColumnName="MaDSPT" />
+                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachDuLiches">
+            <EntityTypeMapping TypeName="TourModel.KhachDuLich">
+              <MappingFragment StoreEntitySet="KhachDuLich">
+                <ScalarProperty Name="MaKhachDL" ColumnName="MaKhachDL" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="TourModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="Hoten" ColumnName="Hoten" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="CMND_Passport" ColumnName="CMND_Passport" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
+                <ScalarProperty Name="HanVisa" ColumnName="HanVisa" />
+                <ScalarProperty Name="HanPassort" ColumnName="HanPassort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachSans">
+            <EntityTypeMapping TypeName="TourModel.KhachSan">
+              <MappingFragment StoreEntitySet="KhachSan">
+                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
+                <ScalarProperty Name="TenKS" ColumnName="TenKS" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+                <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhuVucs">
+            <EntityTypeMapping TypeName="TourModel.KhuVuc">
+              <MappingFragment StoreEntitySet="KhuVuc">
+                <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
+                <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiKhaches">
+            <EntityTypeMapping TypeName="TourModel.LoaiKhach">
+              <MappingFragment StoreEntitySet="LoaiKhach">
+                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
+                <ScalarProperty Name="TenLoaiKhach" ColumnName="TenLoaiKhach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiTours">
+            <EntityTypeMapping TypeName="TourModel.LoaiTour">
+              <MappingFragment StoreEntitySet="LoaiTour">
+                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
+                <ScalarProperty Name="TenLoaiTour" ColumnName="TenLoaiTour" />
+                <ScalarProperty Name="HeSo" ColumnName="HeSo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiUsers">
+            <EntityTypeMapping TypeName="TourModel.LoaiUser">
+              <MappingFragment StoreEntitySet="LoaiUser">
+                <ScalarProperty Name="MaLoaiUser" ColumnName="MaLoaiUser" />
+                <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="TourModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhuongTiens">
+            <EntityTypeMapping TypeName="TourModel.PhuongTien">
+              <MappingFragment StoreEntitySet="PhuongTien">
+                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
+                <ScalarProperty Name="TenPT" ColumnName="TenPT" />
+                <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="TourModel.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
+                <ScalarProperty Name="TenTour" ColumnName="TenTour" />
+                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
+                <ScalarProperty Name="GiaTour" ColumnName="GiaTour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TourModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Taikhoan" ColumnName="Taikhoan" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="MaLoaiUser" ColumnName="MaLoaiUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

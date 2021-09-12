@@ -37,6 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.1.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignColors.2.0.1\lib\net452\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -47,8 +53,11 @@
       <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -72,6 +81,72 @@
     </ApplicationDefinition>
     <Compile Include="CustomerManagement.xaml.cs">
       <DependentUpon>CustomerManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DiaDiem.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DoanDuLich.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DSDiaDiem.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DSKhachSan.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DSNhanVien.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DSPhuongTien.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KhachDuLich.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KhachHang.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KhachSan.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KhuVuc.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LoaiKhach.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LoaiTour.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\LoaiUser.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\NhanVien.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PhuongTien.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tour.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TourManagement.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TourManagement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TourManagement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\User.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
@@ -121,6 +196,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </Resource>
+    <EntityDeploy Include="Model\TourManagement.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TourManagement.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\TourManagement.edmx.diagram">
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -132,6 +214,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\tour_ic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\TourManagement.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TourManagement.Context.cs</LastGenOutput>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\TourManagement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+      <LastGenOutput>TourManagement.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />
