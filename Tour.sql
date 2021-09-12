@@ -1,7 +1,7 @@
-﻿Create database Tour
+Create database Tour
 use Tour
 SET DATEFORMAT dmy
-create table UserID(
+create table Users(
 	ID int IDENTITY(1,1) primary key,
 	Avatar int,
 	HoTen nvarchar(50),
@@ -9,7 +9,7 @@ create table UserID(
 	CMND nvarchar(20),
 	SDT nvarchar(50),
 	Taikhoan nvarchar(50),
-	Pass nvarchar(50),
+	Password nvarchar(50),
 	MaLoaiUser int,
 )
 
@@ -151,15 +151,16 @@ Insert into KhachSan values(N'Hoa',N'Gò Vấp, Tp HCM', 0378654327, 150000, 2);
 Insert into LoaiUser values('staff');
 Insert into LoaiUser values('admin');
 
-Insert into UserID values(N'Mai Long Thành',20, 123456789, 0369941633, 'longthanh','123456789',1);
-Insert into UserID values(N'Nguyễn Thiện Sua',20, 123456789, 0123456789, 'ntsua','123456789',2);
+--password = admin (to base64 to md5)
+Insert into Users values(2, N'Nguyễn Thiện Sua',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2); 
+Insert into Users values(1, N'Mai Long Thành',20, 123456789, 0369941633, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',1);
+Insert into Users values(3, N'admin',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2);
 
 Insert into NhanVien values(N'Nguyễn Hiếu Thành','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Nguyễn Hiếu Vũ','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Nghĩa','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Sua','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thiện Nghĩa','Nam', 0367941633, 123578910);
-Insert into NhanVien values(N'Huỳnh Nữ',N'Nữ', 0367941633, 123578910);
 
 Insert into KhachHang values(N'Nguyễn Văn A','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null);
 Insert into KhachHang values(N'Nguyễn Văn B','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null);
@@ -190,6 +191,7 @@ insert into DSKhachSan values(2,1);
 insert into DSNhanVien values(1,1,N'Hướng dẫn viên');
 insert into DSNhanVien values(1,2,N'Tài xế');
 insert into DSNhanVien values(2,1,N'Phục vụ');
+
 
 
 
