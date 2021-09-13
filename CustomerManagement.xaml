@@ -111,7 +111,13 @@
                                                 materialDesign:HintAssist.Hint="Hạn Passport" 
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </materialDesign:Card>
+
+                                <materialDesign:Card Margin="3 10 3 10">
+                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKH" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại khách hàng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True"/>
+                                </materialDesign:Card>
                                 
+
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:Card>
@@ -144,11 +150,22 @@
                             </Grid>
                             
                             <Grid Grid.Row="1">
-                                <Button  Style="{StaticResource MaterialDesignRaisedButton}" 
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
                                         Margin="5 5 5 5" Content="Xóa"
                                          Command="{Binding DeleteCommand}"
                                         CommandParameter="{Binding ElementName=customer}"/>
+                                <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
+                                        Margin="5 5 5 5" Content="Tìm kiếm"
+                                         Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=customer}"/>
+                                
                             </Grid>
                             
                         </Grid>
