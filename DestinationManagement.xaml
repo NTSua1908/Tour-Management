@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <uc:ControlBarUC Tag="{Binding Title, ElementName=customer}"/>
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=Destination}"/>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -63,22 +63,17 @@
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Border>
-                                <materialDesign:Card Margin="3 20 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Mã địa điểm"
-                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                                </materialDesign:Card>
-                                <materialDesign:Card Margin="3 10 3 0">
+                        
+                                <materialDesign:Card Margin="3 40 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Tên địa điểm"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding NameDes, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <ComboBox  materialDesign:HintAssist.Hint="Khu vực"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}">
+                                          Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}">
                                         <ComboBoxItem Content="Châu Á"/>
                                         <ComboBoxItem Content="Châu Âu"/>
                                         <ComboBoxItem Content="Châu Nam Cực"/>
@@ -106,22 +101,32 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
                                         Margin="5 5 5 0" Content="Thêm"
                                         Command="{Binding AddCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Destination}"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Sửa"
                                         Margin="5 5 5 0" Content="Sửa"
                                         Command="{Binding EditCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Destination}"/>
 
                             </Grid>
 
                             <Grid Grid.Row="1">
-                                <Button  Style="{StaticResource MaterialDesignRaisedButton}" 
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
-                                        Margin="5 5 5 5" Content="Xóa"
+                                        Margin="5 5 5 0" Content="Xóa"
                                          Command="{Binding DeleteCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
+                                        Margin="5 5 5 0" Content="Tìm kiếm"
+                                        Command="{Binding FindingCommand}"
+                                        CommandParameter="{Binding ElementName=Destination}"
+                                    />
                             </Grid>
 
                         </Grid>
@@ -133,11 +138,10 @@
 
                 <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Mã địa điểm" DisplayMemberBinding="{Binding MaDD}"></GridViewColumn>
                                     <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
                                     <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding TenKhuVuc}"></GridViewColumn>
                                 </GridView>
