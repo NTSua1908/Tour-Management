@@ -1,12 +1,11 @@
-﻿<Window x:Class="Tour_management.DestinationManagement"
+﻿<Window x:Class="Tour_management.HotelManagement"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="DestinationManagement" Height="490" Width="780"
-    
+        Title="HotelManagement" Height="450" Width="800"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
-        Name="Destination"
+        Name="Hotel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
@@ -28,7 +27,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <uc:ControlBarUC Tag="{Binding Title, ElementName=Destination}"/>
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=Hotel}"/>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -54,31 +53,39 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 0 5 0">
 
-                                <TextBlock Text="Địa điểm du lịch" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
-                                <Border BorderBrush="Black" BorderThickness="2" Height="84" Width="84"
+                                <TextBlock Text="Khách sạn" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                <Border BorderBrush="Black" BorderThickness="2" Height="90" Width="90"
                                  CornerRadius="100" Background="Transparent">
-                                    <Ellipse Height="80" Width="80">
+                                    <Ellipse Height="86" Width="86">
                                         <Ellipse.Fill>
-                                            <ImageBrush ImageSource="Resources/des_ic.png"/>
+                                            <ImageBrush ImageSource="Resources/hotel.png"/>
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Border>
-                        
-                                <materialDesign:Card Margin="3 40 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Tên địa điểm"
+
+                                <materialDesign:Card Margin="3 20 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Tên khách sạn"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding TenDD, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding TenKS, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
                                 <materialDesign:Card Margin="3 10 3 0">
-                                    <ComboBox  materialDesign:HintAssist.Hint="Khu vực"
+                                    <TextBox  materialDesign:HintAssist.Hint="Số điện thoại"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding TenKhuVuc, UpdateSourceTrigger=PropertyChanged}">
-                                        <ComboBoxItem Content="Châu Á"/>
-                                        <ComboBoxItem Content="Châu Âu"/>
-                                        <ComboBoxItem Content="Châu Nam Cực"/>
-                                        <ComboBoxItem Content="Châu Mỹ"/>
-                                    </ComboBox>
+                                          Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged}"/>
+                                </materialDesign:Card>
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Địa chỉ"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}"/>
+                                </materialDesign:Card>
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Chi phí"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding ChiPhi, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
                             </StackPanel>
                         </ScrollViewer>
@@ -101,13 +108,13 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
                                         Margin="5 5 5 0" Content="Thêm"
                                         Command="{Binding AddCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Sửa"
                                         Margin="5 5 5 0" Content="Sửa"
                                         Command="{Binding EditCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
 
                             </Grid>
 
@@ -120,12 +127,12 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
                                         Margin="5 5 5 0" Content="Xóa"
                                          Command="{Binding DeleteCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 0" Content="Tìm kiếm"
                                         Command="{Binding FindingCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"
+                                        CommandParameter="{Binding ElementName=Hotel}"
                                     />
                             </Grid>
 
@@ -138,12 +145,14 @@
 
                 <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding lstHotel}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
-                                    <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding TenKhuVuc}"></GridViewColumn>
+                                    <GridViewColumn Header="Mã khách sạn" DisplayMemberBinding="{Binding MaKS}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>
+                                    <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                                    <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
