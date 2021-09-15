@@ -29,6 +29,12 @@ namespace Tour_management
             //customer.ShowDialog();
             //DestinationManagement destination = new DestinationManagement();
             //destination.ShowDialog();
+            //HotelManagement customer = new HotelManagement();
+            //customer.ShowDialog();
+            //VehicleManagement customer = new VehicleManagement();
+            //customer.ShowDialog();
+            AreaManagement customer = new AreaManagement();
+            customer.ShowDialog();
         }
     }
 }
