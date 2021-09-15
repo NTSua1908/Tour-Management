@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Quản lý tour"
         
+        DataContext="{StaticResource mainVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -22,6 +24,13 @@
         xmlns:uc="clr-namespace:Tour_management.ControlUser" 
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         Width="1200" Height="700">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=main}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
 
         <Grid>
@@ -354,7 +363,7 @@
                                                  materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xem chi tiết"
                                                 Margin="5 5 5 0" Content="Xem chi tiết"
                                                 Command="{Binding ReportCommand}"
-                                                CommandParameter="{Binding ElementName=customer}"
+                                                CommandParameter="{Binding ElementName=main}"
                                                 HorizontalAlignment="Right" Background="#FF0080FF" BorderBrush="#FF0080FF"/>
 
                                         </Grid>
