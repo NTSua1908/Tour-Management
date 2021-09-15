@@ -152,12 +152,14 @@ Insert into LoaiUser values('staff');
 Insert into LoaiUser values('admin');
 
 --password = admin (to base64 to md5)
-Insert into Users values(2, N'Nguyễn Thiện Sua',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2); 
-Insert into Users values(1, N'Mai Long Thành',20, 123456789, 0369941633, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',1);
-Insert into Users values(3, N'admin',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2);
+Insert into Users values(2, N'Nguyễn Thiện Sua', 20, 123456789, 0123456789, 'ntsua','db69fc039dcbd2962cb4d28f5891aae1',2); 
+Insert into Users values(1, N'Mai Long Thành', 20, 123456789, 0369941633, 'longthanh','db69fc039dcbd2962cb4d28f5891aae1',1);
+Insert into Users values(1, N'Võ Thành Phát', 20, 123456789, 0369941633, 'thanhphat','db69fc039dcbd2962cb4d28f5891aae1',1);
+Insert into Users values(3, N'BOSS', 20, 123456789, 0123456789, 'admin','db69fc039dcbd2962cb4d28f5891aae1',2);
 
 Insert into NhanVien values(N'Nguyễn Hiếu Thành','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Nguyễn Hiếu Vũ','Nam', 0367941633, 123578910);
+Insert into NhanVien values(N'Mai Long Vũ','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Nghĩa','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Sua','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thiện Nghĩa','Nam', 0367941633, 123578910);
