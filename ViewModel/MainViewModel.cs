@@ -21,21 +21,24 @@ namespace Tour_management.ViewModel
         public ICommand GroupCommand { get; set; }
         public ICommand TourCommand { get; set; }
         public ICommand CustomerCommand { get; set; }
-        public ICommand RegisterCommand { get; set; }
+        public ICommand JoinGroupCommand { get; set; }
         public ICommand ReportCommand { get; set; }
         public ICommand ManageStaffCommand { get; set; }
         public ICommand ManageUserCommand { get; set; }
-        public ICommand CategorizeTourCommand { get; set; }
+        public ICommand TourTypeCommand { get; set; }
         public ICommand AddUserCommand { get; set; }
         public ICommand AddGroupCommand { get; set; }
 
         public MainViewModel()
         {
             //Goi ham nay de thuc hien dang nhap
-            //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+            LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
 
-            //area
-
+            AreaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                AreaManagement area = new AreaManagement();
+                area.ShowDialog();
+            });
+            
             DestinationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 DestinationManagement destination = new DestinationManagement();
                 destination.ShowDialog();
@@ -51,9 +54,9 @@ namespace Tour_management.ViewModel
                 hotel.ShowDialog();
             });
 
-            CustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
-                CustomerManagement customer = new CustomerManagement();
-                customer.ShowDialog();
+            InformationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                PersonalInformation information = new PersonalInformation();
+                information.ShowDialog();
             });
 
             TourCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -61,6 +64,26 @@ namespace Tour_management.ViewModel
                 tour.ShowDialog();
             });
 
+            CustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                CustomerManagement customer = new CustomerManagement();
+                customer.ShowDialog();
+            });
+
+            ManageStaffCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                StaffManagement staff = new StaffManagement();
+                staff.ShowDialog();
+            });
+
+            ManageUserCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                UserManagement user = new UserManagement();
+                user.ShowDialog();
+            });
+            
+            TourTypeCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                TourType type = new TourType();
+                type.ShowDialog();
+            });
+            
             AddUserCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 RegisterAccount register = new RegisterAccount();
                 register.ShowDialog();

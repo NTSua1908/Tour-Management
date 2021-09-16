@@ -15,6 +15,9 @@ namespace Tour_management.ViewModel
 
         private ObservableCollection<LoaiKhach> _lstCustomerType;
         public ObservableCollection<LoaiKhach> lstCustomerType { get { return _lstCustomerType; } set { _lstCustomerType = value; OnPropertyChanged(); } }
+        
+        private ObservableCollection<string> _lstGender;
+        public ObservableCollection<string> lstGender { get { return _lstGender; } set { _lstGender = value; OnPropertyChanged(); } }
 
         private string _Name;
         public string Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
@@ -54,6 +57,7 @@ namespace Tour_management.ViewModel
                     Address = SelectedItem.DiaChi;
                     Visa = SelectedItem.HanVisa;
                     Passport = SelectedItem.HanPassort;
+                    SelectedGender = SelectedItem.GioiTinh;
                 }
         } }
 
@@ -61,6 +65,9 @@ namespace Tour_management.ViewModel
         {
             lstCustomer = new ObservableCollection<KhachHang>(DataProvider.Ins.Entities.KhachHangs);
             lstCustomerType = new ObservableCollection<LoaiKhach>(DataProvider.Ins.Entities.LoaiKhaches);
+            lstGender = new ObservableCollection<string>();
+            lstGender.Add("Nam");
+            lstGender.Add("Nữ");
         }
     }
 }
