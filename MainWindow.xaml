@@ -97,7 +97,7 @@
                             <Button ToolTip="Danh sách khu vực" Command="{Binding AreaCommand}" CommandParameter="{Binding ElementName=main}">
                                 <materialDesign:PackIcon Kind="MapMarkerRadiusOutline" Foreground="AliceBlue"/>
                             </Button>
-                            <Button ToolTip="Danh sách địa điểm" Command="{Binding DestinationInformationCommand}" CommandParameter="{Binding ElementName=main}">
+                            <Button ToolTip="Danh sách địa điểm" Command="{Binding DestinationCommand}" CommandParameter="{Binding ElementName=main}">
                                 <materialDesign:PackIcon Kind="MapMarker" Foreground="AliceBlue"/>
                             </Button>
                             <Button ToolTip="Danh sách phương tiện" Command="{Binding VehicleCommand}" CommandParameter="{Binding ElementName=main}">

@@ -58,7 +58,7 @@
                             <TextBox Grid.Row="0" Height="50" FontSize="15" FontWeight="Heavy" materialDesign:HintAssist.Hint="Tên đăng nhập"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                 VerticalAlignment="Center" Margin="50 0 50 0" Text="{Binding UserName}"/>
                             <PasswordBox Grid.Row="1" x:Name="password" Height="50" FontSize="15" FontWeight="Heavy" materialDesign:HintAssist.Hint="Mật khẩu" 
-                                VerticalAlignment="Center" Margin="50 0 50 20">
+                                VerticalAlignment="Center" Margin="50 0 50 20" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
                                         <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=password}"/>

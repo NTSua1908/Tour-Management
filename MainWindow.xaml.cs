@@ -25,9 +25,9 @@ namespace Tour_management
             InitializeComponent();
 
             //Test man hinh
-            
-            //LoginWindow login = new LoginWindow();
-            //login.ShowDialog();
+
+            //TourWindow tour = new TourWindow();
+            //tour.ShowDialog();
         }
     }
 }
