@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Quản lý khách hàng" Height="450" Width="800"
         
+        DataContext="{StaticResource customerVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -72,11 +74,12 @@
                                           Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
 
-                                <materialDesign:Card Margin="3 10 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Giới tính"
-                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Gender, UpdateSourceTrigger=PropertyChanged}"/>
+                                <materialDesign:Card Margin="3 10 3 10">
+                                    <ComboBox  SelectedItem="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="10 10 10 10" materialDesign:HintAssist.Hint="Giới tính" materialDesign:HintAssist.HintOpacity=".26" >
+                                        <ComboBoxItem Content="Nam"/>
+                                        <ComboBoxItem Content="Nữ"/>
+                                    </ComboBox>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 0">
@@ -180,13 +183,13 @@
                         <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
-                                    <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Age}"></GridViewColumn>
-                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding Gender}"></GridViewColumn>
-                                    <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND}"></GridViewColumn>
-                                    <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding Phone}"></GridViewColumn>
-                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding Address}"></GridViewColumn>
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
+                                    <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Hoten}"></GridViewColumn>
+                                    <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Tuoi}"></GridViewColumn>
+                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
+                                    <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND_Passport}"></GridViewColumn>
+                                    <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
                                     <GridViewColumn Header="Hạn Visa" DisplayMemberBinding="{Binding Visa, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                                     <GridViewColumn Header="Hạn Passport" DisplayMemberBinding="{Binding Passport, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                                 </GridView>

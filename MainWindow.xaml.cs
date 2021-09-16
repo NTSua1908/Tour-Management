@@ -26,8 +26,8 @@ namespace Tour_management
 
             //Test man hinh
 
-            //TourWindow tour = new TourWindow();
-            //tour.ShowDialog();
+            //RegisterAccount register = new RegisterAccount();
+            //register.ShowDialog();
         }
     }
 }

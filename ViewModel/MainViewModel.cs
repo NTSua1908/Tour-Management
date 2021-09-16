@@ -60,6 +60,11 @@ namespace Tour_management.ViewModel
                 TourWindow tour = new TourWindow();
                 tour.ShowDialog();
             });
+
+            AddUserCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                RegisterAccount register = new RegisterAccount();
+                register.ShowDialog();
+            });
         }
 
         void Login(Window w)

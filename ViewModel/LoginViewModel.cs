@@ -38,17 +38,15 @@ namespace Tour_management.ViewModel
 
             LoginCommand = new RelayCommand<Window>((p) => 
             {
-                if (Password != null && UserName != null && Password.Length >= 0 && UserName.Length != 0)
+                if (Password != null && UserName != null && Password.Length > 0 && UserName.Length > 0)
                 {
                     return true;
                 } 
                 return false; 
             }, (p) => {
-                TourEntities entities = new TourEntities();
 
                 string password = MD5Hash(Base64Encode(Password));
-                int count = entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).Count();
-
+                int count = DataProvider.Ins.Entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).Count();
 
                 if (count == 1)
                 {
