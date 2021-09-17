@@ -1,12 +1,11 @@
-﻿<Window x:Class="Tour_management.DestinationManagement"
+﻿<Window x:Class="Tour_management.AreaManagement"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Quản lý địa điểm" Height="490" Width="780"
-    
+        Title="Quản lý khu vực" Height="378" Width="603"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -16,7 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
-        Name="Destination"
+        Name="Area"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
@@ -28,7 +27,7 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <uc:ControlBarUC Tag="{Binding Title, ElementName=Destination}"/>
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=Area}"/>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -54,31 +53,17 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 0 5 0">
 
-                                <TextBlock Text="Địa điểm du lịch" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
-                                <Border BorderBrush="Black" BorderThickness="2" Height="84" Width="84"
-                                 CornerRadius="100" Background="Transparent">
-                                    <Ellipse Height="80" Width="80">
-                                        <Ellipse.Fill>
-                                            <ImageBrush ImageSource="Resources/des_ic.png"/>
-                                        </Ellipse.Fill>
-                                    </Ellipse>
-                                </Border>
-                        
-                                <materialDesign:Card Margin="3 40 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Tên địa điểm"
+                                <TextBlock Text="Khu vực" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                <Ellipse Height="86" Width="86">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="Resources/worldwide.png"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <materialDesign:Card Margin="3 20 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Tên khu vực"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding TenDD, UpdateSourceTrigger=PropertyChanged}"/>
-                                </materialDesign:Card>
-                                <materialDesign:Card Margin="3 10 3 0">
-                                    <ComboBox  materialDesign:HintAssist.Hint="Khu vực"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding TenKhuVuc, UpdateSourceTrigger=PropertyChanged}">
-                                        <ComboBoxItem Content="Châu Á"/>
-                                        <ComboBoxItem Content="Châu Âu"/>
-                                        <ComboBoxItem Content="Châu Nam Cực"/>
-                                        <ComboBoxItem Content="Châu Mỹ"/>
-                                    </ComboBox>
+                                          Text="{Binding TenKhuVuc, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
                             </StackPanel>
                         </ScrollViewer>
@@ -101,13 +86,13 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
                                         Margin="5 5 5 0" Content="Thêm"
                                         Command="{Binding AddCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Area}"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Sửa"
                                         Margin="5 5 5 0" Content="Sửa"
                                         Command="{Binding EditCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Area}"/>
 
                             </Grid>
 
@@ -120,12 +105,12 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
                                         Margin="5 5 5 0" Content="Xóa"
                                          Command="{Binding DeleteCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"/>
+                                        CommandParameter="{Binding ElementName=Area}"/>
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 0" Content="Tìm kiếm"
                                         Command="{Binding FindingCommand}"
-                                        CommandParameter="{Binding ElementName=Destination}"
+                                        CommandParameter="{Binding ElementName=Area}"
                                     />
                             </Grid>
 
@@ -138,12 +123,11 @@
 
                 <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding lstArea}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
-                                    <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding TenKhuVuc}"></GridViewColumn>
+                                    <GridViewColumn Header="Mã khu vực" DisplayMemberBinding="{Binding MaKhuVuc}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên khu vực" DisplayMemberBinding="{Binding TenKhuVuc}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>

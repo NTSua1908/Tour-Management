@@ -1,14 +1,11 @@
-﻿<Window x:Class="Tour_management.CustomerManagement"
+﻿<Window x:Class="Tour_management.HotelManagement"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Quản lý khách hàng" 
-        
-        DataContext="{StaticResource customerVM}"
-        
+        Title="Danh sách khách sạn" Height="600" Width="950"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,8 +15,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
-        WindowState="Maximized"
-        Name="customer"
+        Name="Hotel"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
@@ -31,11 +27,10 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <uc:ControlBarUC Tag="{Binding Title, ElementName=customer}"/>
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=Hotel}"/>
             </Grid>
 
             <Grid Grid.Row="1">
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="250"/>
@@ -51,74 +46,47 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    
+
                     <materialDesign:Card Grid.Row="0" Margin="5 5 5 5">
 
 
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 0 5 0">
 
-                                <TextBlock Text="Nội dung" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="Khách sạn" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                <Border BorderBrush="Black" BorderThickness="2" Height="90" Width="90"
+                                 CornerRadius="100" Background="Transparent">
+                                    <Ellipse Height="86" Width="86">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="Resources/hotel.png"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Border>
 
                                 <materialDesign:Card Margin="3 20 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Tên khách hàng"
+                                    <TextBox  materialDesign:HintAssist.Hint="Tên khách sạn"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding TenKS, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
-
-
                                 <materialDesign:Card Margin="3 10 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="Tuổi"
+                                    <TextBox  materialDesign:HintAssist.Hint="Số điện thoại"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
-
-                                <materialDesign:Card Margin="3 10 3 10">
-                                    <ComboBox ItemsSource="{Binding lstGender}" SelectedItem="{Binding SelectedGender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="10 10 10 10" materialDesign:HintAssist.Hint="Giới tính" materialDesign:HintAssist.HintOpacity=".26" />
-                                </materialDesign:Card>
-
-                                <materialDesign:Card Margin="3 10 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="CMND/Passport"
-                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}"/>
-                                </materialDesign:Card>
-
-                                <materialDesign:Card Margin="3 10 3 0">
-                                    <TextBox  materialDesign:HintAssist.Hint="SĐT"
-                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
-                                </materialDesign:Card>
-
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Địa chỉ"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
-
                                 <materialDesign:Card Margin="3 10 3 0">
-                                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding Visa}" 
-                                                materialDesign:HintAssist.Hint="Hạn Visa" 
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                    <TextBox  materialDesign:HintAssist.Hint="Chi phí"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding ChiPhi, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
-
-                                <materialDesign:Card Margin="3 10 3 0">
-                                    <DatePicker Margin="10 10 10 10" SelectedDate="{Binding Passport}" 
-                                                materialDesign:HintAssist.Hint="Hạn Passport" 
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                                </materialDesign:Card>
-
-                                <materialDesign:Card Margin="3 10 3 10">
-                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKH" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại khách hàng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True"/>
-                                </materialDesign:Card>
-                                
-
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:Card>
@@ -140,35 +108,34 @@
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
                                         Margin="5 5 5 0" Content="Thêm"
                                         Command="{Binding AddCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
 
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Sửa"
                                         Margin="5 5 5 0" Content="Sửa"
                                         Command="{Binding EditCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
 
                             </Grid>
-                            
+
                             <Grid Grid.Row="1">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-
                                 <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
-                                        Margin="5 5 5 5" Content="Xóa"
+                                        Margin="5 5 5 0" Content="Xóa"
                                          Command="{Binding DeleteCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
-                                        Margin="5 5 5 5" Content="Tìm kiếm"
-                                         Command="{Binding SearchCommand}"
-                                        CommandParameter="{Binding ElementName=customer}"/>
-                                
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
+                                        Margin="5 5 5 0" Content="Tìm kiếm"
+                                        Command="{Binding FindingCommand}"
+                                        CommandParameter="{Binding ElementName=Hotel}"
+                                    />
                             </Grid>
-                            
+
                         </Grid>
                     </materialDesign:Card>
 
@@ -178,19 +145,14 @@
 
                 <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding lstHotel}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
-                                    <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Hoten}"></GridViewColumn>
-                                    <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Tuoi}"></GridViewColumn>
-                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
-                                    <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND_Passport}"></GridViewColumn>
-                                    <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
-                                    <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding MaLoaiKH.TenLoaiKH}"></GridViewColumn>
+                                    <GridViewColumn Header="Mã khách sạn" DisplayMemberBinding="{Binding MaKS}"></GridViewColumn>
+                                    <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>
+                                    <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
                                     <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                                    <GridViewColumn Header="Hạn Visa" DisplayMemberBinding="{Binding Visa, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                    <GridViewColumn Header="Hạn Passport" DisplayMemberBinding="{Binding Passport, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                    <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi}"></GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>

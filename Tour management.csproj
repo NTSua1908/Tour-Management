@@ -37,12 +37,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>tour_ic.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.1.2556, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>packages\MaterialDesignColors.2.0.1\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -80,12 +89,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AreaManagement.xaml.cs">
+      <DependentUpon>AreaManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerManagement.xaml.cs">
       <DependentUpon>CustomerManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="DestinationManagement.xaml.cs">
       <DependentUpon>DestinationManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HotelManagement.xaml.cs">
+      <DependentUpon>HotelManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DiaDiem.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
@@ -152,14 +171,44 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="TouristGroupManagment.xaml.cs">
       <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
+=======
+    <Compile Include="PersonalInformation.xaml.cs">
+      <DependentUpon>PersonalInformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterAccount.xaml.cs">
+      <DependentUpon>RegisterAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StaffManagement.xaml.cs">
+      <DependentUpon>StaffManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TourType.xaml.cs">
+      <DependentUpon>TourType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TourWindow.xaml.cs">
+      <DependentUpon>TourWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserManagement.xaml.cs">
+      <DependentUpon>UserManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleManagement.xaml.cs">
+      <DependentUpon>VehicleManagement.xaml</DependentUpon>
+>>>>>>> c29e09f686da78a843ce392420134d71112f4dfa
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Page Include="AreaManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ControlUser\ControlBarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -169,6 +218,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DestinationManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HotelManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,15 +244,43 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PersonalInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RegisterAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceXAML\MainResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="TouristGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TouristGroupManagment.xaml">
+=======
+    <Page Include="StaffManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TourType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TourWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VehicleManagement.xaml">
+>>>>>>> c29e09f686da78a843ce392420134d71112f4dfa
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,6 +333,19 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\new_tour.png" />
+    <Resource Include="Resources\sign-up.png" />
+    <Resource Include="Resources\staff.png" />
+    <Resource Include="Resources\categorize.png" />
+    <Resource Include="Resources\user.png" />
+    <Resource Include="tour_ic.ico" />
+    <Resource Include="Resources\register.png" />
+    <Resource Include="Resources\Tour.png" />
+    <Resource Include="Resources\Tourist_Group.png" />
+    <Resource Include="Resources\customer.png" />
+    <Resource Include="Resources\worldwide.png" />
+    <Resource Include="Resources\train.png" />
+    <Resource Include="Resources\hotel.png" />
     <Resource Include="Resources\des_ic.png" />
   </ItemGroup>
   <ItemGroup>
