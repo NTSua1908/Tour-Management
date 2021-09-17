@@ -128,6 +128,24 @@ create table DSKhachSan(
 	MaDoan int,
 )
 
+alter table Users add constraint fk_Users_LoaiUsers foreign key (MaLoaiUser) references LoaiUser (MaLoaiUser);
+alter table Tour add constraint fk_Tour_LoaiTour foreign key (MaLoaiTour) references LoaiTour (MaLoaiTour);
+alter table DSDiaDiem add constraint fk_DSDD_Tour foreign key (MaTour) references Tour (MaTour);
+alter table DSDiaDiem add constraint fk_DSDD_DD foreign key (MaDD) references DiaDiem (MaDD);
+alter table DiaDiem add constraint fk_DD_KhuVuc foreign key (MaKhuVuc) references KhuVuc (MaKhuVuc);
+alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+alter table DSNhanVien add constraint fk_DSNV_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
+alter table DSNhanVien add constraint fk_DSNV_NV foreign key (MaNV) references NhanVien(MaNV);
+alter table KhachDuLich add constraint fk_KDL_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
+alter table KhachDuLich add constraint fk_KDL_KH foreign key (MaKH) references KhachHang (MaKH);
+alter table KhachHang add constraint fk_KH_LoaiKH foreign key (MaLoaiKhach) references LoaiKhach (MaLoaiKhach);
+alter table DSPhuongTien add constraint fk_DSPT_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
+alter table DSPhuongTien add constraint fk_DSPT_PT foreign key (MaPT) references PhuongTien (MaPT);
+alter table DSKhachSan add constraint fk_DSKS_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
+alter table DSKhachSan add constraint fk_DSKS_KS foreign key (MaKS) references KhachSan (MaKS);
+alter table KhachSan add constraint fk_KS_KhuVuc foreign key (MaKhuVuc) references KhuVuc (MaKhuVuc);
+
 Insert into LoaiKhach values('Domestic');
 Insert into LoaiKhach values('Foreign');
 
@@ -191,6 +209,7 @@ insert into DSKhachSan values(2,1);
 insert into DSNhanVien values(1,1,N'Hướng dẫn viên');
 insert into DSNhanVien values(1,2,N'Tài xế');
 insert into DSNhanVien values(2,1,N'Phục vụ');
+
 
 
 

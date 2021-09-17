@@ -152,6 +152,12 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="TouristGroup.xaml.cs">
+      <DependentUpon>TouristGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TouristGroupManagment.xaml.cs">
+      <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Page Include="ControlUser\ControlBarUC.xaml">
@@ -182,6 +188,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ResourceXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TouristGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TouristGroupManagment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
