@@ -14,7 +14,19 @@ namespace Tour_management.Model
     
     public partial class KhuVuc
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public KhuVuc()
+        {
+            this.DiaDiems = new HashSet<DiaDiem>();
+            this.KhachSans = new HashSet<KhachSan>();
+        }
+    
         public int MaKhuVuc { get; set; }
         public string TenKhuVuc { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DiaDiem> DiaDiems { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhachSan> KhachSans { get; set; }
     }
 }

@@ -14,6 +14,12 @@ namespace Tour_management.Model
     
     public partial class KhachHang
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public KhachHang()
+        {
+            this.KhachDuLiches = new HashSet<KhachDuLich>();
+        }
+    
         public int MaKH { get; set; }
         public string Hoten { get; set; }
         public string GioiTinh { get; set; }
@@ -24,5 +30,9 @@ namespace Tour_management.Model
         public Nullable<int> MaLoaiKhach { get; set; }
         public Nullable<System.DateTime> HanVisa { get; set; }
         public Nullable<System.DateTime> HanPassort { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhachDuLich> KhachDuLiches { get; set; }
+        public virtual LoaiKhach LoaiKhach { get; set; }
     }
 }

@@ -17,5 +17,8 @@ namespace Tour_management.Model
         public int MaKhachDL { get; set; }
         public Nullable<int> MaDoan { get; set; }
         public Nullable<int> MaKH { get; set; }
+    
+        public virtual DoanDuLich DoanDuLich { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

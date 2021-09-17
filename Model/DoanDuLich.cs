@@ -14,6 +14,15 @@ namespace Tour_management.Model
     
     public partial class DoanDuLich
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DoanDuLich()
+        {
+            this.DSKhachSans = new HashSet<DSKhachSan>();
+            this.DSNhanViens = new HashSet<DSNhanVien>();
+            this.DSPhuongTiens = new HashSet<DSPhuongTien>();
+            this.KhachDuLiches = new HashSet<KhachDuLich>();
+        }
+    
         public int MaDoan { get; set; }
         public string TenDoan { get; set; }
         public Nullable<int> MaTour { get; set; }
@@ -25,5 +34,15 @@ namespace Tour_management.Model
         public Nullable<int> TongGiaKS { get; set; }
         public Nullable<int> TongGiaAU { get; set; }
         public Nullable<int> ChiPhiKhac { get; set; }
+    
+        public virtual Tour Tour { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSKhachSan> DSKhachSans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSNhanVien> DSNhanViens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSPhuongTien> DSPhuongTiens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhachDuLich> KhachDuLiches { get; set; }
     }
 }

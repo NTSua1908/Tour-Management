@@ -32,7 +32,7 @@ namespace Tour_management.ViewModel
         public MainViewModel()
         {
             //Goi ham nay de thuc hien dang nhap
-            LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+            //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
 
             AreaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 AreaManagement area = new AreaManagement();

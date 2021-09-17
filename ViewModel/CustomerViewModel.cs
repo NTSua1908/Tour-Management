@@ -28,6 +28,9 @@ namespace Tour_management.ViewModel
         private string _SelectedGender;
         public string SelectedGender { get { return _SelectedGender; } set { _SelectedGender = value; OnPropertyChanged(); } }
 
+        private LoaiKhach _SelectedCustomerType;
+        public LoaiKhach SelectedCustomerType { get { return _SelectedCustomerType; } set { _SelectedCustomerType = value; OnPropertyChanged(); } }
+
         private string _CMND;
         public string CMND { get { return _CMND; } set { _CMND = value; OnPropertyChanged(); } }
 
@@ -58,6 +61,7 @@ namespace Tour_management.ViewModel
                     Visa = SelectedItem.HanVisa;
                     Passport = SelectedItem.HanPassort;
                     SelectedGender = SelectedItem.GioiTinh;
+                    SelectedCustomerType = SelectedItem.LoaiKhach;
                 }
         } }
 

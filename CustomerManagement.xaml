@@ -114,11 +114,10 @@
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 10">
-                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKH" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKhach" SelectedItem="{Binding SelectedCustomerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại khách hàng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True"/>
                                 </materialDesign:Card>
                                 
-
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:Card>
@@ -187,7 +186,7 @@
                                     <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
                                     <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND_Passport}"></GridViewColumn>
                                     <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
-                                    <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding MaLoaiKH.TenLoaiKH}"></GridViewColumn>
+                                    <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding LoaiKhach.TenLoaiKhach}"></GridViewColumn>
                                     <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
                                     <GridViewColumn Header="Hạn Visa" DisplayMemberBinding="{Binding Visa, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                                     <GridViewColumn Header="Hạn Passport" DisplayMemberBinding="{Binding Passport, StringFormat='dd/MM/yyyy'}"></GridViewColumn>

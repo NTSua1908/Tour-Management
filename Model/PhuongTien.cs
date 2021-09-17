@@ -14,8 +14,17 @@ namespace Tour_management.Model
     
     public partial class PhuongTien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PhuongTien()
+        {
+            this.DSPhuongTiens = new HashSet<DSPhuongTien>();
+        }
+    
         public int MaPT { get; set; }
         public string TenPT { get; set; }
         public Nullable<int> ChiPhi { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSPhuongTien> DSPhuongTiens { get; set; }
     }
 }

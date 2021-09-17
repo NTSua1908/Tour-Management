@@ -150,6 +150,9 @@
     <Compile Include="Model\PhuongTien.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tour.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
@@ -171,13 +174,12 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="TouristGroupManagment.xaml.cs">
       <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
-=======
+    </Compile>
     <Compile Include="PersonalInformation.xaml.cs">
       <DependentUpon>PersonalInformation.xaml</DependentUpon>
     </Compile>
@@ -198,7 +200,6 @@
     </Compile>
     <Compile Include="VehicleManagement.xaml.cs">
       <DependentUpon>VehicleManagement.xaml</DependentUpon>
->>>>>>> c29e09f686da78a843ce392420134d71112f4dfa
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
@@ -256,13 +257,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
     <Page Include="TouristGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TouristGroupManagment.xaml">
-=======
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StaffManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -280,7 +282,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VehicleManagement.xaml">
->>>>>>> c29e09f686da78a843ce392420134d71112f4dfa
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

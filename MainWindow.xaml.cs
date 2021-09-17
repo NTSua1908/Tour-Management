@@ -24,19 +24,8 @@ namespace Tour_management
         {
             InitializeComponent();
 
-            //Test man hinh
-<<<<<<< HEAD
-            //CustomerManagement customer = new CustomerManagement();
-            //customer.ShowDialog();
-            //DestinationManagement destination = new DestinationManagement();
-            //destination.ShowDialog();
             TouristGroup t = new TouristGroup();
             t.ShowDialog();
-=======
-
-            //RegisterAccount register = new RegisterAccount();
-            //register.ShowDialog();
->>>>>>> c29e09f686da78a843ce392420134d71112f4dfa
         }
     }
 }

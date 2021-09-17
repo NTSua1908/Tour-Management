@@ -14,11 +14,21 @@ namespace Tour_management.Model
     
     public partial class KhachSan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public KhachSan()
+        {
+            this.DSKhachSans = new HashSet<DSKhachSan>();
+        }
+    
         public int MaKS { get; set; }
         public string TenKS { get; set; }
         public string DiaChi { get; set; }
         public Nullable<int> SDT { get; set; }
         public Nullable<int> ChiPhi { get; set; }
         public Nullable<int> MaKhuVuc { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSKhachSan> DSKhachSans { get; set; }
+        public virtual KhuVuc KhuVuc { get; set; }
     }
 }
