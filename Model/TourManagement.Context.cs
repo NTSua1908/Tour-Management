@@ -40,8 +40,8 @@ namespace Tour_management.Model
         public virtual DbSet<LoaiUser> LoaiUsers { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
         public virtual DbSet<PhuongTien> PhuongTiens { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

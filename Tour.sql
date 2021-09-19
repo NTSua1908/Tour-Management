@@ -22,7 +22,7 @@ create table Tour(
 	MaTour int IDENTITY(1,1) primary key,
 	TenTour nvarchar(20),
 	MaLoaiTour int,
-	GiaTour float,
+	GiaTour money,
 )
 
 create table LoaiTour(
@@ -52,7 +52,7 @@ create table NhanVien(
 	MaNV int IDENTITY(1,1) primary key,
 	TenNV nvarchar(50),
 	GioiTinh nvarchar(10),
-	SDT int,
+	SDT varchar(50),
 	CMND nvarchar(20),
 )
 
@@ -70,11 +70,11 @@ create table DoanDuLich(
 	NgayKhoiHanh datetime,
 	NgayKetThuc datetime,
 	SoLuong int,
-	ChiTiet nvarchar(100),
-	TongGiaPT int,
-	TongGiaKS int,
-	TongGiaAU int,
-	ChiPhiKhac int,
+	ChiTiet nvarchar(max),
+	TongGiaPT money,
+	TongGiaKS money,
+	TongGiaAU money,
+	ChiPhiKhac money,
 )
 
 create table KhachDuLich(
@@ -88,9 +88,9 @@ create table KhachHang(
 	Hoten nvarchar(50),
 	GioiTinh nvarchar(10),
 	Tuoi int,
-	CMND_Passport int,
+	CMND_Passport varchar(50),
 	DiaChi nvarchar(50),
-	SDT int,
+	SDT nvarchar(50),
 	MaLoaiKhach int,
 	HanVisa datetime,
 	HanPassort datetime,
@@ -104,7 +104,7 @@ create table LoaiKhach(
 create table PhuongTien(
 	MaPT int IDENTITY(1,1) primary key,
 	TenPT nvarchar(50),
-	ChiPhi int,
+	ChiPhi money,
 )
 
 create table DSPhuongTien(
@@ -117,8 +117,8 @@ create table KhachSan(
 	MaKS int IDENTITY(1,1) primary key,
 	TenKS nvarchar(50),
 	DiaChi nvarchar(50),
-	SDT int,
-	ChiPhi int,
+	SDT varchar(50),
+	ChiPhi money,
 	MaKhuVuc int,
 )
 
@@ -133,7 +133,6 @@ alter table Tour add constraint fk_Tour_LoaiTour foreign key (MaLoaiTour) refere
 alter table DSDiaDiem add constraint fk_DSDD_Tour foreign key (MaTour) references Tour (MaTour);
 alter table DSDiaDiem add constraint fk_DSDD_DD foreign key (MaDD) references DiaDiem (MaDD);
 alter table DiaDiem add constraint fk_DD_KhuVuc foreign key (MaKhuVuc) references KhuVuc (MaKhuVuc);
-alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
 alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
 alter table DSNhanVien add constraint fk_DSNV_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
 alter table DSNhanVien add constraint fk_DSNV_NV foreign key (MaNV) references NhanVien(MaNV);

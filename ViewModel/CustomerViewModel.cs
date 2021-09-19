@@ -4,12 +4,20 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
     class CustomerViewModel : BaseViewModel
     {
+        public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
+        public ICommand SearchCommand { get; set; }
+
         private ObservableCollection<KhachHang> _lstCustomer;
         public ObservableCollection<KhachHang> lstCustomer { get { return _lstCustomer; } set { _lstCustomer = value; OnPropertyChanged(); } }
 
@@ -72,6 +80,126 @@ namespace Tour_management.ViewModel
             lstGender = new ObservableCollection<string>();
             lstGender.Add("Nam");
             lstGender.Add("Nữ");
+
+            AddCommand = new RelayCommand<Window>((p) =>
+            {
+                return isCommandEnable();
+            }, (p) =>
+            {
+                KhachHang kh = new KhachHang()
+                {
+                    Hoten = Name,
+                    DiaChi = Address,
+                    GioiTinh = SelectedGender,
+                    LoaiKhach = SelectedCustomerType,
+                    CMND_Passport = CMND,
+                    Tuoi = Convert.ToInt32(Age),
+                    SDT = Phone,
+                    HanPassort = Passport,
+                    HanVisa = Visa
+                };
+
+                DataProvider.Ins.Entities.KhachHangs.Add(kh);
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstCustomer.Add(kh);
+            });
+
+            EditCommand = new RelayCommand<Window>((p) =>
+            {
+                return isCommandEnable() && SelectedItem != null;
+            }, (p) =>
+            {
+                int index = lstCustomer.IndexOf(SelectedItem);
+
+                KhachHang kh = DataProvider.Ins.Entities.KhachHangs.Where(w => w.MaKH == SelectedItem.MaKH).FirstOrDefault();
+                kh.Hoten = Name;
+                kh.DiaChi = Address;
+                kh.GioiTinh = SelectedGender;
+                kh.LoaiKhach = SelectedCustomerType;
+                kh.CMND_Passport = CMND;
+                kh.Tuoi = Convert.ToInt32(Age);
+                kh.SDT = Phone;
+                kh.HanPassort = Passport;
+                kh.HanVisa = Visa;
+
+                DataProvider.Ins.Entities.SaveChanges();
+                
+                lstCustomer[index] = new KhachHang()
+                {
+                    MaKH = kh.MaKH,
+                    Hoten = Name,
+                    DiaChi = Address,
+                    GioiTinh = SelectedGender,
+                    LoaiKhach = SelectedCustomerType,
+                    CMND_Passport = CMND,
+                    Tuoi = Convert.ToInt32(Age),
+                    SDT = Phone,
+                    HanPassort = Passport,
+                    HanVisa = Visa
+                };
+                SelectedItem = lstCustomer[index];
+
+                if (SelectedItem == null)
+                {
+                    MessageBox.Show("NULL");
+                }
+            });
+
+            SearchCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>{
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstCustomer);
+                view.Filter = CustomerFilter;
+
+
+            });
+        }
+
+        private bool CustomerFilter(object item)
+        {
+            if (filterAge(item) && filterName(item))
+                    return true;
+
+            return false;
+        }
+
+        #region Filter
+
+        private bool filterName(object item)
+        {
+            KhachHang kh = item as KhachHang;
+
+            if (string.IsNullOrEmpty(Name) || kh.Hoten.ToLower().Contains(Name.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool filterAge(object item)
+        {
+            KhachHang kh = item as KhachHang;
+
+            if (string.IsNullOrEmpty(Age) || kh.Tuoi.Equals(Age))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        #endregion
+
+        private bool isCommandEnable()
+        {
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Age)
+                || string.IsNullOrEmpty(CMND) || string.IsNullOrEmpty(Phone)
+                || string.IsNullOrEmpty(Address) || SelectedGender == null || SelectedCustomerType == null){
+                return false;
+            }
+
+            return true;
         }
     }
 }

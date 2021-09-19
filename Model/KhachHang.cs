@@ -24,9 +24,9 @@ namespace Tour_management.Model
         public string Hoten { get; set; }
         public string GioiTinh { get; set; }
         public Nullable<int> Tuoi { get; set; }
-        public Nullable<int> CMND_Passport { get; set; }
+        public string CMND_Passport { get; set; }
         public string DiaChi { get; set; }
-        public Nullable<int> SDT { get; set; }
+        public string SDT { get; set; }
         public Nullable<int> MaLoaiKhach { get; set; }
         public Nullable<System.DateTime> HanVisa { get; set; }
         public Nullable<System.DateTime> HanPassort { get; set; }

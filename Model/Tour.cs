@@ -24,7 +24,7 @@ namespace Tour_management.Model
         public int MaTour { get; set; }
         public string TenTour { get; set; }
         public Nullable<int> MaLoaiTour { get; set; }
-        public Nullable<double> GiaTour { get; set; }
+        public Nullable<decimal> GiaTour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DoanDuLich> DoanDuLiches { get; set; }

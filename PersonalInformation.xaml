@@ -8,6 +8,8 @@
         Title="Thông tin cá nhân" Height="550" Width="800"
         Background="#FFAFD5F7"
         
+        DataContext="{StaticResource informationVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -119,7 +121,7 @@
 
                                 <TextBox Grid.Row="0" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tên đăng nhập" Margin="10 5 10 5"
-                             Text="{Binding UserName}" CaretBrush="Blue" />
+                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
 
                                 <TextBox Grid.Row="1" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tên hiển thị" Margin="10 5 10 5"

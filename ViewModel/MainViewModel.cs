@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
@@ -28,6 +30,9 @@ namespace Tour_management.ViewModel
         public ICommand TourTypeCommand { get; set; }
         public ICommand AddUserCommand { get; set; }
         public ICommand AddGroupCommand { get; set; }
+
+        private User _user;
+        public User user { get { return _user; } set { _user = value; OnPropertyChanged(); } }
 
         public MainViewModel()
         {
@@ -56,6 +61,11 @@ namespace Tour_management.ViewModel
 
             InformationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 PersonalInformation information = new PersonalInformation();
+                //information.Initialized += Information_Initialized;
+
+                PersonalInformationViewModel viewModel = information.DataContext as PersonalInformationViewModel;
+                viewModel.setUser(user);
+
                 information.ShowDialog();
             });
 
@@ -97,12 +107,14 @@ namespace Tour_management.ViewModel
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
             login.ShowDialog();
 
+            user = loginViewModel.user;
+            //MessageBox.Show(user.HoTen);
+
             if (loginViewModel.isLogin)
             {
                 w.Show();
             }
             else w.Close();
-
         }
     }
 }

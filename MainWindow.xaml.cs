@@ -24,8 +24,8 @@ namespace Tour_management
         {
             InitializeComponent();
 
-            TouristGroup t = new TouristGroup();
-            t.ShowDialog();
+            //TouristGroup t = new TouristGroup();
+            //t.ShowDialog();
         }
     }
 }

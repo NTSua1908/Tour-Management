@@ -23,8 +23,8 @@ namespace Tour_management.Model
         public int MaKS { get; set; }
         public string TenKS { get; set; }
         public string DiaChi { get; set; }
-        public Nullable<int> SDT { get; set; }
-        public Nullable<int> ChiPhi { get; set; }
+        public string SDT { get; set; }
+        public Nullable<decimal> ChiPhi { get; set; }
         public Nullable<int> MaKhuVuc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

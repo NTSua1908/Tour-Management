@@ -30,10 +30,10 @@ namespace Tour_management.Model
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public string ChiTiet { get; set; }
-        public Nullable<int> TongGiaPT { get; set; }
-        public Nullable<int> TongGiaKS { get; set; }
-        public Nullable<int> TongGiaAU { get; set; }
-        public Nullable<int> ChiPhiKhac { get; set; }
+        public Nullable<decimal> TongGiaPT { get; set; }
+        public Nullable<decimal> TongGiaKS { get; set; }
+        public Nullable<decimal> TongGiaAU { get; set; }
+        public Nullable<decimal> ChiPhiKhac { get; set; }
     
         public virtual Tour Tour { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
