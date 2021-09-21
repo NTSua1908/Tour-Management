@@ -63,11 +63,15 @@
                         </lvc:CartesianChart>
                     </Grid>
                     <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
                         <TextBlock Text="Doanh số một đoàn" Margin="5,0,0,0"
                                    FontSize="14" FontWeight="Bold"  
-                                   FontFamily="Sitka Subheading" Foreground="#FF1A2359"></TextBlock>
+                                   FontFamily="Sitka Subheading" Foreground="#FF1A2359" Grid.RowSpan="2"></TextBlock>
                         <lvc:CartesianChart Series="{Binding SeriesSelection}"
-                                            Margin="40,20,20,20"
+                                            Margin="40,20,20,20" Grid.RowSpan="2"
                                             >
                         </lvc:CartesianChart>
                     </Grid>
@@ -87,6 +91,11 @@
                                Text="Thời gian doanh thu"
                                Foreground="#FF1A2359"
                                />
+                        <TextBox FontFamily="Sitka Subheading"
+                     FontWeight="Bold" FontSize="14"
+                     materialDesign:HintAssist.Hint="Nhập tên tour"
+                     VerticalAlignment="Center" Margin="54,164,222,43"
+                     Text="{Binding TenTour, UpdateSourceTrigger=PropertyChanged}"/>
                         <DatePicker 
                     Width="170"
                     FontSize="14"
@@ -95,7 +104,6 @@
                     Margin="54,56,0,0"
                     FontFamily="Sitka Subheading"
                     FontWeight="Bold"
-                    IsEnabled="{Binding IsChecked, ElementName=rdoOption}"
                     materialDesign:HintAssist.Hint="Từ ngày"
                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                     Name="editFromDate"/>
@@ -104,11 +112,10 @@
                     FontSize="14"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Margin="54,111,0,0"
+                    Margin="54,101,0,0"
                     FontFamily="Sitka Subheading"
                     FontWeight="Bold"
                     materialDesign:HintAssist.Hint="Đến ngày"
-                    IsEnabled="{Binding IsChecked, ElementName=rdoOption}"
                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                     Name="editToDate"/>
             <Button Content="THỐNG KÊ"
@@ -116,17 +123,19 @@
                     Foreground="White"
                     FontSize="10"
                     Padding="0"
-                    Margin="0,92,65,0"
+                    Margin="0,120,71,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
                     Background="ForestGreen"
                     FontFamily="Sitka Subheading"
-                    Style="{StaticResource MaterialDesignRaisedButton}" Width="88" Height="36" >
+                    Style="{StaticResource MaterialDesignRaisedButton}" Width="88" Height="36" 
+                    Command="{Binding StaticCommand}"
+                    CommandParameter="{Binding ElementName=statisticsales}">
                         </Button>
                     </Grid>
                     <Grid Grid.Column="1">
                         <TextBlock
-                            Text="Số lần đi tour của nhân viên" Margin="5,0,0,0"
+                            Text="Số đoàn tham quan" Margin="5,0,0,0"
                                    FontFamily="Sitka Subheading" FontSize="14" FontWeight="Bold"  Foreground="#FF1A2359"></TextBlock>
                         <lvc:CartesianChart 
                             Series="{Binding SeriesSelection}"

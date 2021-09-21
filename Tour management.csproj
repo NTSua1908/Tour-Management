@@ -177,6 +177,9 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Staff%27sNumberTour.xaml.cs">
+      <DependentUpon>Staff%27sNumberTour.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StatisticSales.xaml.cs">
       <DependentUpon>StatisticSales.xaml</DependentUpon>
     </Compile>
@@ -264,6 +267,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Staff%27sNumberTour.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StatisticSales.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -345,6 +352,7 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\tour guide.png" />
     <Resource Include="Resources\new_tour.png" />
     <Resource Include="Resources\sign-up.png" />
     <Resource Include="Resources\staff.png" />

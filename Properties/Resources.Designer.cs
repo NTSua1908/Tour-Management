@@ -93,6 +93,16 @@ namespace Tour_management.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap tour_guide {
+            get {
+                object obj = ResourceManager.GetObject("tour_guide", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap tour_ic {
             get {
                 object obj = ResourceManager.GetObject("tour_ic", resourceCulture);
