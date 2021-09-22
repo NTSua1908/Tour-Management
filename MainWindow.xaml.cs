@@ -24,8 +24,8 @@ namespace Tour_management
         {
             InitializeComponent();
 
-            StatisticSales t = new StatisticSales();
-            t.ShowDialog();
+            //StatisticSales t = new StatisticSales();
+            //t.ShowDialog();
         }
     }
 }

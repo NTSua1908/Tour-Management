@@ -20,6 +20,7 @@
         WindowStyle="None"
         Name="register"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser" >
     <Grid>
@@ -129,17 +130,53 @@
                              Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
                                 <TextBox Grid.Row="1" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tuổi" Margin="10 5 10 5"
-                             Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
+                             Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
 
                                 <TextBox Grid.Row="2" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Chứng minh nhân dân" Margin="10 5 10 5"
-                             Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
+                             Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
                                 <TextBox Grid.Row="3" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Số điện thoại" Margin="10 5 10 5"
-                             Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
+                             Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
 
                                 <ComboBox Grid.Row="4" FontSize="13" ItemsSource="{Binding lstUserType}" DisplayMemberPath="TenLoai" SelectedItem="{Binding SelectedUserType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                 Margin="10 0 10 0" Height="53" materialDesign:HintAssist.Hint="Loại người dùng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True" Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                                    Margin="10 0 10 0" Height="53" materialDesign:HintAssist.Hint="Loại người dùng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True" Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
 
                             </Grid>
 
