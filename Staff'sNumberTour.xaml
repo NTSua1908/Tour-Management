@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Staff_sNumberTour" Height="450" Width="800"
+        Title="Staff_sNumberTour" Height="450" Width="700"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -25,61 +25,54 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:ControlBarUC Tag="{Binding Title, ElementName=Hotel}"/>
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=StaffNumberTour}"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="550"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid >
-                <materialDesign:Card  VerticalAlignment="Stretch" Margin="5 5 5 5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstNhanVienDiTour}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding TenNV}"></GridViewColumn>
-                                    <GridViewColumn Header="Số lần đi tour" DisplayMemberBinding="{Binding SoLan}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </materialDesign:Card>
-            </Grid>
-            <DatePicker Width="170"
-                    FontSize="14"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    FontFamily="Sitka Subheading"
-                    FontWeight="Bold"
-                    materialDesign:HintAssist.Hint="Từ ngày"
-                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                    Name="FromDate" Margin="35,208,0,0" Grid.Column="1"/>
-            <Button Content="Tra cứu" Grid.Column="1" HorizontalAlignment="Left" Margin="73,287,0,0"
-                    VerticalAlignment="Top" Width="92"
-                    Background="ForestGreen"
-                    FontFamily="Sitka Subheading"
-                    Command="{Binding SearchCommand}"
-                    CommandParameter="{Binding ElementName=StaffNumberTour}"/>
-            <TextBlock Text="Thời gian đi Tour" Grid.Column="1" HorizontalAlignment="Left" Margin="24,89,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"
-                       FontFamily="Sitka Subheading" TextAlignment="Center" FontSize="23" FontWeight="Bold"  Foreground="#FF1A2359" Width="195"/>
+            <Rectangle Grid.Column="0"  Stroke="#1148db" Fill="#1148db" />
+            <materialDesign:Card Grid.Column="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding lstTourNumber}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding TenNV}"></GridViewColumn>
+                                <GridViewColumn Header="Số lần đi Tour" DisplayMemberBinding="{Binding TourNum}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+            <Rectangle Grid.Column="1"  Stroke="#1148db" Fill="#1148db" />
+            <materialDesign:Card Grid.Column="1" Margin="5">
+                <StackPanel Margin="0,0,5,0">
+                    <TextBlock Text="Thời gian đi Tour" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                    <Border BorderBrush="Black" BorderThickness="2" Height="90" Width="90"
+                                 CornerRadius="100" Background="Transparent">
+                        <Ellipse Height="86" Width="86">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="Resources/tour guide.png"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Border>
+                    <materialDesign:Card Margin="3 20 3 0">
+                        <DatePicker  materialDesign:HintAssist.Hint="Từ ngày"   
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding FromDay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </materialDesign:Card>
+                    <materialDesign:Card Margin="3 20 3 0">
+                        <DatePicker  materialDesign:HintAssist.Hint="Đến ngày"   
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding ToDay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </materialDesign:Card>
+                    <Button Margin="28,20,32,0" Content="Tra cứu" Background="Green" 
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding SearchCommand}"
+                                CommandParameter="{Binding ElementName=statisticsales}"/>
+                </StackPanel>
+            </materialDesign:Card>
         </Grid>
-        <DatePicker Width="170"
-                    FontSize="14"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    FontFamily="Sitka Subheading"
-                    FontWeight="Bold"
-                    materialDesign:HintAssist.Hint="Đến ngày"
-                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                    Name="ToDate" Margin="586,149,0,0" Grid.Row="1"/>
-        <Border BorderBrush="Black" BorderThickness="2"
-                                 CornerRadius="100" Background="Transparent" Margin="632,10,80,315" Grid.Row="1" RenderTransformOrigin="0.613,0.351">
-            <Ellipse Margin="-2">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="Resources/tour guide.png"/>
-                </Ellipse.Fill>
-            </Ellipse>
-        </Border>
     </Grid>
 </Window>

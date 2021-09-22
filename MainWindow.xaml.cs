@@ -26,6 +26,8 @@ namespace Tour_management
 
             Staff_sNumberTour t = new Staff_sNumberTour();
             t.ShowDialog();
+            //HotelManagement t = new HotelManagement();
+            //t.ShowDialog();
         }
     }
 }
