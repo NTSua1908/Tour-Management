@@ -62,9 +62,6 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
-    <Reference Include="Panteam.MetroChart, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>packages\Panteam.MetroChart.1.0.1\lib\net40\Panteam.MetroChart.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -216,6 +213,8 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
+    <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
+    <Compile Include="ViewModel\UserManagementViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -352,6 +351,15 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\avatar1.png" />
+    <Resource Include="Resources\avatar2.png" />
+    <Resource Include="Resources\avatar3.png" />
+    <Resource Include="Resources\avatar4.png" />
+    <Resource Include="Resources\avatar5.png" />
+    <Resource Include="Resources\avatar6.png" />
+    <Resource Include="Resources\avatar7.png" />
+    <Resource Include="Resources\avatar8.png" />
+    <Resource Include="Resources\avatar0.png" />
     <Resource Include="Resources\tour guide.png" />
     <Resource Include="Resources\new_tour.png" />
     <Resource Include="Resources\sign-up.png" />

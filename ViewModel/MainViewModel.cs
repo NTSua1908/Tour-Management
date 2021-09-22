@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Tour_management.Model;
 
 namespace Tour_management.ViewModel
@@ -33,11 +35,29 @@ namespace Tour_management.ViewModel
 
         private User _user;
         public User user { get { return _user; } set { _user = value; OnPropertyChanged(); } }
+        
+        private ImageSource _Avatar;
+        public ImageSource Avatar { get { return _Avatar; } set { _Avatar = value; OnPropertyChanged(); } }
+
+        private string _DisplayName;
+        public string DisplayName { get { return _DisplayName; } set { _DisplayName = value; OnPropertyChanged(); } }
 
         public MainViewModel()
         {
             //Goi ham nay de thuc hien dang nhap
             //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+
+            LogoutCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                MessageBoxResult result = MessageBox.Show("Bạn có muốn đăng xuất?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Login(p);
+                }
+            });
 
             AreaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 AreaManagement area = new AreaManagement();
@@ -67,6 +87,8 @@ namespace Tour_management.ViewModel
                 viewModel.setUser(user);
 
                 information.ShowDialog();
+                Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
+                DisplayName = user.HoTen;
             });
 
             TourCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -107,12 +129,14 @@ namespace Tour_management.ViewModel
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
             login.ShowDialog();
 
-            user = loginViewModel.user;
             //MessageBox.Show(user.HoTen);
 
             if (loginViewModel.isLogin)
             {
                 w.Show();
+                user = loginViewModel.user;
+                Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
+                DisplayName = user.HoTen;
             }
             else w.Close();
         }
