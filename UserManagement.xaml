@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
         Title="Quản lý người dùng" Height="630" Width="1100"
+        
+        DataContext="{StaticResource userVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -151,7 +154,7 @@
 
                 <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstStaff}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView ItemsSource="{Binding lstUser}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Mã người dùng" DisplayMemberBinding="{Binding ID}"></GridViewColumn>

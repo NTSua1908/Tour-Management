@@ -207,6 +207,8 @@
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
+    <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
+    <Compile Include="ViewModel\UserManagementViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -335,6 +337,15 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\avatar1.png" />
+    <Resource Include="Resources\avatar2.png" />
+    <Resource Include="Resources\avatar3.png" />
+    <Resource Include="Resources\avatar4.png" />
+    <Resource Include="Resources\avatar5.png" />
+    <Resource Include="Resources\avatar6.png" />
+    <Resource Include="Resources\avatar7.png" />
+    <Resource Include="Resources\avatar8.png" />
+    <Resource Include="Resources\avatar0.png" />
     <Resource Include="Resources\new_tour.png" />
     <Resource Include="Resources\sign-up.png" />
     <Resource Include="Resources\staff.png" />

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,25 +12,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Tour_management.Model;
-using Tour_management.Properties;
 
 namespace Tour_management.ViewModel
 {
-    class PersonalInformationViewModel : BaseViewModel
+    class RegisterAccountViewModel : BaseViewModel
     {
         public ICommand NextAvatarCommand { get; set; }
         public ICommand PreviousAvatarCommand { get; set; }
-        public ICommand EditCommand { get; set; }
+        public ICommand RegisterCommand { get; set; }
         public ICommand ExitCommand { get; set; }
-        public ICommand CurrentPasswordChangedCommand { get; set; }
-        public ICommand NewPasswordChangedCommand { get; set; }
+        public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
+
+        private ObservableCollection<LoaiUser> _lstUserType;
+        public ObservableCollection<LoaiUser> lstUserType { get { return _lstUserType; } set { _lstUserType = value; OnPropertyChanged(); } }
 
         private string _UserName;
         public string UserName { get { return _UserName; } set { _UserName = value; OnPropertyChanged(); } }
 
-        private string CurrentPassword;
-        private string NewPassword;
+        private string Password;
         //public string Password { get { return _Password; } set { _Password = value; OnPropertyChanged(); } }
 
         private string RePassword;
@@ -48,6 +47,9 @@ namespace Tour_management.ViewModel
 
         private string _Phone;
         public string Phone { get { return _Phone; } set { _Phone = value; OnPropertyChanged(); } }
+        
+        private LoaiUser _SelectedUserType;
+        public LoaiUser SelectedUserType { get { return _SelectedUserType; } set { _SelectedUserType = value; OnPropertyChanged(); } }
 
         private string _AvatarDisplayIndex;
         public string AvatarDisplayIndex { get { return _AvatarDisplayIndex; } set { _AvatarDisplayIndex = value; OnPropertyChanged(); } }
@@ -56,24 +58,30 @@ namespace Tour_management.ViewModel
         public ImageSource Avatar { get { return _Avatar; } set { _Avatar = value; OnPropertyChanged(); } }
 
         private int? _AvatarIndex;
-        public int? AvatarIndex { 
-            get { 
-                return _AvatarIndex; 
-            } 
-            set { 
-                _AvatarIndex = value; 
+        public int? AvatarIndex
+        {
+            get
+            {
+                return _AvatarIndex;
+            }
+            set
+            {
+                _AvatarIndex = value;
                 OnPropertyChanged();
-                if (AvatarIndex!=null)
+                if (AvatarIndex != null)
                 {
                     AvatarDisplayIndex = (AvatarIndex + 1).ToString();
-                } 
-            } 
+                }
+            }
         }
 
-        private User user;
-
-        public PersonalInformationViewModel()
+        public RegisterAccountViewModel()
         {
+            lstUserType = new ObservableCollection<LoaiUser>(DataProvider.Ins.Entities.LoaiUsers);
+
+            AvatarIndex = 0;
+            setAvatar((int) AvatarIndex); //LoaiUser loai = new LoaiUser(); loai.
+
             NextAvatarCommand = new RelayCommand<Window>((p) =>
             {
                 return true;
@@ -100,20 +108,12 @@ namespace Tour_management.ViewModel
                 setAvatar((int)AvatarIndex);
             });
 
-            CurrentPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
+            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
             {
                 return true;
             }, (p) =>
             {
-                CurrentPassword = p.Password;
-            }); 
-            
-            NewPasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
-            {
-                return true;
-            }, (p) =>
-            {
-                NewPassword = p.Password;
+                Password = p.Password;
             });
 
             RePasswordChangedCommand = new RelayCommand<PasswordBox>((p) =>
@@ -124,11 +124,12 @@ namespace Tour_management.ViewModel
                 RePassword = p.Password;
             });
 
-            EditCommand = new RelayCommand<Window>((p) =>
+            RegisterCommand = new RelayCommand<Window>((p) =>
             {
-                if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(DisplayName) 
-                || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(CMND)
-                || string.IsNullOrEmpty(Age))
+                if (string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword)
+                || Password.Length == 0 || RePassword.Length == 0 || string.IsNullOrEmpty(UserName)
+                || string.IsNullOrEmpty(DisplayName) || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(CMND)
+                || string.IsNullOrEmpty(Age) || SelectedUserType == null )
                 {
                     return false;
                 }
@@ -136,34 +137,25 @@ namespace Tour_management.ViewModel
                 return true;
             }, (p) =>
             {
-                User UpdateUser = DataProvider.Ins.Entities.Users.Where(x => x.ID == user.ID).FirstOrDefault();
-                if (!string.IsNullOrEmpty(CurrentPassword) && !string.IsNullOrEmpty(NewPassword) && !string.IsNullOrEmpty(RePassword)
-                && CurrentPassword.Length != 0 && NewPassword.Length != 0 && RePassword.Length != 0)
+                if (!Password.Equals(RePassword)) //Kiểm tra 2 lần nhập mậ khẩu mới có trùng khớp nhau không
                 {
-                    if (!MD5Hash(Base64Encode(CurrentPassword)).Equals(user.Password)) //Kiểm tra mật khẩu hiện tại đã đúng hay chưa
-                    {
-                        MessageBox.Show("Mật khẩu không đúng", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-
-                    if (!NewPassword.Equals(RePassword)) //Kiểm tra 2 lần nhập mậ khẩu mới có trùng khớp nhau không
-                    {
-                        MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
-                    UpdateUser.Password = MD5Hash(Base64Encode(NewPassword));
+                    MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
 
-                UpdateUser.HoTen = DisplayName;
-                UpdateUser.CMND = CMND;
-                UpdateUser.Avatar = AvatarIndex;
-                UpdateUser.SDT = Phone;
-                UpdateUser.Tuoi = Convert.ToInt32(Age);
-                UpdateUser.Taikhoan = UserName;
+                User newUser = new User();
+                newUser.HoTen = DisplayName;
+                newUser.CMND = CMND;
+                newUser.Avatar = AvatarIndex;
+                newUser.Tuoi = Convert.ToInt32(Age);
+                newUser.SDT = Phone;
+                newUser.Taikhoan = UserName;
+                newUser.Password = MD5Hash(Base64Encode(Password));
+                newUser.LoaiUser = SelectedUserType;
+                DataProvider.Ins.Entities.Users.Add(newUser);
                 DataProvider.Ins.Entities.SaveChanges();
-                user = UpdateUser;
 
-                MessageBox.Show("Đã lưu thay đổi", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Đăng kí thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             ExitCommand = new RelayCommand<Window>((p) =>
@@ -179,20 +171,6 @@ namespace Tour_management.ViewModel
         {
             Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + AvatarIndex + ".png", UriKind.Absolute));
             //MessageBox.Show("avatar" + AvatarIndex + ".png");
-        }
-
-        public void setUser(User user)
-        {
-            this.user = user;
-
-            UserName = this.user.Taikhoan;
-            DisplayName = this.user.HoTen;
-            Age = this.user.Tuoi.ToString();
-            CMND = this.user.CMND;
-            Phone = this.user.SDT;
-            AvatarIndex = this.user.Avatar;
-
-            setAvatar((int)AvatarIndex);
         }
 
         #region Number Input 
@@ -222,7 +200,7 @@ namespace Tour_management.ViewModel
         //Nhưng hàm này không binding dược, chưa hiểu tại sao, tạm thời để đó
         private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
         {
-            MessageBox.Show("Paste");
+            //MessageBox.Show("Paste");
             if (e.DataObject.GetDataPresent(typeof(String)))
             {
                 String text = (String)e.DataObject.GetData(typeof(String));
