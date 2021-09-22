@@ -129,14 +129,14 @@ namespace Tour_management.ViewModel
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
             login.ShowDialog();
 
-            user = loginViewModel.user;
-            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
-            DisplayName = user.HoTen;
             //MessageBox.Show(user.HoTen);
 
             if (loginViewModel.isLogin)
             {
                 w.Show();
+                user = loginViewModel.user;
+                Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
+                DisplayName = user.HoTen;
             }
             else w.Close();
         }
