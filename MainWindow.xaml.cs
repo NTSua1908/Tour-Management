@@ -23,11 +23,8 @@ namespace Tour_management
         public MainWindow()
         {
             InitializeComponent();
-            //Staff_sNumberTour t = new Staff_sNumberTour();
-            //t.ShowDialog();
-
-            //StatisticSales t = new StatisticSales();
-            //t.ShowDialog();
+            TouristGroupManagment t = new TouristGroupManagment();
+            t.ShowDialog();
         }
     }
 }
