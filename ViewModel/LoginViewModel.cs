@@ -14,6 +14,7 @@ namespace Tour_management.ViewModel
     public class LoginViewModel : BaseViewModel
     {
         public bool isLogin { get; set; }
+        public User user { get; set; }
 
         public ICommand ExitCommand { get; set; }
         public ICommand LoginCommand { get; set; }
@@ -46,9 +47,9 @@ namespace Tour_management.ViewModel
             }, (p) => {
 
                 string password = MD5Hash(Base64Encode(Password));
-                int count = DataProvider.Ins.Entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).Count();
+                user = DataProvider.Ins.Entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).FirstOrDefault();
 
-                if (count == 1)
+                if (user != null)
                 {
                     isLogin = true;
                     p.Close();

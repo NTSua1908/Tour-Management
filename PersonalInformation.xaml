@@ -8,6 +8,8 @@
         Title="Thông tin cá nhân" Height="550" Width="800"
         Background="#FFAFD5F7"
         
+        DataContext="{StaticResource informationVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,6 +20,7 @@
         WindowStyle="None"
         Name="information"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
     <Grid>
@@ -56,7 +59,8 @@
 
                             <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="3*"/>
+                                    <RowDefinition Height="2*"/>
+                                    <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
                                     <RowDefinition Height="1*"/>
                                 </Grid.RowDefinitions>
@@ -67,9 +71,9 @@
                                         <RowDefinition Height="1.5*"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Grid.Row="0" Source="resources/tour_ic.png" Margin="10 10 10 10"/>
+                                    <Image Grid.Row="0" Source="{Binding Avatar}" Margin="10 10 10 0"/>
 
-                                    <materialDesign:Card Grid.Row="1" Width="150" UniformCornerRadius="15" Margin="0 10 0 10">
+                                    <materialDesign:Card Grid.Row="1" Width="150" UniformCornerRadius="15" Margin="0 5 0 10">
                                         <Grid>
                                             <Button Height="40" Width="40" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent" BorderBrush="#00000000"
                                     Command="{Binding NextAvatarCommand}" CommandParameter="{Binding ElementName=information}">
@@ -77,7 +81,7 @@
                                     HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
                                             </Button>
 
-                                            <TextBlock Text="1" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding AvatarDisplayIndex}" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
                                             <Button Height="40" Width="40" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Transparent" BorderBrush="#00000000"
                                     Command="{Binding PreviousAvatarCommand}" CommandParameter="{Binding ElementName=information}">
@@ -88,20 +92,29 @@
                                     </materialDesign:Card>
                                 </Grid>
 
-                                <PasswordBox Grid.Row="1" FontSize="13" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
-                             materialDesign:HintAssist.Hint="Mật khẩu" Margin="10 5 10 5" CaretBrush="Blue">
+                                <PasswordBox x:Name="CurrentPassword" Grid.Row="1" FontSize="13" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                             materialDesign:HintAssist.Hint="Nhập mật khẩu hiện tại" Margin="10 5 10 5" CaretBrush="Blue">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PasswordChanged">
-                                            <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=password}"/>
+                                            <i:InvokeCommandAction Command="{Binding CurrentPasswordChangedCommand}" CommandParameter="{Binding ElementName=CurrentPassword}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </PasswordBox>
 
-                                <PasswordBox Grid.Row="2" FontSize="13" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                <PasswordBox x:Name="NewPassword" Grid.Row="2" FontSize="13" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                             materialDesign:HintAssist.Hint="Mật khẩu mới" Margin="10 5 10 5" CaretBrush="Blue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PasswordChanged">
+                                            <i:InvokeCommandAction Command="{Binding NewPasswordChangedCommand}" CommandParameter="{Binding ElementName=NewPassword}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </PasswordBox>
+
+                                <PasswordBox x:Name="RePassword" Grid.Row="3" FontSize="13" Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                              materialDesign:HintAssist.Hint="Nhập lại mật khẩu" Margin="10 5 10 5" CaretBrush="Blue">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PasswordChanged">
-                                            <i:InvokeCommandAction Command="{Binding PasswordReChangedCommand}" CommandParameter="{Binding ElementName=password}"/>
+                                            <i:InvokeCommandAction Command="{Binding RePasswordChangedCommand}" CommandParameter="{Binding ElementName=RePassword}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </PasswordBox>
@@ -119,21 +132,58 @@
 
                                 <TextBox Grid.Row="0" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tên đăng nhập" Margin="10 5 10 5"
-                             Text="{Binding UserName}" CaretBrush="Blue" />
+                             Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
 
                                 <TextBox Grid.Row="1" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tên hiển thị" Margin="10 5 10 5"
-                             Text="{Binding DisplayName}" CaretBrush="Blue" />
+                             Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" />
                                 <TextBox Grid.Row="2" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Tuổi" Margin="10 5 10 5"
-                             Text="{Binding Age}" CaretBrush="Blue" />
+                             Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
 
                                 <TextBox Grid.Row="3" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Chứng minh nhân dân" Margin="10 5 10 5"
-                             Text="{Binding CMND}" CaretBrush="Blue" />
+                             Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+
                                 <TextBox Grid.Row="4" FontSize="13" Style="{StaticResource MaterialDesignOutlinedTextBox}"
                              materialDesign:HintAssist.Hint="Số điện thoại" Margin="10 5 10 5"
-                             Text="{Binding Phone}" CaretBrush="Blue" />
+                             Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}" CaretBrush="Blue">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="DataObject.Pasting">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
 
                             </Grid>
 
@@ -146,9 +196,9 @@
                             </Grid.ColumnDefinitions>
 
                             <Button Grid.Column="0" Width="120" materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Lưu thay đổi"
-                            Margin="5 10 5 0" Content="Lưu thay đổi" Command="{Binding CreateCommand}"
+                            Margin="122,14,123,0" Content="Lưu thay đổi" Command="{Binding EditCommand}"
                             CommandParameter="{Binding ElementName=information}" IsDefault="True"
-                             HorizontalAlignment="Center" Background="#1148db" BorderBrush="#1148db"/>
+                             HorizontalAlignment="Center" Background="#1148db" BorderBrush="#1148db" VerticalAlignment="Top"/>
 
                             <Button Grid.Column="1" Width="120" materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thoát"
                             Margin="5 10 5 0" Content="Hủy" Command="{Binding ExitCommand}"

@@ -12,14 +12,12 @@ namespace Tour_management.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class DSNhanVien
+    public partial class sysdiagram
     {
-        public int MaDSNV { get; set; }
-        public Nullable<int> MaNV { get; set; }
-        public Nullable<int> MaDoan { get; set; }
-        public string NhiemVu { get; set; }
-    
-        public virtual DoanDuLich DoanDuLich { get; set; }
-        public virtual NhanVien NhanVien { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

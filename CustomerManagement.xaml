@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Quản lý khách hàng" 
+        Title="Quản lý khách hàng"
         
         DataContext="{StaticResource customerVM}"
         
@@ -21,6 +21,7 @@
         WindowState="Maximized"
         Name="customer"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
     <Grid>
@@ -72,7 +73,21 @@
                                     <TextBox  materialDesign:HintAssist.Hint="Tuổi"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}">
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        
+                                    </TextBox>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 10">
@@ -84,14 +99,32 @@
                                     <TextBox  materialDesign:HintAssist.Hint="CMND/Passport"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="SĐT"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 0">
@@ -103,22 +136,23 @@
 
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <DatePicker Margin="10 10 10 10" SelectedDate="{Binding Visa}" 
+                                                IsEnabled="{Binding isForeign, UpdateSourceTrigger=PropertyChanged}"
                                                 materialDesign:HintAssist.Hint="Hạn Visa" 
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <DatePicker Margin="10 10 10 10" SelectedDate="{Binding Passport}" 
+                                                IsEnabled="{Binding isForeign, UpdateSourceTrigger=PropertyChanged}"
                                                 materialDesign:HintAssist.Hint="Hạn Passport" 
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 10">
-                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKH" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    <ComboBox ItemsSource="{Binding lstCustomerType}" DisplayMemberPath="TenLoaiKhach" SelectedItem="{Binding SelectedCustomerType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại khách hàng" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True"/>
                                 </materialDesign:Card>
                                 
-
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:Card>
@@ -176,26 +210,38 @@
 
                 <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
-                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
-                                    <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Hoten}"></GridViewColumn>
-                                    <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Tuoi}"></GridViewColumn>
-                                    <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
-                                    <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND_Passport}"></GridViewColumn>
-                                    <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
-                                    <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding MaLoaiKH.TenLoaiKH}"></GridViewColumn>
-                                    <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                                    <GridViewColumn Header="Hạn Visa" DisplayMemberBinding="{Binding Visa, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                    <GridViewColumn Header="Hạn Passport" DisplayMemberBinding="{Binding Passport, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </materialDesign:Card>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaKH}"></GridViewColumn>
+                                        <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding Hoten}"></GridViewColumn>
+                                        <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Tuoi}"></GridViewColumn>
+                                        <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
+                                        <GridViewColumn Header="CMND/Passport" DisplayMemberBinding="{Binding CMND_Passport}"></GridViewColumn>
+                                        <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                                        <GridViewColumn Header="Loại" DisplayMemberBinding="{Binding LoaiKhach.TenLoaiKhach}"></GridViewColumn>
+                                        <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                                        <GridViewColumn Header="Hạn Visa" DisplayMemberBinding="{Binding HanVisa, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                        <GridViewColumn Header="Hạn Passport" DisplayMemberBinding="{Binding HanPassort, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+                    <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=customer}"/>
+
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

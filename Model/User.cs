@@ -23,5 +23,7 @@ namespace Tour_management.Model
         public string Taikhoan { get; set; }
         public string Password { get; set; }
         public Nullable<int> MaLoaiUser { get; set; }
+    
+        public virtual LoaiUser LoaiUser { get; set; }
     }
 }

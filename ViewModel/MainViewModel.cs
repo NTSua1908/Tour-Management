@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
@@ -29,10 +33,31 @@ namespace Tour_management.ViewModel
         public ICommand AddUserCommand { get; set; }
         public ICommand AddGroupCommand { get; set; }
 
+        private User _user;
+        public User user { get { return _user; } set { _user = value; OnPropertyChanged(); } }
+        
+        private ImageSource _Avatar;
+        public ImageSource Avatar { get { return _Avatar; } set { _Avatar = value; OnPropertyChanged(); } }
+
+        private string _DisplayName;
+        public string DisplayName { get { return _DisplayName; } set { _DisplayName = value; OnPropertyChanged(); } }
+
         public MainViewModel()
         {
             //Goi ham nay de thuc hien dang nhap
-            LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+            //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+
+            LogoutCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                MessageBoxResult result = MessageBox.Show("Bạn có muốn đăng xuất?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Login(p);
+                }
+            });
 
             AreaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 AreaManagement area = new AreaManagement();
@@ -56,7 +81,14 @@ namespace Tour_management.ViewModel
 
             InformationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 PersonalInformation information = new PersonalInformation();
+                //information.Initialized += Information_Initialized;
+
+                PersonalInformationViewModel viewModel = information.DataContext as PersonalInformationViewModel;
+                viewModel.setUser(user);
+
                 information.ShowDialog();
+                Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
+                DisplayName = user.HoTen;
             });
 
             TourCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -97,12 +129,16 @@ namespace Tour_management.ViewModel
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
             login.ShowDialog();
 
+            //MessageBox.Show(user.HoTen);
+
             if (loginViewModel.isLogin)
             {
                 w.Show();
+                user = loginViewModel.user;
+                Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + user.Avatar + ".png", UriKind.Absolute));
+                DisplayName = user.HoTen;
             }
             else w.Close();
-
         }
     }
 }

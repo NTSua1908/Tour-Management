@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace Tour_management
 {
     /// <summary>
-    /// Interaction logic for CustomerManagement.xaml
+    /// Interaction logic for StatisticSales.xaml
     /// </summary>
-    public partial class CustomerManagement : Window
+    public partial class StatisticSales : Window
     {
-        public CustomerManagement()
+        public StatisticSales()
         {
             InitializeComponent();
         }
-
     }
 }

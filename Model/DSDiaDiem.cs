@@ -17,5 +17,8 @@ namespace Tour_management.Model
         public int MaDS { get; set; }
         public Nullable<int> MaDD { get; set; }
         public Nullable<int> MaTour { get; set; }
+    
+        public virtual DiaDiem DiaDiem { get; set; }
+        public virtual Tour Tour { get; set; }
     }
 }

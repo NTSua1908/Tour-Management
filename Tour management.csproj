@@ -150,6 +150,9 @@
     <Compile Include="Model\PhuongTien.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\sysdiagram.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Tour.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
@@ -171,12 +174,25 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="Staff%27sNumberTour.xaml.cs">
+      <DependentUpon>Staff%27sNumberTour.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticSales.xaml.cs">
+      <DependentUpon>StatisticSales.xaml</DependentUpon>
+    </Compile>
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="TouristGroupManagment.xaml.cs">
       <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
+<<<<<<< HEAD
 	</Compile>
+=======
+    </Compile>
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Compile Include="PersonalInformation.xaml.cs">
       <DependentUpon>PersonalInformation.xaml</DependentUpon>
     </Compile>
@@ -203,6 +219,9 @@
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
+    <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
+    <Compile Include="ViewModel\UserManagementViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,11 +273,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
+=======
+    <Page Include="Staff%27sNumberTour.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StatisticSales.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Page Include="TouristGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+<<<<<<< HEAD
     <Page Include="TouristGroupManagment.xaml"/>
+=======
+    <Page Include="TouristGroupManagment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Page Include="StaffManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -328,6 +365,16 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\avatar1.png" />
+    <Resource Include="Resources\avatar2.png" />
+    <Resource Include="Resources\avatar3.png" />
+    <Resource Include="Resources\avatar4.png" />
+    <Resource Include="Resources\avatar5.png" />
+    <Resource Include="Resources\avatar6.png" />
+    <Resource Include="Resources\avatar7.png" />
+    <Resource Include="Resources\avatar8.png" />
+    <Resource Include="Resources\avatar0.png" />
+    <Resource Include="Resources\tour guide.png" />
     <Resource Include="Resources\new_tour.png" />
     <Resource Include="Resources\sign-up.png" />
     <Resource Include="Resources\staff.png" />

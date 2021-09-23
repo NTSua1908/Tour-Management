@@ -14,8 +14,18 @@ namespace Tour_management.Model
     
     public partial class DiaDiem
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DiaDiem()
+        {
+            this.DSDiaDiems = new HashSet<DSDiaDiem>();
+        }
+    
         public int MaDD { get; set; }
         public string TenDD { get; set; }
         public Nullable<int> MaKhuVuc { get; set; }
+    
+        public virtual KhuVuc KhuVuc { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSDiaDiem> DSDiaDiems { get; set; }
     }
 }
