@@ -174,25 +174,18 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="Staff%27sNumberTour.xaml.cs">
       <DependentUpon>Staff%27sNumberTour.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatisticSales.xaml.cs">
       <DependentUpon>StatisticSales.xaml</DependentUpon>
     </Compile>
->>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="TouristGroupManagment.xaml.cs">
       <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
-<<<<<<< HEAD
-	</Compile>
-=======
     </Compile>
->>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Compile Include="PersonalInformation.xaml.cs">
       <DependentUpon>PersonalInformation.xaml</DependentUpon>
     </Compile>
@@ -273,8 +266,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
-=======
     <Page Include="Staff%27sNumberTour.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -283,19 +274,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
->>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Page Include="TouristGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
-    <Page Include="TouristGroupManagment.xaml"/>
-=======
     <Page Include="TouristGroupManagment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
->>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
     <Page Include="StaffManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
