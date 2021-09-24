@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Configurations;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -42,8 +45,16 @@ namespace Tour_management.ViewModel
         private string _DisplayName;
         public string DisplayName { get { return _DisplayName; } set { _DisplayName = value; OnPropertyChanged(); } }
 
+        private SeriesCollection _SeriesSelection;
+        public SeriesCollection SeriesSelection { get { return _SeriesSelection; } set { _SeriesSelection = value; OnPropertyChanged(); } }
+
+        public AxesCollection AxisYCollection { get; set; }
+        public AxesCollection AxisXCollection { get; set; }
+
         public MainViewModel()
         {
+            AddReport();
+            
             //Goi ham nay de thuc hien dang nhap
             //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
 
@@ -55,6 +66,7 @@ namespace Tour_management.ViewModel
                 MessageBoxResult result = MessageBox.Show("Bạn có muốn đăng xuất?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
+
                     Login(p);
                 }
             });
@@ -122,11 +134,70 @@ namespace Tour_management.ViewModel
             });
         }
 
+        /// <summary>
+        /// Hiển thị báo cáo doanh thu của các tour trong năm hiện tại
+        /// </summary>
+        private void AddReport()
+        {
+            SeriesSelection = new SeriesCollection();
+
+            List<Tour> lstTour = new List<Tour>(DataProvider.Ins.Entities.Tours);
+            foreach (Tour item in lstTour) 
+            {
+                LineSeries line = new LineSeries(); //Với mỗi tour là một đường trong biểu đồ
+                line.Title = item.TenTour;
+                line.ScalesYAt = 0;
+
+                ChartValues<decimal> DoanhThu = new ChartValues<decimal>(); //Dùng để lưu doanh thu từng tháng
+                for (int i = 0; i < 13; i++) //12 tháng
+                {
+                    DoanhThu.Add(0); //Khởi tạo giá trị mặc định là 0
+                }
+
+                //Lấy danh sách các đoàn của tour đang xét
+                List<DoanDuLich> lstGroup = new List<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaTour == item.MaTour));
+                foreach (DoanDuLich doan in lstGroup)
+                {
+                    if (doan.NgayKetThuc.Value.Year == DateTime.Now.Year && doan.NgayKetThuc.Value.Month <= DateTime.Now.Month)
+                    {
+                        decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+                        decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
+                        decimal revenue = valueIn - valueOut;
+
+                        //MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
+
+                        DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+                    }
+                }
+
+                line.Values = DoanhThu;
+                SeriesSelection.Add(line);
+            }
+
+            Func<double, string> formatter = value => value.ToString("#,###,###.##"); //Định dạng số tiền hiển thị ra
+
+            AxisYCollection = new AxesCollection
+            {
+                new Axis { Title = "Danh thu Tour (VNĐ)", Foreground = Brushes.Gray, LabelFormatter= formatter }
+            };
+            AxisXCollection = new AxesCollection()
+            {
+                new Axis{Title = "Doanh thu", MinValue=1, MaxValue=12 }
+            };
+
+        }
+
         void Login(Window w)
         {
             w.Hide();
             LoginWindow login = new LoginWindow();
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
+
+            loginViewModel.isLogin = false;
+            user = null;
+            Avatar = null;
+            DisplayName = null;
+
             login.ShowDialog();
 
             //MessageBox.Show(user.HoTen);
@@ -139,6 +210,12 @@ namespace Tour_management.ViewModel
                 DisplayName = user.HoTen;
             }
             else w.Close();
+        }
+
+        public class DateTimePoint
+        {
+            public DateTime Timestamp { get; set; }
+            public int Value { get; set; }
         }
     }
 }

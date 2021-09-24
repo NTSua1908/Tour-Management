@@ -210,7 +210,11 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+<<<<<<< HEAD
     <Compile Include="ViewModel\HotelViewModel.cs" />
+=======
+    <Compile Include="ViewModel\DestinationViewModel.cs" />
+>>>>>>> c49675b41f1982c23300363a849766f4534e4fd0
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />

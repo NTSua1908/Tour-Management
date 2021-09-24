@@ -353,7 +353,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Grid Grid.Row="0">
-                                            <lvc:CartesianChart Series="{Binding SeriesSelection}">
+                                            <lvc:CartesianChart Series="{Binding SeriesSelection}" AxisY="{Binding AxisYCollection}" AxisX="{Binding AxisXCollection}">
                                                 
                                             </lvc:CartesianChart>
                                         </Grid>
@@ -472,4 +472,5 @@
         </Grid>
 
     </Grid>
+    
 </Window>

@@ -210,4 +210,7 @@ insert into DSKhachSan values(2,1);
 insert into DSNhanVien values(1,1,N'Hướng dẫn viên');
 insert into DSNhanVien values(1,2,N'Tài xế');
 insert into DSNhanVien values(2,1,N'Phục vụ');
+<<<<<<< HEAD
+=======
 
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051

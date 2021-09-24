@@ -32,12 +32,16 @@
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="5"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                <Rectangle Grid.Column="0"  Stroke="#1148db" Fill="#1148db" />
+
+                <Grid Grid.Column="1">
                     <materialDesign:Card Margin="5 5 5 5">
                         <StackPanel Margin="0 0 5 0">
 
@@ -81,111 +85,134 @@
                     </materialDesign:Card>
                 </Grid>
 
-                <Grid Grid.Column="1">
+                <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
-                        <RowDefinition  Height="150"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
                         <materialDesign:Card Margin="5 5 5 5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Margin="0 0 5 0">
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="Phương tiện" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+                                </Grid>
 
-                                <TextBlock Text="Phương tiện" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
-
-                                <materialDesign:Card Height="80" Margin="8 10 3 0">
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <ListBox Width="157"
-                                         Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
+                                <Grid Grid.Row="1">
+                                    <materialDesign:Card  Margin="8 5 3 10">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                            <ListBox 
+                                         Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}"
                                                  SelectedItem="{Binding Vehicle}"
-                                                 Padding="3">
-                                            <ListBoxItem Content="Mercury" />
-                                            <ListBoxItem IsSelected="True" Content="Venus" />
-                                            <ListBoxItem Content="Earth" />
-                                            <ListBoxItem IsEnabled="False" Content="Pluto" />
-                                            <ListBoxItem Content="Eart" />
-                                            <ListBoxItem Content="Ea" />
-                                        </ListBox>
-                                    </ScrollViewer>
-                                </materialDesign:Card>
+                                                 Padding="3" >
+                                                <ListBoxItem Content="Mercury" />
+                                                <ListBoxItem IsSelected="True" Content="Venus" />
+                                                <ListBoxItem Content="Earth" />
+                                                <ListBoxItem IsEnabled="False" Content="Pluto" />
+                                                <ListBoxItem Content="Eart" />
+                                                <ListBoxItem Content="Ea" />
+                                                <ListBoxItem Content="Eart" />
+                                                <ListBoxItem Content="Ea" />
+                                            </ListBox>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
 
-                            </StackPanel>
+                                </Grid>
+                            </Grid>
                         </materialDesign:Card>
                     </Grid>
 
                     <Grid Grid.Row="1">
                         <materialDesign:Card Margin="5 5 5 5">
-                            <StackPanel Margin="0 0 5 0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                                <TextBlock Text="Khách sạn" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+                                <Grid Grid.Row="0">
+                                    <TextBlock Text="Khách sạn" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+                                </Grid>
 
-                                <materialDesign:Card Height="177" Margin="8 10 3 0">
-                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <ListBox Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}" Width="157"
+                                <Grid Grid.Row="1">
+                                    <materialDesign:Card  Margin="8 5 3 10">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                            <ListBox 
+                                         Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
                                                  SelectedItem="{Binding Hotel}"
-                                                 Padding="3">
-                                            <ListBoxItem Content="Mercury" />
-                                            <ListBoxItem IsSelected="True" Content="Venus" />
-                                            <ListBoxItem Content="Earth" />
-                                            <ListBoxItem IsEnabled="False" Content="Pluto" />
-                                        </ListBox>
-                                    </ScrollViewer>
-                                </materialDesign:Card>
-                            </StackPanel>
+                                                 Padding="3" >
+                                                <ListBoxItem Content="Mercury" />
+                                                <ListBoxItem IsSelected="True" Content="Venus" />
+                                                <ListBoxItem Content="Earth" />
+                                                <ListBoxItem IsEnabled="False" Content="Pluto" />
+                                                <ListBoxItem Content="Eart" />
+                                                <ListBoxItem Content="Ea" />
+                                                <ListBoxItem Content="Eart" />
+                                                <ListBoxItem Content="Ea" />
+                                            </ListBox>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
+
+                                </Grid>
+                            </Grid>
                         </materialDesign:Card>
                     </Grid>
                 </Grid>
 
-                <Grid Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition  Height="320"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+                <Grid Grid.Column="3">
+                    <materialDesign:Card Margin="5 5 5 5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="0">
-                        <materialDesign:Card Margin="5 5 5 5">
-                            <StackPanel>
+                            <Grid Grid.Row="0">
                                 <TextBlock Text="Chi tiết" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+                            </Grid>
 
-                                <materialDesign:Card Margin="0 10 3 0"
+                            <materialDesign:Card Grid.Row="1" Margin="5 10 5 0"
                                     Background="#33CCFF"
-                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
-                                    Width="250" Height="245"
-                                    Padding="10">
-                                    <TextBox TextWrapping="Wrap" VerticalAlignment="Stretch"
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"                                    
+                                    Padding="5">
+                                <TextBox TextWrapping="Wrap" VerticalAlignment="Stretch"
                                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
-                                             MinWidth="230" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                                             AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                                              materialDesign:HintAssist.Hint="Chi tiết"
                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                             Height="210" />
-                                </materialDesign:Card>
+                                              />
+                            </materialDesign:Card>
 
-                            </StackPanel>
-                        </materialDesign:Card>
-                    </Grid>
+                            <materialDesign:Card Grid.Row="2" Margin="5 0 5 5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
 
-                    <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-
-                            <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
                                         Margin="5 5 5 0" Content="Thêm"
                                         Command="{Binding AddCommand}"
                                         CommandParameter="{Binding ElementName=Tourist}"/>
-                            <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Quản lí"
                                         Margin="5 5 5 0" Content="Quản lí"
                                         Command="{Binding ManageCommand}"
                                         CommandParameter="{Binding ElementName=Tourist}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
                         </Grid>
                     </materialDesign:Card>
-
                 </Grid>
+                <Rectangle Grid.Column="4"  Stroke="#1148db" Fill="#1148db" />
             </Grid>
         </Grid>
     </Grid>
