@@ -66,6 +66,7 @@ namespace Tour_management.ViewModel
                 MessageBoxResult result = MessageBox.Show("Bạn có muốn đăng xuất?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
+
                     Login(p);
                 }
             });
@@ -133,18 +134,21 @@ namespace Tour_management.ViewModel
             });
         }
 
+        /// <summary>
+        /// Hiển thị báo cáo doanh thu của các tour trong năm hiện tại
+        /// </summary>
         private void AddReport()
         {
             SeriesSelection = new SeriesCollection();
 
             List<Tour> lstTour = new List<Tour>(DataProvider.Ins.Entities.Tours);
-            foreach (Tour item in lstTour)
+            foreach (Tour item in lstTour) 
             {
-                LineSeries line = new LineSeries();
+                LineSeries line = new LineSeries(); //Với mỗi tour là một đường trong biểu đồ
                 line.Title = item.TenTour;
                 line.ScalesYAt = 0;
 
-                ChartValues<decimal> DoanhThu = new ChartValues<decimal>();
+                ChartValues<decimal> DoanhThu = new ChartValues<decimal>(); //Dùng để lưu doanh thu từng tháng
                 for (int i = 0; i < 13; i++) //12 tháng
                 {
                     DoanhThu.Add(0); //Khởi tạo giá trị mặc định là 0
@@ -170,7 +174,7 @@ namespace Tour_management.ViewModel
                 SeriesSelection.Add(line);
             }
 
-            Func<double, string> formatter = value => value.ToString("#,###,###.##");
+            Func<double, string> formatter = value => value.ToString("#,###,###.##"); //Định dạng số tiền hiển thị ra
 
             AxisYCollection = new AxesCollection
             {
@@ -188,6 +192,12 @@ namespace Tour_management.ViewModel
             w.Hide();
             LoginWindow login = new LoginWindow();
             LoginViewModel loginViewModel = (LoginViewModel)login.DataContext;
+
+            loginViewModel.isLogin = false;
+            user = null;
+            Avatar = null;
+            DisplayName = null;
+
             login.ShowDialog();
 
             //MessageBox.Show(user.HoTen);
