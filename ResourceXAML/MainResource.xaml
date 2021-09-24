@@ -8,6 +8,7 @@
     <viewmodel:PersonalInformationViewModel x:Key="informationVM"/>
     <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
+    <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
 
