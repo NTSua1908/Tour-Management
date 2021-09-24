@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
         Title="Quản lý loại tour" Height="460" Width="700"
+        
+        DataContext="{StaticResource tourTypeVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,7 +20,9 @@
         WindowStyle="None"
         Name="tourType"
         WindowStartupLocation="CenterScreen"
-        xmlns:uc="clr-namespace:Tour_management.ControlUser">
+        xmlns:uc="clr-namespace:Tour_management.ControlUser"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -63,14 +68,26 @@
                                     <TextBox  materialDesign:HintAssist.Hint="Tên loại tour"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding tourTypeName, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 20 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Hệ số"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Coefficient, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Coefficient, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                 </materialDesign:Card>
                             </StackPanel>
                         </ScrollViewer>
@@ -116,7 +133,7 @@
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 0" Content="Tìm kiếm"
-                                        Command="{Binding FindingCommand}"
+                                        Command="{Binding SearchCommand}"
                                         CommandParameter="{Binding ElementName=tourType}"
                                     />
                             </Grid>
@@ -128,19 +145,31 @@
 
                 <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
-                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lsttourType}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="Mã loại tour" DisplayMemberBinding="{Binding MaLoaiTour}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên loại tour" DisplayMemberBinding="{Binding TenLoaiTour}"></GridViewColumn>
-                                    <GridViewColumn Header="Hệ số" DisplayMemberBinding="{Binding HeSo}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </materialDesign:Card>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding lstTourType}" SelectedItem="{Binding SelectedType, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Mã loại tour" DisplayMemberBinding="{Binding MaLoaiTour}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên loại tour" DisplayMemberBinding="{Binding TenLoaiTour}"></GridViewColumn>
+                                        <GridViewColumn Header="Hệ số" DisplayMemberBinding="{Binding HeSo}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+                    <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=tourType}"/>
+
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

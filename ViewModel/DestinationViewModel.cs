@@ -114,7 +114,7 @@ namespace Tour_management.ViewModel
             }, (p) =>
             {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstDestination);
-                view.Filter = CustomerFilter;
+                view.Filter = DestinationFilter;
             });
 
             DeleteCommand = new RelayCommand<Window>((p) =>
@@ -145,7 +145,7 @@ namespace Tour_management.ViewModel
             });
         }
 
-        private bool CustomerFilter(object item)
+        private bool DestinationFilter(object item)
         {
             DiaDiem diaDiem = item as DiaDiem;
             if (filterName(diaDiem) && filterArea(diaDiem))

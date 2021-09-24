@@ -9,5 +9,6 @@
     <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
+    <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
 
 </ResourceDictionary>
