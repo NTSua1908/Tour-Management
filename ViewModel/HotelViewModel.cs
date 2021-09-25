@@ -109,10 +109,6 @@ namespace Tour_management.ViewModel
                 };
                 SelectedItem = lstHotel[index];
 
-                if (SelectedItem == null)
-                {
-                    MessageBox.Show("NULL");
-                }
             });
 
             SearchCommand = new RelayCommand<Window>((p) =>
@@ -139,7 +135,11 @@ namespace Tour_management.ViewModel
                     DataProvider.Ins.Entities.DSKhachSans.Remove(item);
                 }
 
-                DataProvider.Ins.Entities.KhachSans.Remove(SelectedItem);
+                //Tui chỉnh lại dòng này, lỗi xảy ra khi mình sửa một khách sạn, sau đó xóa nó sẽ xảy ra lỗi
+                //Tui khắc phục nó bằng dòng bên dưới :(( 
+                //Tui cũng chưa rõ nguyên nhân thật sự gây ra lỗi
+                KhachSan ks = DataProvider.Ins.Entities.KhachSans.Where(x => x.MaKS == SelectedItem.MaKS).FirstOrDefault();
+                DataProvider.Ins.Entities.KhachSans.Remove(ks);
                 DataProvider.Ins.Entities.SaveChanges();
 
                 lstHotel.Remove(SelectedItem);
@@ -217,6 +217,7 @@ namespace Tour_management.ViewModel
             return false;
         }
         #endregion
+
         #region Number Input 
         private Regex _regex = new Regex("[^0-9.-]+");
         private bool IsTextAllowed(string text)
