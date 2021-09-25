@@ -8,10 +8,9 @@
     <viewmodel:PersonalInformationViewModel x:Key="informationVM"/>
     <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
-<<<<<<< HEAD
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
-=======
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
->>>>>>> c49675b41f1982c23300363a849766f4534e4fd0
-
+    <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
+    <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
 </ResourceDictionary>
+    

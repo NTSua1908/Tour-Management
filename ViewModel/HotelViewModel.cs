@@ -29,6 +29,10 @@ namespace Tour_management.ViewModel
         public string DiaChi { get { return _DiaChi; } set { _DiaChi = value; OnPropertyChanged(); } }
         private string _ChiPhi;
         public string ChiPhi { get { return _ChiPhi; } set { _ChiPhi = value; OnPropertyChanged(); } }
+        private ObservableCollection<KhuVuc> _lstArea;
+        public ObservableCollection<KhuVuc> lstArea { get { return _lstArea; } set { _lstArea = value; OnPropertyChanged(); } }
+        private KhuVuc _SelectedArea;
+        public KhuVuc SelectedArea { get { return _SelectedArea; } set { _SelectedArea = value; OnPropertyChanged(); } }
         public KhachSan _SelectedItem;
         public KhachSan SelectedItem
         {
@@ -43,13 +47,14 @@ namespace Tour_management.ViewModel
                     SDT = SelectedItem.SDT.ToString();
                     DiaChi = SelectedItem.DiaChi;
                     ChiPhi = SelectedItem.ChiPhi.ToString();
+                    SelectedArea = SelectedItem.KhuVuc;
                 }
             }
         }
         public HotelViewModel()
         {
             lstHotel = new ObservableCollection<KhachSan>(DataProvider.Ins.Entities.KhachSans);
-            //Load lại toàn bộ bảng
+            lstArea = new ObservableCollection<KhuVuc>(DataProvider.Ins.Entities.KhuVucs);
             ReloadCommand = new RelayCommand<Window>((p) =>
             {
                 return true;
@@ -68,7 +73,8 @@ namespace Tour_management.ViewModel
                     TenKS = TenKS,
                     DiaChi = DiaChi,
                     SDT = SDT,
-                    ChiPhi = Convert.ToDecimal(ChiPhi)
+                    ChiPhi = Convert.ToDecimal(ChiPhi),
+                    KhuVuc = SelectedArea
                 };
 
                 DataProvider.Ins.Entities.KhachSans.Add(ks);
@@ -89,6 +95,7 @@ namespace Tour_management.ViewModel
                 ks.DiaChi = DiaChi;
                 ks.SDT = SDT;
                 ks.ChiPhi = Convert.ToDecimal(ChiPhi);
+                ks.KhuVuc = SelectedArea;
                 DataProvider.Ins.Entities.SaveChanges();
 
                 lstHotel[index] = new KhachSan()
@@ -97,7 +104,8 @@ namespace Tour_management.ViewModel
                     TenKS = TenKS,
                     DiaChi = DiaChi,
                     SDT = SDT,
-                    ChiPhi = Convert.ToDecimal(ChiPhi)
+                    ChiPhi = Convert.ToDecimal(ChiPhi),
+                    KhuVuc = SelectedArea
                 };
                 SelectedItem = lstHotel[index];
 
@@ -141,7 +149,7 @@ namespace Tour_management.ViewModel
         private bool isCommandEnable()
         {
             if (string.IsNullOrEmpty(TenKS) || string.IsNullOrEmpty(SDT) || string.IsNullOrEmpty(DiaChi)
-                || string.IsNullOrEmpty(ChiPhi))
+                || string.IsNullOrEmpty(ChiPhi) || SelectedArea.TenKhuVuc.Equals("Null"))
             {
                 return false;
             }
@@ -151,7 +159,7 @@ namespace Tour_management.ViewModel
         private bool HotelFilter(object item)
         {
             KhachSan ks = item as KhachSan;
-            if (filterTenKS(ks) && filterSDT(ks) && filterChiPhi(ks) && filterDiaChi(ks))
+            if (filterTenKS(ks) && filterSDT(ks) && filterChiPhi(ks) && filterDiaChi(ks) && filterKhuVuc(ks))
             { 
                 return true; 
             }
@@ -164,6 +172,15 @@ namespace Tour_management.ViewModel
             {
                 return true;
             }
+            return false;
+        }
+        private bool filterKhuVuc(KhachSan ks)
+        {
+            if (SelectedArea == null || SelectedArea.TenKhuVuc.Equals("Null") || ks.KhuVuc == SelectedArea)
+            {
+                return true;
+            }
+
             return false;
         }
         private bool filterSDT(KhachSan ks)

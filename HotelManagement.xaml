@@ -112,6 +112,11 @@
                                         </i:Interaction.Triggers>
                                     </TextBox>
                                 </materialDesign:Card>
+                                <materialDesign:Card Margin="3 10 3 10">
+                                    <ComboBox ItemsSource="{Binding lstArea}" SelectedItem="{Binding SelectedArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Margin="10 10 10 10" materialDesign:HintAssist.Hint="Khu vực" materialDesign:HintAssist.HintOpacity=".26" 
+                                              DisplayMemberPath="TenKhuVuc"/>
+                                </materialDesign:Card>
                             </StackPanel>
                         </ScrollViewer>
                     </materialDesign:Card>
@@ -179,6 +184,7 @@
                                     <GridView>
                                         <GridViewColumn Header="Mã khách sạn" DisplayMemberBinding="{Binding MaKS}"></GridViewColumn>
                                         <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>
+                                        <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding KhuVuc.TenKhuVuc}"></GridViewColumn>
                                         <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
                                         <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
                                         <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi}"></GridViewColumn>
