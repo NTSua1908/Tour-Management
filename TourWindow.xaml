@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="Quản lý tour" Height="700" Width="900"
         
+        DataContext="{StaticResource tourVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,6 +20,7 @@
         WindowStyle="None"
         Name="tour"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser" >
     <Grid>
@@ -62,11 +65,11 @@
                                     <TextBox  materialDesign:HintAssist.Hint="Tên tour"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding TourName, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
 
                                 <materialDesign:Card Margin="3 10 3 0">
-                                    <ComboBox ItemsSource="{Binding lstTourType}" DisplayMemberPath="TenLoaiTour" SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    <ComboBox ItemsSource="{Binding lstTourType}" DisplayMemberPath="TenLoaiTour" SelectedItem="{Binding SelectedTourType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại tour" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True"/>
                                 </materialDesign:Card>
 
@@ -74,7 +77,19 @@
                                     <TextBox  materialDesign:HintAssist.Hint="Giá"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                 </materialDesign:Card>
 
                             </StackPanel>
@@ -83,10 +98,14 @@
 
                     <!--Danh sach dia diem-->
                     <materialDesign:Card Grid.Row="1" Margin="5 5 5 5">
-                        <StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
                             
-                            <materialDesign:Card Margin="3 10 3 10">
-                                <ComboBox ItemsSource="{Binding lstAllDestination}"  SelectedItem="{Binding SelectedUnit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <materialDesign:Card Margin="3 10 3 10" Grid.Row="0">
+                                <ComboBox ItemsSource="{Binding lstAllDestination}"  
                                         Margin="10 10 10 10" materialDesign:HintAssist.Hint="Địa điểm" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
@@ -99,7 +118,7 @@
                                                     <CheckBox IsChecked="{Binding isSelected}"/>
                                                 </Grid>
                                                 <Grid Grid.Column="1">
-                                                    <TextBlock Text="{Binding TenDD}"/>
+                                                    <TextBlock Text="{Binding Destination.TenDD}"/>
                                                 </Grid>
                                             </Grid>
                                         </DataTemplate>
@@ -107,17 +126,20 @@
                                 </ComboBox>
                             </materialDesign:Card>
 
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <ListView ItemsSource="{Binding lstPickedDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                            </ScrollViewer>
+                            <materialDesign:Card Grid.Row="1">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                    <ListView ItemsSource="{Binding lstPickedDestination}" >
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </ScrollViewer>
+                            </materialDesign:Card>
+                            
 
-                        </StackPanel>
+                        </Grid>
                     </materialDesign:Card>
 
                     <materialDesign:Card Grid.Row="2" Margin="5 0 5 5">
@@ -173,20 +195,32 @@
 
                 <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
-                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstTour}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên tour" DisplayMemberBinding="{Binding TenTour}"></GridViewColumn>
-                                    <GridViewColumn Header="Loại tour" DisplayMemberBinding="{Binding LoaiTour.TenLoaiTour}"></GridViewColumn>
-                                    <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding Gia}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </materialDesign:Card>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding lstTour}" SelectedItem="{Binding SelectedTour, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaTour}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên tour" DisplayMemberBinding="{Binding TenTour}"></GridViewColumn>
+                                        <GridViewColumn Header="Loại tour" DisplayMemberBinding="{Binding LoaiTour.TenLoaiTour}"></GridViewColumn>
+                                        <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding GiaTour, StringFormat=N0 }"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+                    <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=tourType}"/>
+
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

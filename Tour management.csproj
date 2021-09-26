@@ -156,6 +156,7 @@
     <Compile Include="Model\Tour.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TourDestination.cs" />
     <Compile Include="Model\TourManagement.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -217,6 +218,7 @@
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
     <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
     <Compile Include="ViewModel\TourTypeViewModel.cs" />
+    <Compile Include="ViewModel\TourViewModel.cs" />
     <Compile Include="ViewModel\UserManagementViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>

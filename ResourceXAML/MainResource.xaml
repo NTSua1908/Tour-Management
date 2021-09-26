@@ -11,5 +11,6 @@
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
+    <viewmodel:TourViewModel x:Key="tourVM"/>
 
 </ResourceDictionary>
