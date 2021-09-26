@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -186,5 +187,23 @@ namespace Tour_management.ViewModel
 
             return true;
         }
+        #region Number Input 
+        private Regex _regex = new Regex("[^0-9.-]+");
+        private bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+        public void PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+        public void NumericInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+        #endregion
     }
 }

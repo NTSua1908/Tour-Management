@@ -217,9 +217,11 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
     <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
+    <Compile Include="ViewModel\StaffManagementViewModel.cs" />
     <Compile Include="ViewModel\TourTypeViewModel.cs" />
     <Compile Include="ViewModel\TourViewModel.cs" />
     <Compile Include="ViewModel\UserManagementViewModel.cs" />
+    <Compile Include="ViewModel\VehicleViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

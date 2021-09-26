@@ -10,6 +10,8 @@
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
+    <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
+    <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
     <viewmodel:TourViewModel x:Key="tourVM"/>
 
