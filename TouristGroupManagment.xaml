@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
         Title="Quản lý đoàn du lịch" 
+        
+        DataContext="{StaticResource touristGrVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -90,7 +93,7 @@
 
                         <materialDesign:Card Grid.Row="4" VerticalAlignment="Stretch" Margin="5 5 5 5">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <ListView ItemsSource="{Binding lstTourist}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                <ListView ItemsSource="{Binding lstTouristGr}" SelectedItem="{Binding SelectedTouristGr, Mode=OneWayToSource}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Tên đoàn" DisplayMemberBinding="{Binding TenDoan}"></GridViewColumn>
@@ -185,7 +188,7 @@
                                     <ListView ItemsSource="{Binding lstHotel}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding KhachSan.TenKS}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -244,7 +247,7 @@
 
                             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Margin="5 15 5 5">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ListView ItemsSource="{Binding lstHotel}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>

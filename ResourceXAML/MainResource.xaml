@@ -8,5 +8,7 @@
     <viewmodel:PersonalInformationViewModel x:Key="informationVM"/>
     <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
+    <viewmodel:TouristViewModel x:Key="touristVM"/>
+    <viewmodel:TouristManagementViewModel x:Key="touristGrVM"/>
 
 </ResourceDictionary>

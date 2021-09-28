@@ -24,24 +24,11 @@ namespace Tour_management
         {
             InitializeComponent();
 
-<<<<<<< HEAD
             //Test man hinh
-            //CustomerManagement customer = new CustomerManagement();
-            //customer.ShowDialog();
             //DestinationManagement destination = new DestinationManagement();
             //destination.ShowDialog();
-            TouristGroupManagment t = new TouristGroupManagment();
-            t.ShowDialog();
-=======
-<<<<<<< HEAD
-            Staff_sNumberTour t = new Staff_sNumberTour();
-            t.ShowDialog();
-            //HotelManagement t = new HotelManagement();
-=======
-            //StatisticSales t = new StatisticSales();
->>>>>>> f5111c47ef177b7a38d5aff3e3f6b4c00a8b9180
-            //t.ShowDialog();
->>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
+            TouristGroupManagment tg = new TouristGroupManagment();
+            tg.Show();
         }
     }
 }
