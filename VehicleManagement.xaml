@@ -154,7 +154,7 @@
                                     <GridView>
                                         <GridViewColumn Header="Mã phương tiện" DisplayMemberBinding="{Binding MaPT}"></GridViewColumn>
                                         <GridViewColumn Header="Tên phương tiện" DisplayMemberBinding="{Binding TenPT}"></GridViewColumn>
-                                        <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi}"></GridViewColumn>
+                                        <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi, StringFormat=N0}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

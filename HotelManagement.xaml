@@ -187,7 +187,7 @@
                                         <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding KhuVuc.TenKhuVuc}"></GridViewColumn>
                                         <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
                                         <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                                        <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi}"></GridViewColumn>
+                                        <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi, StringFormat=N0}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

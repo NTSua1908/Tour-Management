@@ -46,7 +46,7 @@ namespace Tour_management.ViewModel
                     TenKS = SelectedItem.TenKS;
                     SDT = SelectedItem.SDT.ToString();
                     DiaChi = SelectedItem.DiaChi;
-                    ChiPhi = SelectedItem.ChiPhi.ToString();
+                    ChiPhi = string.Format("{0:N0}", SelectedItem.ChiPhi);
                     SelectedArea = SelectedItem.KhuVuc;
                 }
             }

@@ -106,15 +106,15 @@
                             
                             <materialDesign:Card Margin="3 10 3 10" Grid.Row="0">
                                 <ComboBox ItemsSource="{Binding lstAllDestination}"  
-                                        Margin="10 10 10 10" materialDesign:HintAssist.Hint="Địa điểm" materialDesign:HintAssist.HintOpacity=".26"  IsEditable="True">
+                                        Margin="10 10 10 10"  >
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition/>
                                                 </Grid.ColumnDefinitions>
-                                                <Grid Grid.Column="0">
+                                                <Grid Grid.Column="0" Margin="0 0 10 0">
                                                     <CheckBox IsChecked="{Binding isSelected}"/>
                                                 </Grid>
                                                 <Grid Grid.Column="1">

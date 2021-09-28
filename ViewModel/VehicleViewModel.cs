@@ -48,7 +48,7 @@ namespace Tour_management.ViewModel
                 if(SelectedItem!=null)
                 {
                     TenPT = SelectedItem.TenPT;
-                    ChiPhi = SelectedItem.ChiPhi.ToString();
+                    ChiPhi = string.Format("{0:N0}", SelectedItem.ChiPhi);
                 }    
             }
         }
