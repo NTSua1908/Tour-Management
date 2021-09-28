@@ -46,7 +46,7 @@ namespace Tour_management.ViewModel
                     TenKS = SelectedItem.TenKS;
                     SDT = SelectedItem.SDT.ToString();
                     DiaChi = SelectedItem.DiaChi;
-                    ChiPhi = SelectedItem.ChiPhi.ToString();
+                    ChiPhi = string.Format("{0:N0}", SelectedItem.ChiPhi);
                     SelectedArea = SelectedItem.KhuVuc;
                 }
             }
@@ -149,7 +149,7 @@ namespace Tour_management.ViewModel
         private bool isCommandEnable()
         {
             if (string.IsNullOrEmpty(TenKS) || string.IsNullOrEmpty(SDT) || string.IsNullOrEmpty(DiaChi)
-                || string.IsNullOrEmpty(ChiPhi) || SelectedArea.TenKhuVuc.Equals("Null"))
+                || string.IsNullOrEmpty(ChiPhi) || SelectedArea == null || SelectedArea.TenKhuVuc.Equals("Null"))
             {
                 return false;
             }

@@ -28,13 +28,13 @@ namespace Tour_management.ViewModel
         public ICommand GroupCommand { get; set; }
         public ICommand TourCommand { get; set; }
         public ICommand CustomerCommand { get; set; }
-        public ICommand JoinGroupCommand { get; set; }
         public ICommand ReportCommand { get; set; }
         public ICommand ManageStaffCommand { get; set; }
         public ICommand ManageUserCommand { get; set; }
         public ICommand TourTypeCommand { get; set; }
         public ICommand AddUserCommand { get; set; }
         public ICommand AddGroupCommand { get; set; }
+        public ICommand StaffAnalysisCommand { get; set; }
 
         private User _user;
         public User user { get { return _user; } set { _user = value; OnPropertyChanged(); } }
@@ -103,6 +103,11 @@ namespace Tour_management.ViewModel
                 DisplayName = user.HoTen;
             });
 
+            GroupCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                TouristGroupManagment group = new TouristGroupManagment();
+                group.ShowDialog();
+            });
+            
             TourCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 TourWindow tour = new TourWindow();
                 tour.ShowDialog();
@@ -132,6 +137,16 @@ namespace Tour_management.ViewModel
                 RegisterAccount register = new RegisterAccount();
                 register.ShowDialog();
             });
+
+            AddGroupCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                TouristGroup group = new TouristGroup();
+                group.ShowDialog();
+            });
+
+            StaffAnalysisCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                Staff_sNumberTour numberTour = new Staff_sNumberTour();
+                numberTour.ShowDialog();
+            });
         }
 
         /// <summary>
@@ -160,13 +175,13 @@ namespace Tour_management.ViewModel
                 {
                     if (doan.NgayKetThuc.Value.Year == DateTime.Now.Year && doan.NgayKetThuc.Value.Month <= DateTime.Now.Month)
                     {
-                        //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
-                        ////decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
-                        //decimal revenue = valueIn - valueOut;
+                        decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+                        decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
+                        decimal revenue = valueIn - valueOut;
 
-                        ////MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
+                        //MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
 
-                        //DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+                        DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
                     }
                 }
 
@@ -210,12 +225,6 @@ namespace Tour_management.ViewModel
                 DisplayName = user.HoTen;
             }
             else w.Close();
-        }
-
-        public class DateTimePoint
-        {
-            public DateTime Timestamp { get; set; }
-            public int Value { get; set; }
         }
     }
 }
