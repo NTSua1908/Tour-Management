@@ -10,13 +10,8 @@
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
-<<<<<<< HEAD
     <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
     <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
-</ResourceDictionary>
-    
-=======
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
-
+    <viewmodel:AreaViewModel x:Key="areaVM"/>
 </ResourceDictionary>
->>>>>>> 5b0402890a07d802db9a978945d4fec8bc5ed3ff

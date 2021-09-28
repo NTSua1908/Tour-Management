@@ -207,6 +207,7 @@
     <Compile Include="VehicleManagement.xaml.cs">
       <DependentUpon>VehicleManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AreaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
@@ -216,11 +217,8 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
     <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
-<<<<<<< HEAD
     <Compile Include="ViewModel\StaffManagementViewModel.cs" />
-=======
     <Compile Include="ViewModel\TourTypeViewModel.cs" />
->>>>>>> 5b0402890a07d802db9a978945d4fec8bc5ed3ff
     <Compile Include="ViewModel\UserManagementViewModel.cs" />
     <Compile Include="ViewModel\VehicleViewModel.cs" />
     <Page Include="AreaManagement.xaml">
