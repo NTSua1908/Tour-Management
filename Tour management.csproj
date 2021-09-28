@@ -150,12 +150,14 @@
     <Compile Include="Model\PhuongTien.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\StaffAnalysis.cs" />
     <Compile Include="Model\sysdiagram.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Tour.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TourDestination.cs" />
     <Compile Include="Model\TourManagement.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -212,11 +214,18 @@
     <Compile Include="ViewModel\TouristViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\HotelViewModel.cs" />
+    <Compile Include="ViewModel\DestinationViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonalInformationViewModel.cs" />
     <Compile Include="ViewModel\RegisterAccountViewModel.cs" />
+    <Compile Include="ViewModel\StaffManagementViewModel.cs" />
+    <Compile Include="ViewModel\Staff_sNumberTourViewModel.cs" />
+    <Compile Include="ViewModel\TourTypeViewModel.cs" />
+    <Compile Include="ViewModel\TourViewModel.cs" />
     <Compile Include="ViewModel\UserManagementViewModel.cs" />
+    <Compile Include="ViewModel\VehicleViewModel.cs" />
     <Page Include="AreaManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -353,6 +362,8 @@
       <DependentUpon>TourManagement.edmx</DependentUpon>
       <LastGenOutput>TourManagement.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\analysis.png" />
+    <Resource Include="Resources\map.png" />
     <Resource Include="Resources\avatar1.png" />
     <Resource Include="Resources\avatar2.png" />
     <Resource Include="Resources\avatar3.png" />
@@ -369,7 +380,6 @@
     <Resource Include="Resources\categorize.png" />
     <Resource Include="Resources\user.png" />
     <Resource Include="tour_ic.ico" />
-    <Resource Include="Resources\register.png" />
     <Resource Include="Resources\Tour.png" />
     <Resource Include="Resources\Tourist_Group.png" />
     <Resource Include="Resources\customer.png" />

@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Staff_sNumberTour" Height="450" Width="700"
+        Title="Số lần đi tour" Height="450" Width="700"
+        
+        DataContext="{StaticResource staffNumberVM}"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -24,6 +27,20 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+
+        <!--<Grid.Resources>
+            <Style TargetType="DatePicker">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <TextBox Text="{Binding Path=SelectedDate, StringFormat='dd/MM/yyyy', 
+                                RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>-->
+        
         <Grid Grid.Row="0">
             <uc:ControlBarUC Tag="{Binding Title, ElementName=StaffNumberTour}"/>
         </Grid>
@@ -35,11 +52,11 @@
             <Rectangle Grid.Column="0"  Stroke="#1148db" Fill="#1148db" />
             <materialDesign:Card Grid.Column="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding lstTourNumber}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                    <ListView ItemsSource="{Binding lstTourNumber}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding TenNV}"></GridViewColumn>
-                                <GridViewColumn Header="Số lần đi Tour" DisplayMemberBinding="{Binding TourNum}"></GridViewColumn>
+                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NhanVien.TenNV}"></GridViewColumn>
+                                <GridViewColumn Header="Số lần đi Tour" DisplayMemberBinding="{Binding Quantity}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -48,7 +65,7 @@
             <Rectangle Grid.Column="1"  Stroke="#1148db" Fill="#1148db" />
             <materialDesign:Card Grid.Column="1" Margin="5">
                 <StackPanel Margin="0,0,5,0">
-                    <TextBlock Text="Thời gian đi Tour" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock Text="Thời gian đi Tour" TextAlignment="Center" Margin="10 15 10 10" FontSize="20" FontWeight="Bold"/>
                     <Border BorderBrush="Black" BorderThickness="2" Height="90" Width="90"
                                  CornerRadius="100" Background="Transparent">
                         <Ellipse Height="86" Width="86">
@@ -58,14 +75,14 @@
                         </Ellipse>
                     </Border>
                     <materialDesign:Card Margin="3 20 3 0">
-                        <DatePicker  materialDesign:HintAssist.Hint="Từ ngày"   
+                        <DatePicker  materialDesign:HintAssist.Hint="Từ ngày" IsTodayHighlighted="True"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding FromDay, UpdateSourceTrigger=PropertyChanged}"/>
+                                          SelectedDate="{Binding FromDay, UpdateSourceTrigger=PropertyChanged}"/>
                     </materialDesign:Card>
                     <materialDesign:Card Margin="3 20 3 0">
-                        <DatePicker  materialDesign:HintAssist.Hint="Đến ngày"   
+                        <DatePicker  materialDesign:HintAssist.Hint="Đến ngày" IsTodayHighlighted="True"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding ToDay, UpdateSourceTrigger=PropertyChanged}"/>
+                                          SelectedDate="{Binding ToDay, UpdateSourceTrigger=PropertyChanged}"/>
                     </materialDesign:Card>
                     <Button Margin="28,20,32,0" Content="Tra cứu" Background="Green" 
                                 Style="{StaticResource MaterialDesignRaisedButton}"

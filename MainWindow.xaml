@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Tour_management" 
         mc:Ignorable="d"
         Title="Quản lý tour"
         
@@ -23,7 +22,7 @@
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser" 
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-        Width="1200" Height="700">
+        Width="1200" Height="710">
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -96,9 +95,6 @@
                             </StackPanel.Resources>
                             <Button ToolTip="Danh sách khu vực" Command="{Binding AreaCommand}" CommandParameter="{Binding ElementName=main}" >
                                 <materialDesign:PackIcon Kind="MapMarkerRadiusOutline" Foreground="AliceBlue"/>
-                            </Button>
-                            <Button ToolTip="Danh sách địa điểm" Command="{Binding DestinationCommand}" CommandParameter="{Binding ElementName=main}">
-                                <materialDesign:PackIcon Kind="MapMarker" Foreground="AliceBlue"/>
                             </Button>
                             <Button ToolTip="Danh sách phương tiện" Command="{Binding VehicleCommand}" CommandParameter="{Binding ElementName=main}">
                                 <materialDesign:PackIcon Kind="CarEstate" Foreground="AliceBlue"/>
@@ -318,7 +314,7 @@
 
                                                                 <Ellipse Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">
                                                                     <Ellipse.Fill>
-                                                                        <ImageBrush ImageSource="Resources/register.png"/>
+                                                                        <ImageBrush ImageSource="Resources/map.png"/>
                                                                     </Ellipse.Fill>
                                                                 </Ellipse>
                                                             </Grid>
@@ -328,14 +324,14 @@
                                                 </Grid>
 
                                                 <TextBlock Grid.Row="1" VerticalAlignment="Center" FontSize="15" Margin="5 0 5 0"
-                                                           TextAlignment="Center" Text="Tham gia Đoàn du lịch" FontWeight="Bold"/>
+                                                           TextAlignment="Center" Text="Danh sách địa điểm" FontWeight="Bold"/>
 
                                                 <Grid Grid.Row="2">
                                                     <Button Background="#DDFFFFFF" 
                                                             materialDesign:ButtonAssist.CornerRadius="15" 
                                                             Margin="15 10 15 10" BorderBrush="#DDFFFFFF" Foreground="#DD000000"
                                                             Content="Xem tất cả"
-                                                            Command="{Binding JoinGroupCommand}"
+                                                            Command="{Binding DestinationCommand}"
                                                             CommandParameter="{Binding ElementName=main}"/>
                                                 </Grid>
                                             </Grid>
@@ -353,7 +349,7 @@
                                         </Grid.RowDefinitions>
 
                                         <Grid Grid.Row="0">
-                                            <lvc:CartesianChart Series="{Binding SeriesSelection}">
+                                            <lvc:CartesianChart Series="{Binding SeriesSelection}" AxisY="{Binding AxisYCollection}" AxisX="{Binding AxisXCollection}">
                                                 
                                             </lvc:CartesianChart>
                                         </Grid>
@@ -377,7 +373,7 @@
                         <!--Khu vuc quan ly-->
                         <materialDesign:Card Grid.Column="1"  Margin="5 5 5 5">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <StackPanel Margin="20 20 20 20">
+                                <StackPanel Margin="20 20 10 20">
                                     <TextBlock Grid.Row="0" Text="Khu vực quản lý" FontSize="23" FontWeight="Bold" Margin="10 10 10 20" Foreground="#FF1A2359"/>
 
                                     <materialDesign:Card Margin="10 10 10 10" UniformCornerRadius="15">
@@ -460,6 +456,22 @@
                                         </DockPanel>
                                     </materialDesign:Card>
 
+                                    <materialDesign:Card Margin="10 10 10 10" UniformCornerRadius="15">
+                                        <DockPanel>
+
+                                            <Image Source="resources/analysis.png" Width="50" Height="50" DockPanel.Dock="Left" Margin="15 10 10 10"/>
+
+                                            <Button DockPanel.Dock="Right" Width="auto" Margin="0 0 0 0" Height="70" Padding="5 0 5 0"
+                                                    Command="{Binding StaffAnalysisCommand}" CommandParameter="{Binding ElementName=main}">
+                                                <materialDesign:PackIcon Kind="ChevronRight" Width="30" Height="70"/>
+                                            </Button>
+
+                                            <TextBlock Text="Thống kê nhân viên" TextAlignment="Left" VerticalAlignment="Center"
+                                                       FontSize="18" FontWeight="Bold" Margin="10 0 0 0"/>
+
+                                        </DockPanel>
+                                    </materialDesign:Card>
+
                                 </StackPanel>
                             </ScrollViewer>
                         </materialDesign:Card>
@@ -472,4 +484,5 @@
         </Grid>
 
     </Grid>
+    
 </Window>
