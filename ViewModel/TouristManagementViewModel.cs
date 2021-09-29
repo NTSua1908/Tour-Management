@@ -53,7 +53,9 @@ namespace Tour_management.ViewModel
             lstTouristGr = new ObservableCollection<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches);
             lstVehicle = new ObservableCollection<PhuongTien>(DataProvider.Ins.Entities.PhuongTiens);
 
-            MessageBox.Show(lstTouristGr.Count.ToString(), "thong bao", MessageBoxButton.OK);
+            lstCustomer = new ObservableCollection<KhachHang>(DataProvider.Ins.Entities.KhachHangs);
+
+            //MessageBox.Show(lstTouristGr.Count.ToString(), "thong bao", MessageBoxButton.OK);
 
         }
 

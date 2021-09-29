@@ -22,33 +22,33 @@ namespace Tour_management
         public TouristGroupManagment()
         {
             InitializeComponent();
-            this.DataContext = this;
-            var items = new List<Person>();
-            items.Add(new Person() { Name = "Sua", CMND = "12345" });
-            items.Add(new Person() { Name = "Phát", CMND = "45678" });
-            items.Add(new Person() { Name = "Thành", CMND = "91011" });
+            //this.DataContext = this;
+            //var items = new List<Person>();
+            //items.Add(new Person() { Name = "Sua", CMND = "12345" });
+            //items.Add(new Person() { Name = "Phát", CMND = "45678" });
+            //items.Add(new Person() { Name = "Thành", CMND = "91011" });
 
-            Persons = items;
+            //Persons = items;
 
         }
-        private List<Person> _persons = new List<Person>();
+        //private List<Person> _persons = new List<Person>();
 
-        public List<Person> Persons
-        {
-            get { return _persons; }
-            set { _persons = value; }
-        }
+        //public List<Person> Persons
+        //{
+        //    get { return _persons; }
+        //    set { _persons = value; }
+        //}
 
 
     }
-    public class Person
-    {
-        public string Name { get; set; }
-        public string CMND { get; set; }
+    //public class Person
+    //{
+    //    public string Name { get; set; }
+    //    public string CMND { get; set; }
 
-        public override string ToString()
-        {
-            return Name + " | " + CMND;
-        }
-    }
+    //    public override string ToString()
+    //    {
+    //        return Name + " | " + CMND;
+    //    }
+    //}
 }

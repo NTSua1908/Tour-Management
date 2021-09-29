@@ -210,6 +210,7 @@
       <DependentUpon>VehicleManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\StatisticSalesViewModel.cs" />
     <Compile Include="ViewModel\TouristManagementViewModel.cs" />
     <Compile Include="ViewModel\TouristViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />

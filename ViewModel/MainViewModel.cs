@@ -93,8 +93,6 @@ namespace Tour_management.ViewModel
 
             InformationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 PersonalInformation information = new PersonalInformation();
-                //information.Initialized += Information_Initialized;
-
                 PersonalInformationViewModel viewModel = information.DataContext as PersonalInformationViewModel;
                 viewModel.setUser(user);
 
@@ -117,6 +115,12 @@ namespace Tour_management.ViewModel
                 CustomerManagement customer = new CustomerManagement();
                 customer.ShowDialog();
             });
+
+            ReportCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                StatisticSales statistic = new StatisticSales();
+                statistic.ShowDialog();
+            });
+
 
             ManageStaffCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 StaffManagement staff = new StaffManagement();
