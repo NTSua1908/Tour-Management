@@ -18,7 +18,8 @@
         Name="Area"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
-        xmlns:uc="clr-namespace:Tour_management.ControlUser">
+        xmlns:uc="clr-namespace:Tour_management.ControlUser"
+        DataContext="{StaticResource areaVM}">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -109,7 +110,7 @@
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 0" Content="Tìm kiếm"
-                                        Command="{Binding FindingCommand}"
+                                        Command="{Binding SearchCommand}"
                                         CommandParameter="{Binding ElementName=Area}"
                                     />
                             </Grid>
@@ -120,8 +121,12 @@
                 </Grid>
 
                 <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
-
-                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <ListView ItemsSource="{Binding lstArea}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                             <ListView.View>
@@ -133,7 +138,13 @@
                         </ListView>
                     </ScrollViewer>
                 </materialDesign:Card>
+                <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=Hotel}"/>
             </Grid>
+        </Grid>
         </Grid>
     </Grid>
 </Window>

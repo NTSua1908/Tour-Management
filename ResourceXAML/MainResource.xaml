@@ -15,8 +15,8 @@
     <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
     <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
+    <viewmodel:AreaViewModel x:Key="areaVM"/>
     <viewmodel:TourViewModel x:Key="tourVM"/>
     <viewmodel:Staff_sNumberTourViewModel x:Key="staffNumberVM"/>
     <viewmodel:StatisticSalesViewModel x:Key="statisticsVM"/>
-
 </ResourceDictionary>
