@@ -18,5 +18,8 @@ namespace Tour_management.Model
         public Nullable<int> MaNV { get; set; }
         public Nullable<int> MaDoan { get; set; }
         public string NhiemVu { get; set; }
+    
+        public virtual DoanDuLich DoanDuLich { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
     }
 }

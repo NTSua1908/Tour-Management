@@ -14,7 +14,16 @@ namespace Tour_management.Model
     
     public partial class LoaiUser
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public LoaiUser()
+        {
+            this.Users = new HashSet<User>();
+        }
+    
         public int MaLoaiUser { get; set; }
         public string TenLoai { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }

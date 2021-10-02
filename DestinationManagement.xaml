@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="DestinationManagement" Height="490" Width="780"
+        Title="Quản lý địa điểm" Height="490" Width="780"
+        
+        DataContext="{StaticResource destinationVM}"
     
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -64,20 +66,17 @@
                                     </Ellipse>
                                 </Border>
                         
-                                <materialDesign:Card Margin="3 40 3 0">
+                                <materialDesign:Card Margin="3 15 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Tên địa điểm"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding NameDes, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                                 </materialDesign:Card>
                                 <materialDesign:Card Margin="3 10 3 0">
                                     <ComboBox  materialDesign:HintAssist.Hint="Khu vực"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Area, UpdateSourceTrigger=PropertyChanged}">
-                                        <ComboBoxItem Content="Châu Á"/>
-                                        <ComboBoxItem Content="Châu Âu"/>
-                                        <ComboBoxItem Content="Châu Nam Cực"/>
-                                        <ComboBoxItem Content="Châu Mỹ"/>
+                                               DisplayMemberPath="TenKhuVuc" SelectedItem="{Binding SelectedArea, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          ItemsSource="{Binding lstArea, UpdateSourceTrigger=PropertyChanged}">
                                     </ComboBox>
                                 </materialDesign:Card>
                             </StackPanel>
@@ -124,7 +123,7 @@
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 0" Content="Tìm kiếm"
-                                        Command="{Binding FindingCommand}"
+                                        Command="{Binding SearchCommand}"
                                         CommandParameter="{Binding ElementName=Destination}"
                                     />
                             </Grid>
@@ -136,19 +135,33 @@
 
                 <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
-                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
-                                    <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
-                                    <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding TenKhuVuc}"></GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </ScrollViewer>
-                </materialDesign:Card>
+                <Grid Grid.Column="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <materialDesign:Card Grid.Row="0" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedDestination, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MaDD}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenDD}"></GridViewColumn>
+                                        <GridViewColumn Header="Khu vực" DisplayMemberBinding="{Binding KhuVuc.TenKhuVuc}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+                    
+                    <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=customer}"/>
+
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

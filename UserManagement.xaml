@@ -1,0 +1,227 @@
+﻿<Window x:Class="Tour_management.UserManagement"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tour_management"
+        mc:Ignorable="d"
+        Title="Quản lý người dùng" Height="630" Width="1100"
+        
+        DataContext="{StaticResource userVM}"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStyle="None"
+        Name="User"
+        WindowStartupLocation="CenterScreen"
+        xmlns:uc="clr-namespace:Tour_management.ControlUser"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=User}"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Column="0"  Stroke="#1148db" Fill="#1148db" />
+
+                <Grid Grid.Column="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:Card Grid.Row="0" Margin="5 5 5 5">
+
+
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0 0 5 0">
+
+                                <TextBlock Text="Người dùng" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                
+                                <Ellipse Height="76" Width="76" Margin="5 5 5 5">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="{Binding Avatar}"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <materialDesign:Card Margin="3 20 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Tên người dùng"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"/>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Tuổi"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Số điện thoại"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="CMND"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Margin="3 10 3 10">
+                                    <ComboBox ItemsSource="{Binding lstUserType}" DisplayMemberPath="TenLoai" SelectedItem="{Binding SelectedUserType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Margin="10 10 10 10" materialDesign:HintAssist.Hint="Loại người dùng" materialDesign:HintAssist.HintOpacity=".26" />
+                                </materialDesign:Card>
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+
+                    <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
+                                        Margin="5 5 5 0" Content="Thêm"
+                                        Command="{Binding AddCommand}"
+                                        CommandParameter="{Binding ElementName=User}"/>
+
+                                <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Sửa"
+                                        Margin="5 5 5 0" Content="Sửa"
+                                        Command="{Binding EditCommand}"
+                                        CommandParameter="{Binding ElementName=User}"/>
+
+                            </Grid>
+
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
+                                        Margin="5 5 5 0" Content="Xóa"
+                                         Command="{Binding DeleteCommand}"
+                                        CommandParameter="{Binding ElementName=User}"/>
+                                <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
+                                        Margin="5 5 5 0" Content="Tìm kiếm"
+                                        Command="{Binding SearchCommand}"
+                                        CommandParameter="{Binding ElementName=User}"
+                                    />
+                            </Grid>
+
+                        </Grid>
+                    </materialDesign:Card>
+
+                </Grid>
+
+                <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
+
+                <materialDesign:Card Grid.Column="3" VerticalAlignment="Stretch" Margin="5 5 5 5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+
+                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <ListView ItemsSource="{Binding lstUser}" SelectedItem="{Binding SelectedUser, Mode=OneWayToSource}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Mã người dùng" DisplayMemberBinding="{Binding ID}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên người dùng" DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
+                                        <GridViewColumn Header="Tuổi" DisplayMemberBinding="{Binding Tuoi}"></GridViewColumn>
+                                        <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                                        <GridViewColumn Header="CMND" DisplayMemberBinding="{Binding CMND}"></GridViewColumn>
+                                        <GridViewColumn Header="Loại người dùng" DisplayMemberBinding="{Binding LoaiUser.TenLoai}"></GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+
+                        <Button Grid.Row="1" Width="100" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tải lại"
+                                        Margin="5 5 20 5" Content="Tải lại" HorizontalAlignment="Right" 
+                                        Command="{Binding ReloadCommand}"
+                                        CommandParameter="{Binding ElementName=User}"/>
+
+                    </Grid>
+                    
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

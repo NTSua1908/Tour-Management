@@ -4,24 +4,41 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="838750e9ff1f4cbea3b21ab8120201b1" Name="Diagram1">
-        <EntityTypeShape EntityType="TourModel.DiaDiem" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.DoanDuLich" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.DSDiaDiem" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.DSKhachSan" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.DSNhanVien" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.DSPhuongTien" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.KhachDuLich" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.KhachHang" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.KhachSan" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.KhuVuc" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.LoaiKhach" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.LoaiTour" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.LoaiUser" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.NhanVien" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.PhuongTien" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.Tour" Width="1.5" PointX="8.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="TourModel.User" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="838750e9ff1f4cbea3b21ab8120201b1" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="TourModel.DiaDiem" Width="1.5" PointX="3.625" PointY="5.75" />
+        <EntityTypeShape EntityType="TourModel.DoanDuLich" Width="1.5" PointX="5.875" PointY="10.375" />
+        <EntityTypeShape EntityType="TourModel.DSDiaDiem" Width="1.5" PointX="5.875" PointY="6.75" />
+        <EntityTypeShape EntityType="TourModel.DSKhachSan" Width="1.5" PointX="8.125" PointY="11.375" />
+        <EntityTypeShape EntityType="TourModel.DSNhanVien" Width="1.5" PointX="8.125" PointY="14.375" />
+        <EntityTypeShape EntityType="TourModel.DSPhuongTien" Width="1.5" PointX="11.125" PointY="11.375" />
+        <EntityTypeShape EntityType="TourModel.KhachDuLich" Width="1.5" PointX="8.125" PointY="8.375" />
+        <EntityTypeShape EntityType="TourModel.KhachHang" Width="1.5" PointX="5.875" PointY="0.75" />
+        <EntityTypeShape EntityType="TourModel.KhachSan" Width="1.5" PointX="5.875" PointY="16.125" />
+        <EntityTypeShape EntityType="TourModel.KhuVuc" Width="1.5" PointX="1.375" PointY="5.75" />
+        <EntityTypeShape EntityType="TourModel.LoaiKhach" Width="1.5" PointX="3.625" PointY="2.75" />
+        <EntityTypeShape EntityType="TourModel.LoaiTour" Width="1.5" PointX="1.375" PointY="8.75" />
+        <EntityTypeShape EntityType="TourModel.LoaiUser" Width="1.5" PointX="11.375" PointY="3.25" />
+        <EntityTypeShape EntityType="TourModel.NhanVien" Width="1.5" PointX="5.875" PointY="20.375" />
+        <EntityTypeShape EntityType="TourModel.PhuongTien" Width="1.5" PointX="8.875" PointY="5.5" />
+        <EntityTypeShape EntityType="TourModel.sysdiagram" Width="1.5" PointX="8.375" PointY="2.375" />
+        <EntityTypeShape EntityType="TourModel.Tour" Width="1.5" PointX="3.625" PointY="8.5" />
+        <EntityTypeShape EntityType="TourModel.User" Width="1.5" PointX="13.625" PointY="2.625" />
+        <AssociationConnector Association="TourModel.fk_DD_KhuVuc" />
+        <AssociationConnector Association="TourModel.fk_DSDD_DD" />
+        <AssociationConnector Association="TourModel.fk_DDL_Tour" />
+        <AssociationConnector Association="TourModel.fk_DSKS_DDL" />
+        <AssociationConnector Association="TourModel.fk_DSNV_DDL" />
+        <AssociationConnector Association="TourModel.fk_DSPT_DDL" />
+        <AssociationConnector Association="TourModel.fk_KDL_DDL" />
+        <AssociationConnector Association="TourModel.fk_DSDD_Tour" />
+        <AssociationConnector Association="TourModel.fk_DSKS_KS" />
+        <AssociationConnector Association="TourModel.fk_DSNV_NV" />
+        <AssociationConnector Association="TourModel.fk_DSPT_PT" />
+        <AssociationConnector Association="TourModel.fk_KDL_KH" />
+        <AssociationConnector Association="TourModel.fk_KH_LoaiKH" />
+        <AssociationConnector Association="TourModel.fk_KS_KhuVuc" />
+        <AssociationConnector Association="TourModel.fk_Tour_LoaiTour" />
+        <AssociationConnector Association="TourModel.fk_Users_LoaiUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

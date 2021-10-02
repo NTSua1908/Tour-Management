@@ -22,7 +22,7 @@ create table Tour(
 	MaTour int IDENTITY(1,1) primary key,
 	TenTour nvarchar(20),
 	MaLoaiTour int,
-	GiaTour float,
+	GiaTour money,
 )
 
 create table LoaiTour(
@@ -52,7 +52,7 @@ create table NhanVien(
 	MaNV int IDENTITY(1,1) primary key,
 	TenNV nvarchar(50),
 	GioiTinh nvarchar(10),
-	SDT int,
+	SDT varchar(50),
 	CMND nvarchar(20),
 )
 
@@ -70,11 +70,11 @@ create table DoanDuLich(
 	NgayKhoiHanh datetime,
 	NgayKetThuc datetime,
 	SoLuong int,
-	ChiTiet nvarchar(100),
-	TongGiaPT int,
-	TongGiaKS int,
-	TongGiaAU int,
-	ChiPhiKhac int,
+	ChiTiet nvarchar(max),
+	TongGiaPT money,
+	TongGiaKS money,
+	TongGiaAU money,
+	ChiPhiKhac money,
 )
 
 create table KhachDuLich(
@@ -88,9 +88,9 @@ create table KhachHang(
 	Hoten nvarchar(50),
 	GioiTinh nvarchar(10),
 	Tuoi int,
-	CMND_Passport int,
+	CMND_Passport varchar(50),
 	DiaChi nvarchar(50),
-	SDT int,
+	SDT nvarchar(50),
 	MaLoaiKhach int,
 	HanVisa datetime,
 	HanPassort datetime,
@@ -104,7 +104,7 @@ create table LoaiKhach(
 create table PhuongTien(
 	MaPT int IDENTITY(1,1) primary key,
 	TenPT nvarchar(50),
-	ChiPhi int,
+	ChiPhi money,
 )
 
 create table DSPhuongTien(
@@ -117,8 +117,8 @@ create table KhachSan(
 	MaKS int IDENTITY(1,1) primary key,
 	TenKS nvarchar(50),
 	DiaChi nvarchar(50),
-	SDT int,
-	ChiPhi int,
+	SDT varchar(50),
+	ChiPhi money,
 	MaKhuVuc int,
 )
 
@@ -134,7 +134,10 @@ alter table DSDiaDiem add constraint fk_DSDD_Tour foreign key (MaTour) reference
 alter table DSDiaDiem add constraint fk_DSDD_DD foreign key (MaDD) references DiaDiem (MaDD);
 alter table DiaDiem add constraint fk_DD_KhuVuc foreign key (MaKhuVuc) references KhuVuc (MaKhuVuc);
 alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+<<<<<<< HEAD
 alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+=======
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
 alter table DSNhanVien add constraint fk_DSNV_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
 alter table DSNhanVien add constraint fk_DSNV_NV foreign key (MaNV) references NhanVien(MaNV);
 alter table KhachDuLich add constraint fk_KDL_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
@@ -170,12 +173,14 @@ Insert into LoaiUser values('staff');
 Insert into LoaiUser values('admin');
 
 --password = admin (to base64 to md5)
-Insert into Users values(2, N'Nguyễn Thiện Sua',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2); 
-Insert into Users values(1, N'Mai Long Thành',20, 123456789, 0369941633, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',1);
-Insert into Users values(3, N'admin',20, 123456789, 0123456789, 'db69fc039dcbd2962cb4d28f5891aae1','123456789',2);
+Insert into Users values(2, N'Nguyễn Thiện Sua', 20, 123456789, 0123456789, 'ntsua','db69fc039dcbd2962cb4d28f5891aae1',2); 
+Insert into Users values(1, N'Mai Long Thành', 20, 123456789, 0369941633, 'longthanh','db69fc039dcbd2962cb4d28f5891aae1',1);
+Insert into Users values(1, N'Võ Thành Phát', 20, 123456789, 0369941633, 'thanhphat','db69fc039dcbd2962cb4d28f5891aae1',1);
+Insert into Users values(3, N'BOSS', 20, 123456789, 0123456789, 'admin','db69fc039dcbd2962cb4d28f5891aae1',2);
 
 Insert into NhanVien values(N'Nguyễn Hiếu Thành','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Nguyễn Hiếu Vũ','Nam', 0367941633, 123578910);
+Insert into NhanVien values(N'Mai Long Vũ','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Nghĩa','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thanh Sua','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thiện Nghĩa','Nam', 0367941633, 123578910);
@@ -209,6 +214,10 @@ insert into DSKhachSan values(2,1);
 insert into DSNhanVien values(1,1,N'Hướng dẫn viên');
 insert into DSNhanVien values(1,2,N'Tài xế');
 insert into DSNhanVien values(2,1,N'Phục vụ');
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
 
 
 
@@ -220,4 +229,6 @@ insert into DSNhanVien values(2,1,N'Phục vụ');
 
 
 
-
+=======
+>>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9

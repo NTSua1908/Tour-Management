@@ -14,10 +14,19 @@ namespace Tour_management.Model
     
     public partial class NhanVien
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NhanVien()
+        {
+            this.DSNhanViens = new HashSet<DSNhanVien>();
+        }
+    
         public int MaNV { get; set; }
         public string TenNV { get; set; }
         public string GioiTinh { get; set; }
-        public Nullable<int> SDT { get; set; }
+        public string SDT { get; set; }
         public string CMND { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DSNhanVien> DSNhanViens { get; set; }
     }
 }

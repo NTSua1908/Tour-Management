@@ -1,7 +1,22 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Tour_management.ResourceXAML"
                     xmlns:viewmodel="clr-namespace:Tour_management.ViewModel">
-    
-    
+
+    <viewmodel:LoginViewModel x:Key="loginVM"/>
+    <viewmodel:MainViewModel x:Key="mainVM"/>
+    <viewmodel:CustomerViewModel x:Key="customerVM"/>
+    <viewmodel:PersonalInformationViewModel x:Key="informationVM"/>
+    <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
+    <viewmodel:UserManagementViewModel x:Key="userVM"/>
+    <viewmodel:TouristViewModel x:Key="touristVM"/>
+    <viewmodel:TouristManagementViewModel x:Key="touristGroupVM"/>
+    <viewmodel:HotelViewModel x:Key="hotelVM"/>
+    <viewmodel:DestinationViewModel x:Key="destinationVM"/>
+    <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
+    <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
+    <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
+    <viewmodel:AreaViewModel x:Key="areaVM"/>
+    <viewmodel:TourViewModel x:Key="tourVM"/>
+    <viewmodel:Staff_sNumberTourViewModel x:Key="staffNumberVM"/>
+    <viewmodel:StatisticSalesViewModel x:Key="statisticsVM"/>
 </ResourceDictionary>
