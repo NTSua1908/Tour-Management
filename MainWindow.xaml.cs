@@ -25,10 +25,12 @@ namespace Tour_management
             InitializeComponent();
 
             //Test man hinh
-            CustomerManagement customer = new CustomerManagement();
-            customer.ShowDialog();
+            //CustomerManagement customer = new CustomerManagement();
+            //customer.ShowDialog();
             //DestinationManagement destination = new DestinationManagement();
             //destination.ShowDialog();
+            TouristGroup t = new TouristGroup();
+            t.ShowDialog();
         }
     }
 }
