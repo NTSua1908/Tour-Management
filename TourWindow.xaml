@@ -181,7 +181,7 @@
                                          Command="{Binding DeleteCommand}"
                                         CommandParameter="{Binding ElementName=tour}"/>
                                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
-                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Xóa"
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Tìm kiếm"
                                         Margin="5 5 5 5" Content="Tìm kiếm"
                                          Command="{Binding SearchCommand}"
                                         CommandParameter="{Binding ElementName=tour}"/>

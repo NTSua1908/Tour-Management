@@ -22,6 +22,7 @@ namespace Tour_management
         public TouristGroup()
         {
             InitializeComponent();
+            
         }
     }
 }
