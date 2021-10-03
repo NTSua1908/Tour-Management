@@ -112,6 +112,7 @@ namespace Tour_management.ViewModel
                     MaDoan = SelectedTouristGr.MaDoan,                   
                 };
 
+<<<<<<< HEAD
                 foreach (KhachDuLich item in lstTourist)
                 {
                     if (item.MaKH == Customer.MaKH)
@@ -120,6 +121,11 @@ namespace Tour_management.ViewModel
                         return;
                     }
                 }
+=======
+            lstCustomer = new ObservableCollection<KhachHang>(DataProvider.Ins.Entities.KhachHangs);
+
+            //MessageBox.Show(lstTouristGr.Count.ToString(), "thong bao", MessageBoxButton.OK);
+>>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
 
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();

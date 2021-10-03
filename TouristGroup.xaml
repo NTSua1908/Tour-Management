@@ -2,6 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+<<<<<<< HEAD
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tour_management"
+        mc:Ignorable="d"
+        Title="Tạo đoàn du lịch" Height="450" Width="700"
+=======
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:Tour_management"
@@ -10,6 +16,7 @@
         
         DataContext="{StaticResource touristVM}"
         
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -19,7 +26,11 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         WindowStyle="None"
+<<<<<<< HEAD
+        Name="Tourist"
+=======
         Name="TouristGr"
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         WindowStartupLocation="CenterScreen"
         xmlns:uc="clr-namespace:Tour_management.ControlUser">
@@ -31,11 +42,23 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
+<<<<<<< HEAD
+                <uc:ControlBarUC Tag="{Binding Title, ElementName=Tourist}"/>
+=======
                 <uc:ControlBarUC Tag="{Binding Title, ElementName=TouristGroup}" Margin="2,0,-2.4,0"/>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
             </Grid>
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+<<<<<<< HEAD
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="290"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+=======
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -48,11 +71,41 @@
                 <Rectangle Grid.Column="0"  Stroke="#1148db" Fill="#1148db" />
 
                 <Grid Grid.Column="1">
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                     <materialDesign:Card Margin="5 5 5 5">
                         <StackPanel Margin="0 0 5 0">
 
                             <TextBlock Text="Thông tin cơ bản" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
 
+<<<<<<< HEAD
+                            <materialDesign:Card Margin="8 20 3 0">
+                                <TextBox  materialDesign:HintAssist.Hint="Tên đoàn du lịch"  
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                            </materialDesign:Card>
+
+                            <materialDesign:Card Margin="8 10 3 0">
+                                <ComboBox  materialDesign:HintAssist.Hint="Chọn Tour"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"                                         
+                                          Text="{Binding Tour, UpdateSourceTrigger=PropertyChanged}">
+                                </ComboBox>
+                               
+                            </materialDesign:Card>
+
+                            <materialDesign:Card Margin="8 10 3 0">
+                                <DatePicker Margin="10 10 10 10" SelectedDate="{Binding DateStart}" 
+                                                materialDesign:HintAssist.Hint="Ngày khởi hành" 
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            </materialDesign:Card>
+
+                            <materialDesign:Card Margin="8 10 3 0">
+                                <DatePicker Margin="10 10 10 10" SelectedDate="{Binding DateEnd}" 
+                                                materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                            </materialDesign:Card>
+=======
                             <materialDesign:Card Margin="8 20 3 0" >
                                     <TextBox materialDesign:HintAssist.Hint="Tên đoàn du lịch"  
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -81,12 +134,15 @@
                                                 materialDesign:HintAssist.Hint="Ngày kết thúc" 
                                                 Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
                                 </materialDesign:Card>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
 
                             <materialDesign:Card Margin="8 10 3 0">
                                 <TextBox  materialDesign:HintAssist.Hint="Số lượng"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
                                           Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
+<<<<<<< HEAD
+=======
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput">
@@ -97,19 +153,51 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
 
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                             </materialDesign:Card>
                         </StackPanel>
                     </materialDesign:Card>
                 </Grid>
 
+<<<<<<< HEAD
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="150"/>
+                        <RowDefinition/>
+=======
                 <Grid Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
                         <materialDesign:Card Margin="5 5 5 5">
+<<<<<<< HEAD
+
+                            <StackPanel Margin="0 0 5 0">
+
+                                <TextBlock Text="Phương tiện" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+
+                                <materialDesign:Card Height="80" Margin="8 10 3 0">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                        <ListBox Width="157"
+                                         Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
+                                                 SelectedItem="{Binding Vehicle}"
+                                                 Padding="3">
+                                            <ListBoxItem Content="Mercury" />
+                                            <ListBoxItem IsSelected="True" Content="Venus" />
+                                            <ListBoxItem Content="Earth" />
+                                            <ListBoxItem IsEnabled="False" Content="Pluto" />
+                                            <ListBoxItem Content="Eart" />
+                                            <ListBoxItem Content="Ea" />
+                                        </ListBox>
+                                    </ScrollViewer>
+                                </materialDesign:Card>
+
+                            </StackPanel>
+=======
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
@@ -150,11 +238,31 @@
 
                                 </Grid>
                             </Grid>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                         </materialDesign:Card>
                     </Grid>
 
                     <Grid Grid.Row="1">
                         <materialDesign:Card Margin="5 5 5 5">
+<<<<<<< HEAD
+                            <StackPanel Margin="0 0 5 0">
+
+                                <TextBlock Text="Khách sạn" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+
+                                <materialDesign:Card Height="177" Margin="8 10 3 0">
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                        <ListBox Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}" Width="157"
+                                                 SelectedItem="{Binding Hotel}"
+                                                 Padding="3">
+                                            <ListBoxItem Content="Mercury" />
+                                            <ListBoxItem IsSelected="True" Content="Venus" />
+                                            <ListBoxItem Content="Earth" />
+                                            <ListBoxItem IsEnabled="False" Content="Pluto" />
+                                        </ListBox>
+                                    </ScrollViewer>
+                                </materialDesign:Card>
+                            </StackPanel>
+=======
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
@@ -186,18 +294,69 @@
 
                                 </Grid>
                             </Grid>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                         </materialDesign:Card>
                     </Grid>
                 </Grid>
 
+<<<<<<< HEAD
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="320"/>
+                        <RowDefinition/>
+=======
                 <Grid Grid.Column="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0">
                         <materialDesign:Card Margin="5 5 5 5">
+<<<<<<< HEAD
+                            <StackPanel>
+                                <TextBlock Text="Chi tiết" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+
+                                <materialDesign:Card Margin="0 10 3 0"
+                                    Background="#33CCFF"
+                                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                                    Width="250" Height="245"
+                                    Padding="10">
+                                    <TextBox TextWrapping="Wrap" VerticalAlignment="Stretch"
+                                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                             MinWidth="230" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
+                                             materialDesign:HintAssist.Hint="Chi tiết"
+                                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                             Height="210" />
+                                </materialDesign:Card>
+
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </Grid>
+
+                    <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Thêm"
+                                        Margin="5 5 5 0" Content="Thêm"
+                                        Command="{Binding AddCommand}"
+                                        CommandParameter="{Binding ElementName=Tourist}"/>
+                            <Button Grid.Column="1" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="15" ToolTip="Quản lí"
+                                        Margin="5 5 5 0" Content="Quản lí"
+                                        Command="{Binding ManageCommand}"
+                                        CommandParameter="{Binding ElementName=Tourist}"/>
+                        </Grid>
+                    </materialDesign:Card>
+
+                </Grid>
+=======
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
@@ -390,7 +549,12 @@
                         </Grid>
                     </materialDesign:Card>
                 </Grid>
+<<<<<<< HEAD
                 <Rectangle Grid.Column="6"  Stroke="#1148db" Fill="#1148db" />
+=======
+                <Rectangle Grid.Column="5"  Stroke="#1148db" Fill="#1148db" />
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
+>>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
             </Grid>
         </Grid>
     </Grid>

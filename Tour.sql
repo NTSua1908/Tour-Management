@@ -134,6 +134,10 @@ alter table DSDiaDiem add constraint fk_DSDD_Tour foreign key (MaTour) reference
 alter table DSDiaDiem add constraint fk_DSDD_DD foreign key (MaDD) references DiaDiem (MaDD);
 alter table DiaDiem add constraint fk_DD_KhuVuc foreign key (MaKhuVuc) references KhuVuc (MaKhuVuc);
 alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+<<<<<<< HEAD
+alter table DoanDuLich add constraint fk_DDL_Tour foreign key (MaTour) references Tour (MaTour);
+=======
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9
 alter table DSNhanVien add constraint fk_DSNV_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
 alter table DSNhanVien add constraint fk_DSNV_NV foreign key (MaNV) references NhanVien(MaNV);
 alter table KhachDuLich add constraint fk_KDL_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
@@ -213,4 +217,18 @@ insert into DSNhanVien values(2,1,N'Phục vụ');
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
+
+
+
+
+
+
+
+
+
+
+
+=======
 >>>>>>> ecf517dc9b54bc60e9f249b22dd0d8994a8a3051
+>>>>>>> 60f7092003fc03fade764790742ca07815c114c9

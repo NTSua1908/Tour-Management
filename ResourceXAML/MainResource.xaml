@@ -9,13 +9,22 @@
     <viewmodel:RegisterAccountViewModel x:Key="registerVM"/>
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:TouristViewModel x:Key="touristVM"/>
+<<<<<<< HEAD
     <viewmodel:TouristManagementViewModel x:Key="touristGrVM"/>
+=======
+    <viewmodel:TouristManagementViewModel x:Key="touristGroupVM"/>
+>>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
     <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
     <viewmodel:StaffManagementViewModel x:Key="staffVM"/>
     <viewmodel:TourTypeViewModel x:Key="tourTypeVM"/>
+    <viewmodel:AreaViewModel x:Key="areaVM"/>
     <viewmodel:TourViewModel x:Key="tourVM"/>
     <viewmodel:Staff_sNumberTourViewModel x:Key="staffNumberVM"/>
+<<<<<<< HEAD
 
+=======
+    <viewmodel:StatisticSalesViewModel x:Key="statisticsVM"/>
+>>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
 </ResourceDictionary>
