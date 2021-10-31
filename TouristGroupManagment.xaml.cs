@@ -23,6 +23,6 @@ namespace Tour_management
         {
             InitializeComponent();
         }
-
     }
+
 }
