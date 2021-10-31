@@ -5,14 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-<<<<<<< HEAD
-        Title="TouristGroupManagment" Height="450" Width="800">
-    <Grid>
-        
-=======
         Title="Quản lý đoàn du lịch" 
         
-        DataContext="{StaticResource touristGroupVM}"
+        DataContext="{StaticResource touristGrVM}"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -74,25 +69,29 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                    <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                            Command="{Binding SearchCommand}">
                                         <materialDesign:PackIcon Kind="Search" Opacity=".56" />
                                     </Button>
                                     <TextBox Grid.Column="1" Margin="8 0 0 0"
-                                     materialDesign:HintAssist.Hint="Tìm kiếm"                                  
-                                     BorderThickness="0"         
-                                     VerticalAlignment="Center" />
+                                             materialDesign:HintAssist.Hint="Tìm kiếm"
+                                             BorderThickness="0"         
+                                             VerticalAlignment="Center" 
+                                             Text="{Binding Name}"/>
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
                         <Grid Grid.Row="2" Margin="0 5 0 0">
                             <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 0 5 0">
-                                <DatePicker materialDesign:HintAssist.Hint="Ngày khởi hành" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                                <DatePicker materialDesign:HintAssist.Hint="Ngày khởi hành" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
+                                            SelectedDate="{Binding Start}"/>
                             </materialDesign:Card>
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="0 5 0 0">
                             <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 0 5 0">
-                                <DatePicker materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                                <DatePicker materialDesign:HintAssist.Hint="Ngày kết thúc" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                            SelectedDate="{Binding End}"/>
                             </materialDesign:Card>
                         </Grid>
 
@@ -137,11 +136,11 @@
                 </materialDesign:Card>
             </Grid>
 
-                <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
+            <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
 
-                </materialDesign:Card>
+            </materialDesign:Card>
 
-                <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
+            <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
             <Grid Grid.Column="3">
                 <Grid.RowDefinitions>
@@ -163,10 +162,10 @@
 
                             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Margin="5 15 5 5">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ListView ItemsSource="{Binding lstVehicle}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView ItemsSource="{Binding lstVehicle}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Tên phương tiện" DisplayMemberBinding="{Binding TenPT}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên phương tiện" DisplayMemberBinding="{Binding PhuongTien.TenPT}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -190,7 +189,7 @@
 
                             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Margin="5 15 5 5">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ListView ItemsSource="{Binding lstHotel}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView ItemsSource="{Binding lstHotel}">
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn Header="Tên khách sạn" DisplayMemberBinding="{Binding KhachSan.TenKS}"></GridViewColumn>
@@ -224,10 +223,10 @@
 
                             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Margin="5 15 5 5">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ListView ItemsSource="{Binding lstStaff}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView ItemsSource="{Binding lstStaff}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NhanVien.TenNV}"></GridViewColumn>
                                                 <GridViewColumn Header="Nhiệm vụ" DisplayMemberBinding="{Binding NhiemVu}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -252,10 +251,10 @@
 
                             <materialDesign:Card Grid.Row="1" VerticalAlignment="Stretch" Margin="5 15 5 5">
                                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                    <ListView ItemsSource="{Binding lstDestination}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                    <ListView ItemsSource="{Binding lstDestination}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding TenKS}"></GridViewColumn>
+                                                <GridViewColumn Header="Tên địa điểm" DisplayMemberBinding="{Binding DiaDiem.TenDD}"></GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -288,8 +287,11 @@
                                         <ColumnDefinition Width="0.5*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0" Margin="5 5 0 0" >
-                                        <ComboBox materialDesign:HintAssist.Hint="Khách hàng" materialDesign:HintAssist.HintOpacity=".26"  
-                                                  BorderThickness="0" ItemsSource="{Binding lstCustomer}">
+                                        <ComboBox materialDesign:HintAssist.Hint="Khách hàng" 
+                                                  materialDesign:HintAssist.HintOpacity=".26"  
+                                                  BorderThickness="0" 
+                                                  ItemsSource="{Binding lstCustomer}"
+                                                  SelectedItem="{Binding Customer}">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>
@@ -297,48 +299,22 @@
                                                             <ColumnDefinition/>
                                                             <ColumnDefinition/>
                                                         </Grid.ColumnDefinitions>
-                                                        <TextBlock Grid.Column="0" Margin="5" Text="{Binding Hoten}"/>
-                                                        <TextBlock Grid.Column="1"  Margin="5 5 5 5" Text="{Binding CMND_Passport}"/>
+                                                        <TextBlock Margin="5 5 5 5" Grid.Column="0" Text="{Binding Hoten}"/>
+                                                        <TextBlock Margin="5 5 5 5" Grid.Column="1" Text="{Binding CMND_Passport}"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
-                                            <!--<ComboBox.ItemContainerStyle>
-                                                <Style TargetType="{x:Type ComboBoxItem}">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <Grid x:Name="gd" TextElement.Foreground="Black" Margin="10 5 17 5">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition/>
-                                                                        <ColumnDefinition/>
-                                                                    </Grid.ColumnDefinitions>
-                                                                    <TextBlock Margin="5 5 5 5" Grid.Column="0" Text="{Binding HoTen}"/>
-                                                                    <TextBlock Margin="5 5 5 5" Grid.Column="1" Text="{Binding CMND}"/>
-                                                                </Grid>
-                                                                <ControlTemplate.Triggers>
-                                                                    <Trigger Property="ComboBoxItem.IsSelected" Value="True">
-                                                                        <Setter TargetName="gd"  Property="Background" Value="Gray"></Setter>
-                                                                        <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
-                                                                    </Trigger>
-                                                                    <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
-                                                                        <Setter TargetName="gd"  Property="Background" Value="Blue"></Setter>
-                                                                        <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </ComboBox.ItemContainerStyle>-->
                                         </ComboBox>
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="5 5 0 0">
-                                        <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                                Command="{Binding AddCusCommand}">
                                             <materialDesign:PackIcon Kind="AccountPlus"/>
                                         </Button>
                                     </Grid>
                                     <Grid Grid.Column="2" Margin="0 5 0 0">
-                                        <Button Style="{DynamicResource MaterialDesignToolButton}">
+                                        <Button Style="{DynamicResource MaterialDesignToolButton}"
+                                                Command="{Binding DeleteCusCommand}">
                                             <materialDesign:PackIcon Kind="AccountRemove" />
                                         </Button>
                                     </Grid>
@@ -347,12 +323,12 @@
                         </Grid>
                         <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 15 5 5">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <ListView ItemsSource="{Binding lstCustomer}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                <ListView ItemsSource="{Binding lstTourist}" SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource}">
                                     <ListView.View>
                                         <GridView>
-                                            <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding TenDoan}"></GridViewColumn>
-                                            <GridViewColumn Header="giới tính" DisplayMemberBinding="{Binding NgayKhoiHanh}"></GridViewColumn>
-                                            <GridViewColumn Header="Loại khách" DisplayMemberBinding="{Binding NgayKetThuc}"></GridViewColumn>
+                                            <GridViewColumn Header="Tên khách hàng" DisplayMemberBinding="{Binding KhachHang.Hoten}"></GridViewColumn>
+                                            <GridViewColumn Header="giới tính" DisplayMemberBinding="{Binding KhachHang.GioiTinh}"></GridViewColumn>
+                                            <GridViewColumn Header="Loại khách" DisplayMemberBinding="{Binding KhachHang.LoaiKhach.TenLoaiKhach}"></GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>
@@ -364,6 +340,5 @@
 
             <Rectangle Grid.Column="6"  Stroke="#1148db" Fill="#1148db" />
         </Grid>
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
     </Grid>
 </Window>
