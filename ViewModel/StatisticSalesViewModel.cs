@@ -103,6 +103,8 @@ namespace Tour_management.ViewModel
                 {
                     if (doan.NgayKetThuc.Value >= FromDay && doan.NgayKetThuc.Value <= ToDay)
                     {
+                        if (doan.TongGiaAU == null || doan.TongGiaKS == null || doan.TongGiaPT == null || doan.ChiPhiKhac == null)
+                            continue;
                         decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo; //Tien thu
                         decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac; //Tien chi
                         decimal revenue = valueIn - valueOut; //Doanh thu
