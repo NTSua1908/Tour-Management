@@ -24,7 +24,7 @@ namespace Tour_management.Model
 
         public TourEntities Entities { get; set; }
 
-        public DataProvider()
+        private DataProvider()
         {
             Entities = new TourEntities();
         }

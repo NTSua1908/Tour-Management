@@ -130,10 +130,7 @@ namespace Tour_management.ViewModel
                 if (Result == MessageBoxResult.No)
                     return;
 
-                DataProvider.Ins.Entities.Users.Remove(SelectedUser);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstUser.Remove(SelectedUser);
+                deleteUser();
                 //SelectedUser = null;
             });
 
@@ -152,6 +149,22 @@ namespace Tour_management.ViewModel
             {
                 lstUser = new ObservableCollection<User>(DataProvider.Ins.Entities.Users);
             });
+        }
+
+        public bool deleteUser()
+        {
+            try
+            {
+                DataProvider.Ins.Entities.Users.Remove(SelectedUser);
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstUser.Remove(SelectedUser);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private bool UserFilter(object item)

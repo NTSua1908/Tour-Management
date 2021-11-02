@@ -117,23 +117,7 @@ namespace Tour_management.ViewModel
                 return isCommandEnable(); //Điều kiện để button enable (return true => button enable và ngược lại)
             }, (p) => //Đây là đoạn xử lý khi button được nhấn Các command sau tương tự
             {
-                KhachHang kh = new KhachHang()
-                {
-                    Hoten = Name,
-                    DiaChi = Address,
-                    GioiTinh = SelectedGender,
-                    LoaiKhach = SelectedCustomerType,
-                    CMND_Passport = CMND,
-                    Tuoi = Convert.ToInt32(Age),
-                    SDT = Phone,
-                    HanPassort = Passport,
-                    HanVisa = Visa
-                };
-
-                DataProvider.Ins.Entities.KhachHangs.Add(kh);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstCustomer.Add(kh);
+                addCustomer();
             });
 
             EditCommand = new RelayCommand<Window>((p) =>
@@ -195,21 +179,7 @@ namespace Tour_management.ViewModel
                 if (Result == MessageBoxResult.No)
                     return;
 
-                //Tìm tất cả các bảng có liên quan đến khách hàng và xóa nó trước khi xóa khách hàng đó (cẩn thận!!!)
-
-                //Bảng khách du lịch là bảng có liên quan!!!
-                List<KhachDuLich> lstKhach = new List<KhachDuLich>(DataProvider.Ins.Entities
-                    .KhachDuLiches.Where(x => x.MaKH == SelectedItem.MaKH).ToList());
-
-                foreach (KhachDuLich item in lstKhach)
-                {
-                    DataProvider.Ins.Entities.KhachDuLiches.Remove(item);
-                }
-
-                DataProvider.Ins.Entities.KhachHangs.Remove(SelectedItem);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstCustomer.Remove(SelectedItem); 
+                deleteCustomer();
 
             });
         }
@@ -228,6 +198,62 @@ namespace Tour_management.ViewModel
                     return true;
 
             return false;
+        }
+
+        public bool addCustomer()
+        {
+            try
+            {
+                KhachHang kh = new KhachHang()
+                {
+                    Hoten = Name,
+                    DiaChi = Address,
+                    GioiTinh = SelectedGender,
+                    LoaiKhach = SelectedCustomerType,
+                    CMND_Passport = CMND,
+                    Tuoi = Convert.ToInt32(Age),
+                    SDT = Phone,
+                    HanPassort = Passport,
+                    HanVisa = Visa
+                };
+
+                DataProvider.Ins.Entities.KhachHangs.Add(kh);
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstCustomer.Add(kh);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool deleteCustomer()
+        {
+            try
+            {
+                //Tìm tất cả các bảng có liên quan đến khách hàng và xóa nó trước khi xóa khách hàng đó (cẩn thận!!!)
+
+                //Bảng khách du lịch là bảng có liên quan!!!
+                List<KhachDuLich> lstKhach = new List<KhachDuLich>(DataProvider.Ins.Entities
+                    .KhachDuLiches.Where(x => x.MaKH == SelectedItem.MaKH).ToList());
+
+                foreach (KhachDuLich item in lstKhach)
+                {
+                    DataProvider.Ins.Entities.KhachDuLiches.Remove(item);
+                }
+
+                DataProvider.Ins.Entities.KhachHangs.Remove(SelectedItem);
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstCustomer.Remove(SelectedItem);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #region Filter

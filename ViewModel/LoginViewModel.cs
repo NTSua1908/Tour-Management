@@ -46,20 +46,22 @@ namespace Tour_management.ViewModel
                 return false; 
             }, (p) => {
 
-                string password = MD5Hash(Base64Encode(Password));
-                user = DataProvider.Ins.Entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).FirstOrDefault();
+                isLogin = Login();
 
-                if (user != null)
-                {
-                    isLogin = true;
+                if (isLogin)
                     p.Close();
-                }
-                else
-                {
-                    isLogin = false;
-                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                else MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             });
+        }
+
+        public bool Login()
+        {
+            string password = MD5Hash(Base64Encode(Password));
+            user = DataProvider.Ins.Entities.Users.Where(w => w.Taikhoan == UserName && w.Password == password).FirstOrDefault();
+
+            if (user != null)
+                return true;
+            else return false;
         }
 
         public static string Base64Encode(string plainText)
