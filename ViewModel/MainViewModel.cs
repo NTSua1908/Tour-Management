@@ -56,7 +56,7 @@ namespace Tour_management.ViewModel
             AddReport();
             
             //Goi ham nay de thuc hien dang nhap
-            //LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
+            LoadedCommand = new RelayCommand<Window>((p) => { return true; },  (p) => { Login(p); } );
 
             LogoutCommand = new RelayCommand<Window>((p) =>
             {
@@ -93,8 +93,6 @@ namespace Tour_management.ViewModel
 
             InformationCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 PersonalInformation information = new PersonalInformation();
-                //information.Initialized += Information_Initialized;
-
                 PersonalInformationViewModel viewModel = information.DataContext as PersonalInformationViewModel;
                 viewModel.setUser(user);
 
@@ -118,32 +116,38 @@ namespace Tour_management.ViewModel
                 customer.ShowDialog();
             });
 
-            ManageStaffCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            ReportCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                StatisticSales statistic = new StatisticSales();
+                statistic.ShowDialog();
+            });
+
+
+            ManageStaffCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 StaffManagement staff = new StaffManagement();
                 staff.ShowDialog();
             });
 
-            ManageUserCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            ManageUserCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 UserManagement user = new UserManagement();
                 user.ShowDialog();
             });
             
-            TourTypeCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            TourTypeCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 TourType type = new TourType();
                 type.ShowDialog();
             });
             
-            AddUserCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            AddUserCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 RegisterAccount register = new RegisterAccount();
                 register.ShowDialog();
             });
 
-            AddGroupCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            AddGroupCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 TouristGroup group = new TouristGroup();
                 group.ShowDialog();
             });
 
-            StaffAnalysisCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+            StaffAnalysisCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
                 Staff_sNumberTour numberTour = new Staff_sNumberTour();
                 numberTour.ShowDialog();
             });
@@ -175,13 +179,23 @@ namespace Tour_management.ViewModel
                 {
                     if (doan.NgayKetThuc.Value.Year == DateTime.Now.Year && doan.NgayKetThuc.Value.Month <= DateTime.Now.Month)
                     {
+<<<<<<< HEAD
                         //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+=======
+                        if (doan.TongGiaAU == null || doan.TongGiaKS == null || doan.TongGiaPT == null || doan.ChiPhiKhac == null)
+                            continue;
+                        decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+>>>>>>> 34e07eb9b684ab3f8080653a826e5580ce373f0d
                         //decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
                         //decimal revenue = valueIn - valueOut;
 
                         ////MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
 
+<<<<<<< HEAD
                         //DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+=======
+                       // DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+>>>>>>> 34e07eb9b684ab3f8080653a826e5580ce373f0d
                     }
                 }
 
@@ -225,6 +239,15 @@ namespace Tour_management.ViewModel
                 DisplayName = user.HoTen;
             }
             else w.Close();
+        }
+
+        private bool isAdmin()
+        {
+            if (user != null && user.LoaiUser.TenLoai == "admin")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

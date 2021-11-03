@@ -10,6 +10,10 @@
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:TouristViewModel x:Key="touristVM"/>
     <viewmodel:TouristManagementViewModel x:Key="touristGrVM"/>
+<<<<<<< HEAD
+=======
+    <viewmodel:TouristManagementViewModel x:Key="touristGroupVM"/>
+>>>>>>> 34e07eb9b684ab3f8080653a826e5580ce373f0d
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
     <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
@@ -18,4 +22,8 @@
     <viewmodel:AreaViewModel x:Key="areaVM"/>
     <viewmodel:TourViewModel x:Key="tourVM"/>
     <viewmodel:Staff_sNumberTourViewModel x:Key="staffNumberVM"/>
+<<<<<<< HEAD
+=======
+    <viewmodel:StatisticSalesViewModel x:Key="statisticsVM"/>
+>>>>>>> 34e07eb9b684ab3f8080653a826e5580ce373f0d
 </ResourceDictionary>

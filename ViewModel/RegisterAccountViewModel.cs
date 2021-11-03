@@ -137,10 +137,28 @@ namespace Tour_management.ViewModel
                 return true;
             }, (p) =>
             {
+                if  (addUser())
+                    MessageBox.Show("Đăng kí thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                else MessageBox.Show("Đăng kí thất bại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+            });
+
+            ExitCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                p.Close();
+            });
+        }
+
+        public bool addUser()
+        {
+            try
+            {
                 if (!Password.Equals(RePassword)) //Kiểm tra 2 lần nhập mậ khẩu mới có trùng khớp nhau không
                 {
                     MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    return false;
                 }
 
                 User newUser = new User();
@@ -154,17 +172,12 @@ namespace Tour_management.ViewModel
                 newUser.LoaiUser = SelectedUserType;
                 DataProvider.Ins.Entities.Users.Add(newUser);
                 DataProvider.Ins.Entities.SaveChanges();
-
-                MessageBox.Show("Đăng kí thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-            });
-
-            ExitCommand = new RelayCommand<Window>((p) =>
-            {
                 return true;
-            }, (p) =>
+            }
+            catch
             {
-                p.Close();
-            });
+                return false;
+            }
         }
 
         void setAvatar(int index)
