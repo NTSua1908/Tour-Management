@@ -15,7 +15,7 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    class RegisterAccountViewModel : BaseViewModel
+    public class RegisterAccountViewModel : BaseViewModel
     {
         public ICommand NextAvatarCommand { get; set; }
         public ICommand PreviousAvatarCommand { get; set; }
@@ -23,6 +23,7 @@ namespace Tour_management.ViewModel
         public ICommand ExitCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private ObservableCollection<LoaiUser> _lstUserType;
         public ObservableCollection<LoaiUser> lstUserType { get { return _lstUserType; } set { _lstUserType = value; OnPropertyChanged(); } }
@@ -30,10 +31,10 @@ namespace Tour_management.ViewModel
         private string _UserName;
         public string UserName { get { return _UserName; } set { _UserName = value; OnPropertyChanged(); } }
 
-        private string Password;
+        public string Password;
         //public string Password { get { return _Password; } set { _Password = value; OnPropertyChanged(); } }
 
-        private string RePassword;
+        public string RePassword;
         //public string RePassword { get { return _RePassword; } set { _RePassword = value; OnPropertyChanged(); } }
 
         private string _DisplayName;
@@ -57,7 +58,7 @@ namespace Tour_management.ViewModel
         private ImageSource _Avatar;
         public ImageSource Avatar { get { return _Avatar; } set { _Avatar = value; OnPropertyChanged(); } }
 
-        private int? _AvatarIndex;
+        public int? _AvatarIndex;
         public int? AvatarIndex
         {
             get
@@ -80,7 +81,7 @@ namespace Tour_management.ViewModel
             lstUserType = new ObservableCollection<LoaiUser>(DataProvider.Ins.Entities.LoaiUsers);
 
             AvatarIndex = 0;
-            setAvatar((int) AvatarIndex); //LoaiUser loai = new LoaiUser(); loai.
+            LoadedCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { setAvatar((int)AvatarIndex); }); //LoaiUser loai = new LoaiUser(); loai.
 
             NextAvatarCommand = new RelayCommand<Window>((p) =>
             {
@@ -180,9 +181,9 @@ namespace Tour_management.ViewModel
             }
         }
 
-        void setAvatar(int index)
+        public void setAvatar(int index)
         {
-            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + index + ".png", UriKind.Absolute));
+            Avatar = new BitmapImage(new Uri("pack://application:,,,/UnitTesting;component/Resources/avatar" + index + ".png", UriKind.Absolute));
             //MessageBox.Show("avatar" + AvatarIndex + ".png");
         }
 

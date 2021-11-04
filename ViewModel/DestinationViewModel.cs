@@ -12,7 +12,7 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    class DestinationViewModel : BaseViewModel
+    public class DestinationViewModel : BaseViewModel
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }

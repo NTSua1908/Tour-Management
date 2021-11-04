@@ -8,7 +8,7 @@ using Tour_management.ViewModel;
 
 namespace Tour_management.Model
 {
-    class TourDestination : BaseViewModel //Nhan lai ham OnpropertyChanged
+    public class TourDestination : BaseViewModel //Nhan lai ham OnpropertyChanged
     {
         private bool _isSelected;
         public bool isSelected
@@ -49,7 +49,7 @@ namespace Tour_management.Model
         //public DiaDiem Destination { get; set; }
     }
 
-    class DestinationArgs : EventArgs
+    public class DestinationArgs : EventArgs
     {
         public bool isChecked { get; set; }
         public DiaDiem Destination { get; set; }

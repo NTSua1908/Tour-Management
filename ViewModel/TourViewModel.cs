@@ -12,7 +12,7 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    class TourViewModel : BaseViewModel
+    public class TourViewModel : BaseViewModel
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -27,7 +27,8 @@ namespace Tour_management.ViewModel
         public ObservableCollection<LoaiTour> lstTourType { get { return _lstTourType; } set { _lstTourType = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TourDestination> _lstAllDestination;
-        public ObservableCollection<TourDestination> lstAllDestination { get { return _lstAllDestination; } set { _lstAllDestination = value; OnPropertyChanged(); } }
+        public ObservableCollection<TourDestination> lstAllDestination 
+        { get { return _lstAllDestination; } set { _lstAllDestination = value; OnPropertyChanged(); } }
 
         private ObservableCollection<DiaDiem> _lstPickedDestination;
         public ObservableCollection<DiaDiem> lstPickedDestination { get { return _lstPickedDestination; } set { _lstPickedDestination = value; OnPropertyChanged(); } }
