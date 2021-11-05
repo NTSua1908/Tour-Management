@@ -183,7 +183,7 @@ namespace Tour_management.ViewModel
 
         public void setAvatar(int index)
         {
-            Avatar = new BitmapImage(new Uri("pack://application:,,,/UnitTesting;component/Resources/avatar" + index + ".png", UriKind.Absolute));
+            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + index + ".png", UriKind.Absolute));
             //MessageBox.Show("avatar" + AvatarIndex + ".png");
         }
 
