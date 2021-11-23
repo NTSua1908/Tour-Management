@@ -12,7 +12,7 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    class TourViewModel : BaseViewModel
+    public class TourViewModel : BaseViewModel
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
@@ -27,7 +27,8 @@ namespace Tour_management.ViewModel
         public ObservableCollection<LoaiTour> lstTourType { get { return _lstTourType; } set { _lstTourType = value; OnPropertyChanged(); } }
 
         private ObservableCollection<TourDestination> _lstAllDestination;
-        public ObservableCollection<TourDestination> lstAllDestination { get { return _lstAllDestination; } set { _lstAllDestination = value; OnPropertyChanged(); } }
+        public ObservableCollection<TourDestination> lstAllDestination 
+        { get { return _lstAllDestination; } set { _lstAllDestination = value; OnPropertyChanged(); } }
 
         private ObservableCollection<DiaDiem> _lstPickedDestination;
         public ObservableCollection<DiaDiem> lstPickedDestination { get { return _lstPickedDestination; } set { _lstPickedDestination = value; OnPropertyChanged(); } }
@@ -101,27 +102,7 @@ namespace Tour_management.ViewModel
                 return isCommandEnable(); //Điều kiện để button enable (return true => button enable và ngược lại)
             }, (p) => //Đây là đoạn xử lý khi button được nhấn Các command sau tương tự
             {
-                Tour Tour = new Tour()
-                {
-                    TenTour = Name,
-                    GiaTour = Convert.ToDecimal(Price),
-                    LoaiTour = SelectedTourType
-                };
-
-                DataProvider.Ins.Entities.Tours.Add(Tour);
-
-                foreach (DiaDiem item in lstPickedDestination)
-                {
-                    DataProvider.Ins.Entities.DSDiaDiems.Add(new DSDiaDiem
-                    {
-                        MaDD = item.MaDD,
-                        MaTour = Tour.MaTour
-                    });
-                }
-
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstTour.Add(Tour);
+                addTour();
             });
 
             EditCommand = new RelayCommand<Window>((p) =>
@@ -187,6 +168,47 @@ namespace Tour_management.ViewModel
                 if (Result == MessageBoxResult.No)
                     return;
 
+                deleteTour();
+            });
+        }
+
+        public bool addTour()
+        {
+            try
+            {
+                Tour Tour = new Tour()
+                {
+                    TenTour = Name,
+                    GiaTour = Convert.ToDecimal(Price),
+                    LoaiTour = SelectedTourType
+                };
+
+                DataProvider.Ins.Entities.Tours.Add(Tour);
+
+                foreach (DiaDiem item in lstPickedDestination)
+                {
+                    DataProvider.Ins.Entities.DSDiaDiems.Add(new DSDiaDiem
+                    {
+                        MaDD = item.MaDD,
+                        MaTour = Tour.MaTour
+                    });
+                }
+
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstTour.Add(Tour);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool deleteTour()
+        {
+            try
+            {
                 //Danh sách các đoàn du lịch thuộc tour
                 List<DoanDuLich> lstGroup = new List<DoanDuLich>(DataProvider.Ins.Entities
                     .DoanDuLiches.Where(x => x.MaTour == SelectedTour.MaTour).ToList());
@@ -243,7 +265,12 @@ namespace Tour_management.ViewModel
 
                 lstTour.Remove(SelectedTour);
                 SelectedTour = null;
-            });
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void TourViewModel_SelectedChanged(object sender, DestinationArgs e)

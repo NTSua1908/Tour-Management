@@ -15,7 +15,7 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    class RegisterAccountViewModel : BaseViewModel
+    public class RegisterAccountViewModel : BaseViewModel
     {
         public ICommand NextAvatarCommand { get; set; }
         public ICommand PreviousAvatarCommand { get; set; }
@@ -23,6 +23,7 @@ namespace Tour_management.ViewModel
         public ICommand ExitCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand RePasswordChangedCommand { get; set; }
+        public ICommand LoadedCommand { get; set; }
 
         private ObservableCollection<LoaiUser> _lstUserType;
         public ObservableCollection<LoaiUser> lstUserType { get { return _lstUserType; } set { _lstUserType = value; OnPropertyChanged(); } }
@@ -30,10 +31,10 @@ namespace Tour_management.ViewModel
         private string _UserName;
         public string UserName { get { return _UserName; } set { _UserName = value; OnPropertyChanged(); } }
 
-        private string Password;
+        public string Password;
         //public string Password { get { return _Password; } set { _Password = value; OnPropertyChanged(); } }
 
-        private string RePassword;
+        public string RePassword;
         //public string RePassword { get { return _RePassword; } set { _RePassword = value; OnPropertyChanged(); } }
 
         private string _DisplayName;
@@ -57,7 +58,7 @@ namespace Tour_management.ViewModel
         private ImageSource _Avatar;
         public ImageSource Avatar { get { return _Avatar; } set { _Avatar = value; OnPropertyChanged(); } }
 
-        private int? _AvatarIndex;
+        public int? _AvatarIndex;
         public int? AvatarIndex
         {
             get
@@ -80,7 +81,7 @@ namespace Tour_management.ViewModel
             lstUserType = new ObservableCollection<LoaiUser>(DataProvider.Ins.Entities.LoaiUsers);
 
             AvatarIndex = 0;
-            setAvatar((int) AvatarIndex); //LoaiUser loai = new LoaiUser(); loai.
+            LoadedCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { setAvatar((int)AvatarIndex); }); //LoaiUser loai = new LoaiUser(); loai.
 
             NextAvatarCommand = new RelayCommand<Window>((p) =>
             {
@@ -137,25 +138,9 @@ namespace Tour_management.ViewModel
                 return true;
             }, (p) =>
             {
-                if (!Password.Equals(RePassword)) //Kiểm tra 2 lần nhập mậ khẩu mới có trùng khớp nhau không
-                {
-                    MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                User newUser = new User();
-                newUser.HoTen = DisplayName;
-                newUser.CMND = CMND;
-                newUser.Avatar = AvatarIndex;
-                newUser.Tuoi = Convert.ToInt32(Age);
-                newUser.SDT = Phone;
-                newUser.Taikhoan = UserName;
-                newUser.Password = MD5Hash(Base64Encode(Password));
-                newUser.LoaiUser = SelectedUserType;
-                DataProvider.Ins.Entities.Users.Add(newUser);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                MessageBox.Show("Đăng kí thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                if  (addUser())
+                    MessageBox.Show("Đăng kí thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                else MessageBox.Show("Đăng kí thất bại", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             });
 
             ExitCommand = new RelayCommand<Window>((p) =>
@@ -167,9 +152,43 @@ namespace Tour_management.ViewModel
             });
         }
 
-        void setAvatar(int index)
+        public bool addUser()
         {
-            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + index + ".png", UriKind.Absolute));
+            try
+            {
+                if (!Password.Equals(RePassword)) //Kiểm tra 2 lần nhập mậ khẩu mới có trùng khớp nhau không
+                {
+                    MessageBox.Show("Mật khẩu không trùng khớp", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+
+                User newUser = new User();
+
+                newUser.Tuoi = Convert.ToInt32(Age);
+
+                if (newUser.Tuoi < 18 || newUser.Tuoi > 60)
+                    return false;
+                newUser.HoTen = DisplayName;
+                newUser.CMND = CMND;
+                newUser.Avatar = AvatarIndex;
+                
+                newUser.SDT = Phone;
+                newUser.Taikhoan = UserName;
+                newUser.Password = MD5Hash(Base64Encode(Password));
+                newUser.LoaiUser = SelectedUserType;
+                DataProvider.Ins.Entities.Users.Add(newUser);
+                DataProvider.Ins.Entities.SaveChanges();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void setAvatar(int index)
+        {
+            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20Management;component/Resources/avatar" + index + ".png", UriKind.Absolute));
             //MessageBox.Show("avatar" + AvatarIndex + ".png");
         }
 

@@ -24,4 +24,8 @@ namespace Tour_management
             InitializeComponent();
         }
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 751e84a5433aaaeda255a2fe434eedea517fdbb9
 }

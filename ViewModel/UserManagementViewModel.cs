@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Tour_management.Model;
-
 namespace Tour_management.ViewModel
 {
-    class UserManagementViewModel : BaseViewModel
+    public class UserManagementViewModel : BaseViewModel
     {
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
-
+        public ICommand LoadedCommand { get; set; }
         private ObservableCollection<User> _lstUser;
         public ObservableCollection<User> lstUser { get { return _lstUser; } set { _lstUser = value; OnPropertyChanged(); } }
 
@@ -56,7 +55,7 @@ namespace Tour_management.ViewModel
                 OnPropertyChanged();
                 if (SelectedUser != null)
                 {
-                    Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));        
+                    //Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));        
                     DisplayName = SelectedUser.HoTen;
                     Age = SelectedUser.Tuoi.ToString();
                     CMND = SelectedUser.CMND;
@@ -71,7 +70,8 @@ namespace Tour_management.ViewModel
             lstUser = new ObservableCollection<User>(DataProvider.Ins.Entities.Users);
             lstUserType = new ObservableCollection<LoaiUser>(DataProvider.Ins.Entities.LoaiUsers);
             lstUserType.Add(new LoaiUser() { TenLoai = "Null" });
-            Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/user.png", UriKind.Absolute));
+            LoadedCommand = new RelayCommand<Window>((p) => { return true; }, (p) => { Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/user.png", UriKind.Absolute)); });
+            //Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/user.png", UriKind.Absolute));
 
             AddCommand = new RelayCommand<Window>((p) =>
             {
@@ -130,10 +130,7 @@ namespace Tour_management.ViewModel
                 if (Result == MessageBoxResult.No)
                     return;
 
-                DataProvider.Ins.Entities.Users.Remove(SelectedUser);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstUser.Remove(SelectedUser);
+                deleteUser();
                 //SelectedUser = null;
             });
 
@@ -152,6 +149,22 @@ namespace Tour_management.ViewModel
             {
                 lstUser = new ObservableCollection<User>(DataProvider.Ins.Entities.Users);
             });
+        }
+
+        public bool deleteUser()
+        {
+            try
+            {
+                DataProvider.Ins.Entities.Users.Remove(SelectedUser);
+                DataProvider.Ins.Entities.SaveChanges();
+
+                lstUser.Remove(SelectedUser);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private bool UserFilter(object item)

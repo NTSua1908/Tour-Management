@@ -178,13 +178,17 @@ namespace Tour_management.ViewModel
                 {
                     if (doan.NgayKetThuc.Value.Year == DateTime.Now.Year && doan.NgayKetThuc.Value.Month <= DateTime.Now.Month)
                     {
+
+                        //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+
+                        if (doan.TongGiaAU == null || doan.TongGiaKS == null || doan.TongGiaPT == null || doan.ChiPhiKhac == null)
+                            continue;
                         decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+
                         //decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
                         //decimal revenue = valueIn - valueOut;
-
-                        //MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
-
-                       // DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+                        ////MessageBox.Show(valueIn + " " + valueOut + " " + revenue);
+                        //DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
                     }
                 }
 
