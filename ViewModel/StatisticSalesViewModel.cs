@@ -57,6 +57,28 @@ namespace Tour_management.ViewModel
             set { _AxisXCollectionAllTour = value; OnPropertyChanged(); }
         }
 
+        private SeriesCollection _SeriesSelectionAllTourGroup;
+        public SeriesCollection SeriesSelectionAllTourGroup
+        {
+            get { return _SeriesSelectionAllTourGroup; }
+            set { _SeriesSelectionAllTourGroup = value; OnPropertyChanged(); }
+        }
+
+
+        private AxesCollection _AxisYCollectionAllTourGroup;
+        public AxesCollection AxisYCollectionAllTourGroup
+        {
+            get { return _AxisYCollectionAllTourGroup; }
+            set { _AxisYCollectionAllTourGroup = value; OnPropertyChanged(); }
+        }
+
+        private AxesCollection _AxisXCollectionAllTourGroup;
+        public AxesCollection AxisXCollectionAllTourGroup
+        {
+            get { return _AxisXCollectionAllTourGroup; }
+            set { _AxisXCollectionAllTourGroup = value; OnPropertyChanged(); }
+        }
+
         Func<double, string> formatter = value => value.ToString("#,###,###.##"); //Định dạng số tiền hiển thị ra
 
         public StatisticSalesViewModel()
@@ -65,6 +87,8 @@ namespace Tour_management.ViewModel
             ToDay = DateTime.Now;
 
             AllTourStatistics();
+
+            AllTourgroupStatistics();
 
             lstTour = new ObservableCollection<Tour>(DataProvider.Ins.Entities.Tours);
 
@@ -123,6 +147,49 @@ namespace Tour_management.ViewModel
                 new Axis { Title = "Danh thu Tour (VNĐ)", LabelFormatter= formatter }
             };
             AxisXCollectionAllTour = new AxesCollection()
+            {
+                new Axis{Title = "Doanh thu", MinValue=0, MaxValue= month}
+            };
+        }
+
+        private void AllTourgroupStatistics()
+        {
+            SeriesSelectionAllTourGroup = new SeriesCollection();
+            int month = getMonth(ToDay, FromDay) + 1 ;
+
+            List<DoanDuLich> lstDoanDuLiches = new List<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches);
+            foreach (DoanDuLich tourgroup in lstDoanDuLiches)
+            {
+                LineSeries line = new LineSeries();
+                line.Title = tourgroup.TenDoan;
+                line.ScalesYAt = 0;
+
+                ChartValues<decimal> Sales = new ChartValues<decimal>(); 
+
+                for (int i = 0; i <= month; i++) 
+                {
+                    Sales.Add(0); 
+                }
+
+                if (tourgroup.NgayKetThuc.Value >= FromDay && tourgroup.NgayKetThuc.Value <= ToDay)
+                {
+                    decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
+                    decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac; //Tien chi
+                    decimal revenue = valueIn - valueOut; 
+
+                    Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
+                }
+
+                line.Values = Sales;
+                SeriesSelectionAllTourGroup.Add(line);
+
+            }
+
+            AxisYCollectionAllTourGroup = new AxesCollection
+            {
+                new Axis { Title = "Danh thu DoanDuLich (VNĐ)", LabelFormatter= formatter }
+            };
+            AxisXCollectionAllTourGroup = new AxesCollection()
             {
                 new Axis{Title = "Doanh thu", MinValue=0, MaxValue= month}
             };

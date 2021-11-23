@@ -5,14 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-<<<<<<< HEAD
-        Title="TouristGroupManagment" Height="450" Width="800">
-    <Grid>
-        
-=======
         Title="Quản lý đoàn du lịch" 
         
-        DataContext="{StaticResource touristGroupVM}"
+        DataContext="{StaticResource touristGrVM}"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -141,11 +136,11 @@
                 </materialDesign:Card>
             </Grid>
 
-                <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
+            <materialDesign:Card Grid.Row="1" Margin="5 0 5 5">
 
-                </materialDesign:Card>
+            </materialDesign:Card>
 
-                <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
+            <Rectangle Grid.Column="2"  Stroke="#1148db" Fill="#1148db" />
 
             <Grid Grid.Column="3">
                 <Grid.RowDefinitions>
@@ -292,16 +287,11 @@
                                         <ColumnDefinition Width="0.5*"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0" Margin="5 5 0 0" >
-<<<<<<< HEAD
                                         <ComboBox materialDesign:HintAssist.Hint="Khách hàng" 
                                                   materialDesign:HintAssist.HintOpacity=".26"  
                                                   BorderThickness="0" 
                                                   ItemsSource="{Binding lstCustomer}"
                                                   SelectedItem="{Binding Customer}">
-=======
-                                        <ComboBox materialDesign:HintAssist.Hint="Khách hàng" materialDesign:HintAssist.HintOpacity=".26"  
-                                                  BorderThickness="0" ItemsSource="{Binding lstCustomer}">
->>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <Grid>
@@ -309,47 +299,11 @@
                                                             <ColumnDefinition/>
                                                             <ColumnDefinition/>
                                                         </Grid.ColumnDefinitions>
-<<<<<<< HEAD
                                                         <TextBlock Margin="5 5 5 5" Grid.Column="0" Text="{Binding Hoten}"/>
                                                         <TextBlock Margin="5 5 5 5" Grid.Column="1" Text="{Binding CMND_Passport}"/>
                                                     </Grid>
                                                 </DataTemplate>
                                             </ComboBox.ItemTemplate>
-=======
-                                                        <TextBlock Grid.Column="0" Margin="5" Text="{Binding Hoten}"/>
-                                                        <TextBlock Grid.Column="1"  Margin="5 5 5 5" Text="{Binding CMND_Passport}"/>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </ComboBox.ItemTemplate>
-                                            <!--<ComboBox.ItemContainerStyle>
-                                                <Style TargetType="{x:Type ComboBoxItem}">
-                                                    <Setter Property="Template">
-                                                        <Setter.Value>
-                                                            <ControlTemplate>
-                                                                <Grid x:Name="gd" TextElement.Foreground="Black" Margin="10 5 17 5">
-                                                                    <Grid.ColumnDefinitions>
-                                                                        <ColumnDefinition/>
-                                                                        <ColumnDefinition/>
-                                                                    </Grid.ColumnDefinitions>
-                                                                    <TextBlock Margin="5 5 5 5" Grid.Column="0" Text="{Binding HoTen}"/>
-                                                                    <TextBlock Margin="5 5 5 5" Grid.Column="1" Text="{Binding CMND}"/>
-                                                                </Grid>
-                                                                <ControlTemplate.Triggers>
-                                                                    <Trigger Property="ComboBoxItem.IsSelected" Value="True">
-                                                                        <Setter TargetName="gd"  Property="Background" Value="Gray"></Setter>
-                                                                        <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
-                                                                    </Trigger>
-                                                                    <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
-                                                                        <Setter TargetName="gd"  Property="Background" Value="Blue"></Setter>
-                                                                        <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
-                                                                    </Trigger>
-                                                                </ControlTemplate.Triggers>
-                                                            </ControlTemplate>
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </Style>
-                                            </ComboBox.ItemContainerStyle>-->
->>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
                                         </ComboBox>
                                     </Grid>
                                     <Grid Grid.Column="1" Margin="5 5 0 0">
@@ -386,6 +340,5 @@
 
             <Rectangle Grid.Column="6"  Stroke="#1148db" Fill="#1148db" />
         </Grid>
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
     </Grid>
 </Window>

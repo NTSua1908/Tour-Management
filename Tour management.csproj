@@ -176,23 +176,18 @@
     <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="Staff%27sNumberTour.xaml.cs">
       <DependentUpon>Staff%27sNumberTour.xaml</DependentUpon>
     </Compile>
     <Compile Include="StatisticSales.xaml.cs">
       <DependentUpon>StatisticSales.xaml</DependentUpon>
     </Compile>
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="TouristGroupManagment.xaml.cs">
       <DependentUpon>TouristGroupManagment.xaml</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="PersonalInformation.xaml.cs">
       <DependentUpon>PersonalInformation.xaml</DependentUpon>
     </Compile>
@@ -215,7 +210,6 @@
       <DependentUpon>VehicleManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AreaViewModel.cs" />
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\StatisticSalesViewModel.cs" />
     <Compile Include="ViewModel\TouristManagementViewModel.cs" />
@@ -285,8 +279,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
-=======
     <Page Include="Staff%27sNumberTour.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -295,7 +287,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
     <Page Include="TouristGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -304,8 +295,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-<<<<<<< HEAD
-=======
     <Page Include="StaffManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -326,7 +315,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

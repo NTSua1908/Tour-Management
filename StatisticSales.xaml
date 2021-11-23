@@ -77,7 +77,8 @@
                             <TextBlock Grid.Row="0" Text="Doanh số một đoàn" Margin="10 5 10 10"
                                    FontSize="20" FontWeight="Bold"  
                                    FontFamily="Sitka Subheading" Foreground="#FF1A2359"></TextBlock>
-                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SeriesSelection}"
+                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SeriesSelectionAllTourGroup}"
+                                                AxisY="{Binding AxisYCollectionAllTourGroup}" AxisX="{Binding AxisXCollectionAllTourGroup}"
                                             Margin="5 5 5 5" >
                             </lvc:CartesianChart>
                         </Grid>

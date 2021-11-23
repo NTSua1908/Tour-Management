@@ -18,7 +18,6 @@ namespace Tour_management.ViewModel
     class MainViewModel : BaseViewModel
     {
         public ICommand LoadedCommand { get; set; }
-
         public ICommand AreaCommand { get; set; }
         public ICommand DestinationCommand { get; set; }
         public ICommand VehicleCommand { get; set; }

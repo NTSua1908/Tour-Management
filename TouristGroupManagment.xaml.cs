@@ -22,43 +22,6 @@ namespace Tour_management
         public TouristGroupManagment()
         {
             InitializeComponent();
-<<<<<<< HEAD
-        }       
-    }
-=======
-<<<<<<< HEAD
         }
     }
-=======
-            //this.DataContext = this;
-            //var items = new List<Person>();
-            //items.Add(new Person() { Name = "Sua", CMND = "12345" });
-            //items.Add(new Person() { Name = "Phát", CMND = "45678" });
-            //items.Add(new Person() { Name = "Thành", CMND = "91011" });
-
-            //Persons = items;
-
-        }
-        //private List<Person> _persons = new List<Person>();
-
-        //public List<Person> Persons
-        //{
-        //    get { return _persons; }
-        //    set { _persons = value; }
-        //}
-
-
-    }
-    //public class Person
-    //{
-    //    public string Name { get; set; }
-    //    public string CMND { get; set; }
-
-    //    public override string ToString()
-    //    {
-    //        return Name + " | " + CMND;
-    //    }
-    //}
->>>>>>> 60f7092003fc03fade764790742ca07815c114c9
->>>>>>> 6010d7dabef87a7fcb96d1bdbcc9e56fbe7a6e61
 }
