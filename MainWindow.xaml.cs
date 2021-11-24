@@ -23,11 +23,6 @@ namespace Tour_management
         public MainWindow()
         {
             InitializeComponent();
-            //Test man hinh
-            //DestinationManagement destination = new DestinationManagement();
-            //destination.ShowDialog();
-            TouristGroupManagment tg = new TouristGroupManagment();
-            tg.Show();
         }
     }
 }

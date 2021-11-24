@@ -84,54 +84,6 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\avatar8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\customer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\des_ic.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\hotel.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tour guide.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\tour_ic.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\train.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\worldwide.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

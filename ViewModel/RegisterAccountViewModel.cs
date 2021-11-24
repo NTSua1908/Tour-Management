@@ -163,10 +163,15 @@ namespace Tour_management.ViewModel
                 }
 
                 User newUser = new User();
+
+                newUser.Tuoi = Convert.ToInt32(Age);
+
+                if (newUser.Tuoi < 18 || newUser.Tuoi > 60)
+                    return false;
                 newUser.HoTen = DisplayName;
                 newUser.CMND = CMND;
                 newUser.Avatar = AvatarIndex;
-                newUser.Tuoi = Convert.ToInt32(Age);
+                
                 newUser.SDT = Phone;
                 newUser.Taikhoan = UserName;
                 newUser.Password = MD5Hash(Base64Encode(Password));
@@ -183,6 +188,7 @@ namespace Tour_management.ViewModel
 
         public void setAvatar(int index)
         {
+
             Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + index + ".png", UriKind.Absolute));
             //MessageBox.Show("avatar" + AvatarIndex + ".png");
         }
