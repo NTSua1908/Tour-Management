@@ -78,18 +78,44 @@ namespace Tour_management.ViewModel
             get { return _AxisXCollectionAllTourGroup; }
             set { _AxisXCollectionAllTourGroup = value; OnPropertyChanged(); }
         }
+        private SeriesCollection _SeriesSelectionNumberofTourGroup;
+        public SeriesCollection SeriesSelectionNumberofTourGroup
+        {
+            get { return _SeriesSelectionNumberofTourGroup; }
+            set { _SeriesSelectionNumberofTourGroup = value; OnPropertyChanged(); }
+        }
 
+        private AxesCollection _AxisYCollectionNumberofTourGroup;
+        public AxesCollection AxisYCollectionNumberofTourGroup
+        {
+            get { return _AxisYCollectionNumberofTourGroup; }
+            set { _AxisYCollectionNumberofTourGroup = value; OnPropertyChanged(); }
+        }
+
+        private AxesCollection _AxisXCollectionNumberofTourGroup;
+        public AxesCollection AxisXCollectionNumberofTourGroup
+        {
+            get { return _AxisXCollectionNumberofTourGroup; }
+            set { _AxisXCollectionNumberofTourGroup = value; OnPropertyChanged(); }
+        }
         Func<double, string> formatter = value => value.ToString("#,###,###.##"); //Định dạng số tiền hiển thị ra
 
         public StatisticSalesViewModel()
         {
             FromDay = DateTime.Now.AddMonths(-12);
             ToDay = DateTime.Now;
-
+            int month = getMonth(ToDay, FromDay) + 1;
             AllTourStatistics();
-
             AllTourgroupStatistics();
-
+            NumberofTourGroup();
+            AxisYCollectionNumberofTourGroup = new AxesCollection
+            {
+                new Axis { Title = "Số đoàn", LabelFormatter= formatter }
+            };
+            AxisXCollectionNumberofTourGroup = new AxesCollection()
+            {
+                new Axis{Title = "Doanh thu", MinValue=0, MaxValue= month }
+            };
             lstTour = new ObservableCollection<Tour>(DataProvider.Ins.Entities.Tours);
 
             SearchCommand = new RelayCommand<object>((p) =>
@@ -101,7 +127,31 @@ namespace Tour_management.ViewModel
             });
         }
 
-
+        private void NumberofTourGroup()
+        {   
+            if(SelectedTour==null)
+            {
+                return;
+            }    
+            SeriesSelectionNumberofTourGroup = new SeriesCollection();
+            int month = getMonth(ToDay, FromDay) + 1;
+            LineSeries line = new LineSeries(); //Với mỗi tour là một đường trong biểu đồ
+            line.ScalesYAt = 0;
+            ChartValues<decimal> Number = new ChartValues<decimal>();
+            List<DoanDuLich> lstGroup = new List<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaTour == SelectedTour.MaTour));
+            foreach (DoanDuLich doan in lstGroup)
+            {
+                if (doan.NgayKetThuc.Value >= FromDay && doan.NgayKetThuc.Value <= ToDay)
+                {
+                    Number[getMonth(FromDay, doan.NgayKetThuc.Value) + 1] += 1;
+                }                
+                
+            }
+            line.Values = Number;
+            line.Title = Number.ToString();
+            SeriesSelectionNumberofTourGroup.Add(line);
+            
+        }
         private void AllTourStatistics()
         {
             SeriesSelectionAllTour = new SeriesCollection();

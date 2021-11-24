@@ -124,13 +124,14 @@
                         <Grid Margin="10 10 10 10">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
-                                <RowDefinition/>
+                                <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0"  Text="Số đoàn tham quan" Margin="10 5 10 10"
-                                   FontFamily="Sitka Subheading" FontSize="20" FontWeight="Bold"  Foreground="#FF1A2359"></TextBlock>
-                            <lvc:CartesianChart  Grid.Row="1"
-                            Series="{Binding SeriesSelection}"
-                            Margin="5 5 5 5">
+                            <TextBlock Grid.Row="0" Text="Số đoàn tham quan" Margin="10 5 10 10"
+                                   FontSize="20" FontWeight="Bold"  
+                                   FontFamily="Sitka Subheading" Foreground="#FF1A2359"></TextBlock>
+                            <lvc:CartesianChart Grid.Row="1" Series="{Binding SeriesSelectionNumberofTourGroup}"
+                                                AxisY="{Binding AxisYCollectionNumberofTourGroup}" AxisX="{Binding AxisXCollectionNumberofTourGroup}" 
+                                            Margin="5 5 5 5" >
                             </lvc:CartesianChart>
                         </Grid>
                     </materialDesign:Card>
