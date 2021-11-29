@@ -124,6 +124,8 @@ namespace Tour_management.ViewModel
             }, (p) =>
             {
                 AllTourStatistics();
+                AllTourgroupStatistics();
+                NumberofTourGroup();
             });
         }
 
@@ -138,6 +140,10 @@ namespace Tour_management.ViewModel
             LineSeries line = new LineSeries(); //Với mỗi tour là một đường trong biểu đồ
             line.ScalesYAt = 0;
             ChartValues<decimal> Number = new ChartValues<decimal>();
+            for (int i = 0; i <= month; i++) //số tháng
+            {
+                Number.Add(0); 
+            }
             List<DoanDuLich> lstGroup = new List<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaTour == SelectedTour.MaTour));
             foreach (DoanDuLich doan in lstGroup)
             {
@@ -148,7 +154,7 @@ namespace Tour_management.ViewModel
                 
             }
             line.Values = Number;
-            line.Title = Number.ToString();
+            //line.Title = Number;
             SeriesSelectionNumberofTourGroup.Add(line);
             
         }
@@ -225,11 +231,11 @@ namespace Tour_management.ViewModel
 
                 if (tourgroup.NgayKetThuc.Value >= FromDay && tourgroup.NgayKetThuc.Value <= ToDay)
                 {
-                    decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
-                    decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac; //Tien chi
-                    decimal revenue = valueIn - valueOut; 
+                   // decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
+                   ///* decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac;*/ //Tien chi
+                   // //decimal revenue = valueIn - valueOut; 
 
-                    Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
+                   // Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
                 }
 
                 line.Values = Sales;
