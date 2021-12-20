@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tour_management.ViewModel;
 
 namespace Tour_management
 {
@@ -22,6 +23,7 @@ namespace Tour_management
         public TouristGroupManagment()
         {
             InitializeComponent();
+            this.DataContext = new TouristManagementViewModel();
         }
     }
 }

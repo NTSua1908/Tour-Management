@@ -103,13 +103,6 @@
     <Compile Include="DestinationManagement.xaml.cs">
       <DependentUpon>DestinationManagement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HotelManagement.xaml.cs">
-      <DependentUpon>HotelManagement.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LoginWindow.xaml.cs">
-      <DependentUpon>LoginWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Model\DataProvider.cs" />
     <Compile Include="Model\DiaDiem.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
@@ -127,6 +120,9 @@
     </Compile>
     <Compile Include="Model\DSPhuongTien.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HotelManagement.xaml.cs">
+      <DependentUpon>HotelManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\KhachDuLich.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
@@ -149,36 +145,16 @@
     <Compile Include="Model\LoaiUser.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataProvider.cs" />
+    <Compile Include="Model\StaffAnalysis.cs" />
+    <Compile Include="Model\TourDestination.cs" />
     <Compile Include="Model\NhanVien.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\PhuongTien.cs">
-      <DependentUpon>TourManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\StaffAnalysis.cs" />
-    <Compile Include="Model\sysdiagram.cs">
-      <DependentUpon>TourManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Tour.cs">
-      <DependentUpon>TourManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TourDestination.cs" />
-    <Compile Include="Model\TourManagement.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TourManagement.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TourManagement.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TourManagement.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\TourManagement.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TourManagement.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\User.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Staff%27sNumberTour.xaml.cs">
@@ -186,6 +162,9 @@
     </Compile>
     <Compile Include="StatisticSales.xaml.cs">
       <DependentUpon>StatisticSales.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Tour.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="TouristGroup.xaml.cs">
       <DependentUpon>TouristGroup.xaml</DependentUpon>
@@ -202,11 +181,29 @@
     <Compile Include="StaffManagement.xaml.cs">
       <DependentUpon>StaffManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\TourManagement.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TourManagement.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TourManagement.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+    </Compile>
     <Compile Include="TourType.xaml.cs">
       <DependentUpon>TourType.xaml</DependentUpon>
     </Compile>
     <Compile Include="TourWindow.xaml.cs">
       <DependentUpon>TourWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\User.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="UserManagement.xaml.cs">
       <DependentUpon>UserManagement.xaml</DependentUpon>
@@ -335,10 +332,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </Resource>
     <EntityDeploy Include="Model\TourManagement.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>TourManagement.Designer.cs</LastGenOutput>
@@ -346,6 +339,10 @@
     <None Include="Model\TourManagement.edmx.diagram">
       <DependentUpon>TourManagement.edmx</DependentUpon>
     </None>
+    <Resource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </Resource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -359,16 +356,6 @@
     <Resource Include="Resources\tour_ic.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\TourManagement.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TourManagement.Context.cs</LastGenOutput>
-      <DependentUpon>TourManagement.edmx</DependentUpon>
-    </Content>
-    <Content Include="Model\TourManagement.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TourManagement.edmx</DependentUpon>
-      <LastGenOutput>TourManagement.cs</LastGenOutput>
-    </Content>
     <Resource Include="Resources\analysis.png" />
     <Resource Include="Resources\map.png" />
     <Resource Include="Resources\avatar1.png" />
@@ -397,6 +384,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\TourManagement.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+      <LastGenOutput>TourManagement.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\TourManagement.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TourManagement.edmx</DependentUpon>
+      <LastGenOutput>TourManagement.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.4.1.0\build\MaterialDesignThemes.targets')" />

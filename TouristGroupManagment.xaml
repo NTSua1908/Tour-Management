@@ -271,6 +271,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
+                            <RowDefinition Height="30" />
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -321,7 +322,18 @@
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
-                        <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 15 5 5">
+
+                        <Grid Grid.Row="2" Margin="5 5 5 0">
+                            <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" 
+                                HorizontalAlignment="Right" 
+                                     Text="{Binding Amount}"
+                                     FontSize="15"
+                                     IsEnabled="False"
+                                     materialDesign:TextFieldAssist.SuffixText="{Binding MaxAmount}">
+                            </TextBox>
+                        </Grid>
+                        
+                        <materialDesign:Card Grid.Row="3" VerticalAlignment="Stretch" Margin="5 10 5 5">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <ListView ItemsSource="{Binding lstTourist}" SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource}">
                                     <ListView.View>

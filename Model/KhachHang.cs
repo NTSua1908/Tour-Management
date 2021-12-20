@@ -34,10 +34,5 @@ namespace Tour_management.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachDuLich> KhachDuLiches { get; set; }
         public virtual LoaiKhach LoaiKhach { get; set; }
-
-        public static implicit operator int(KhachHang v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

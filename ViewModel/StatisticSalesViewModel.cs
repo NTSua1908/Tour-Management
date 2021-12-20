@@ -157,7 +157,6 @@ namespace Tour_management.ViewModel
 
             }
             line.Values = Number;
-            //line.Title = Number.ToString();
             line.Title = SelectedTour.TenTour;
             SeriesSelectionNumberofTourGroup.Add(line);
 

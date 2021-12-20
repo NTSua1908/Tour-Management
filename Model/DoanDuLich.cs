@@ -28,6 +28,7 @@ namespace Tour_management.Model
         public Nullable<int> MaTour { get; set; }
         public Nullable<System.DateTime> NgayKhoiHanh { get; set; }
         public Nullable<System.DateTime> NgayKetThuc { get; set; }
+        public Nullable<int> SoLuongToiDa { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public string ChiTiet { get; set; }
         public Nullable<decimal> TongGiaPT { get; set; }

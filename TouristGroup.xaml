@@ -70,15 +70,36 @@
                             </materialDesign:Card>
 
                             <materialDesign:Card Margin="8 10 3 0" >
-                                <DatePicker Margin="10 10 10 10" SelectedDate="{Binding Start}" 
-                                                materialDesign:HintAssist.Hint="Ngày khởi hành" 
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                <DatePicker
+                                    x:Name="FutureDatePicker"
+                                    Margin="10 10 10 10" materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                    SelectedDate="{Binding Start}"
+                                    DisplayDateStart="{Binding MinAvailDate}">
+                                </DatePicker>
+
                             </materialDesign:Card>
 
                             <materialDesign:Card Margin="8 10 3 0" >
                                 <DatePicker Margin="10 10 10 10" SelectedDate="{Binding End}" 
-                                                materialDesign:HintAssist.Hint="Ngày kết thúc" 
-                                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                                            materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+
+                                    <DatePicker.Resources>
+                                        <Style TargetType="{x:Type DatePickerTextBox}">
+                                            <Setter Property="Control.Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <TextBox x:Name="End"
+                                                                 Text="{Binding Path=SelectedDate, StringFormat='dd MM yyyy', 
+                                                                 RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </DatePicker.Resources>
+
+                                </DatePicker>
                             </materialDesign:Card>
 
                             <materialDesign:Card Margin="8 10 3 0">
@@ -283,6 +304,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
                                 <RowDefinition Height="60"/>
                             </Grid.RowDefinitions>
 
@@ -294,7 +316,7 @@
                             <Grid Grid.Row="1">
                                 <materialDesign:Card  Margin="8 5 8 10">
                                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                        <ListView ItemsSource="{Binding ListStaffs}" SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                        <ListView ItemsSource="{Binding ListStaffs}" SelectedItem="{Binding Selectedstaff, Mode=OneWayToSource}">
                                             <ListView.View>
                                                 <GridView>
                                                     <GridViewColumn Header="Tên nhân viên" DisplayMemberBinding="{Binding NhanVien.TenNV}"></GridViewColumn>
@@ -306,7 +328,17 @@
                                 </materialDesign:Card>
                             </Grid>
 
-                            <materialDesign:Card Grid.Row="2" Margin="10 0 5 5">
+                            <Grid Grid.Row="2">
+                                <Button Style="{StaticResource MaterialDesignRaisedButton}" 
+                                        materialDesign:ButtonAssist.CornerRadius="10" ToolTip="Xoá nhân viên"
+                                        Margin="5 5 5 10" Content="Xoá nhân viên"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding DeleteStaffCommand}"
+                                        CommandParameter="{Binding ElementName=TouristGr}"/>
+                            </Grid>
+                            
+
+                            <materialDesign:Card Grid.Row="3" Margin="10 0 5 5">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
