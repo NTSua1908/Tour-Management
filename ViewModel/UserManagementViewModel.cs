@@ -55,7 +55,7 @@ namespace Tour_management.ViewModel
                 OnPropertyChanged();
                 if (SelectedUser != null)
                 {
-                    //Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));        
+                    Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));        
                     DisplayName = SelectedUser.HoTen;
                     Age = SelectedUser.Tuoi.ToString();
                     CMND = SelectedUser.CMND;

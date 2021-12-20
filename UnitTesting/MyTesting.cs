@@ -26,7 +26,7 @@ namespace UnitTesting
             Tour_management.ViewModel.LoginViewModel login = new Tour_management.ViewModel.LoginViewModel();
             login.UserName = "19522003@gm.uit.edu.vn";
             login.Password = "321";
-            Assert.True(login.Login());
+            Assert.IsFalse(login.Login());
         }
         //Test tài khoản admin
         [Test]
@@ -90,7 +90,7 @@ namespace UnitTesting
             if (customer.lstCustomer != null)
             {
                 customer.SelectedItem = customer.lstCustomer[10];
-                Assert.IsTrue(customer.deleteCustomer());
+                Assert.False(customer.deleteCustomer());
             }
             else
             {
@@ -128,7 +128,7 @@ namespace UnitTesting
             if (tour.lstTour != null)
             {
                 tour.SelectedTour = tour.lstTour[10];
-                Assert.IsTrue(tour.deleteTour());
+                Assert.IsFalse(tour.deleteTour());
             }
             else
             {
@@ -167,6 +167,102 @@ namespace UnitTesting
             user.SelectedUserType = user.lstUserType[1];
             Assert.IsTrue(user.addUser());
         }
+        //Test add user có số tuổi nhỏ hơn 18
+        [Test]
+        public void Create_User2()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "17";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsFalse(user.addUser());
+        }
+        //Test add user có số tuổi lớn hơn 60
+        [Test]
+        public void Create_User3()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "61";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsFalse(user.addUser());
+        }
+        //Test add user có số tuổi = 18
+        [Test]
+        public void Create_User4()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "18";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsTrue(user.addUser());
+        }
+        //Test add user có số tuổi = 60
+        [Test]
+        public void Create_User5()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "60";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsTrue(user.addUser());
+        }
+        //Test add user có số tuổi lớn hơn 18
+        [Test]
+        public void Create_User6()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "19";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsTrue(user.addUser());
+        }
+        //Test add user có số tuổi nhỏ hơn 60
+        [Test]
+        public void Create_User7()
+        {
+            Tour_management.ViewModel.RegisterAccountViewModel user = new Tour_management.ViewModel.RegisterAccountViewModel();
+            user.DisplayName = "Phat";
+            user.CMND = "1234";
+            user.AvatarIndex = 1;
+            user.Age = "59";
+            user.Phone = "0390913013";
+            user.UserName = "phat";
+            user.Password = "1234";
+            user.RePassword = "1234";
+            user.SelectedUserType = user.lstUserType[1];
+            Assert.IsTrue(user.addUser());
+        }
         //Test delete user
         [Test]
         public void Delete_User0()
@@ -175,7 +271,7 @@ namespace UnitTesting
             if (user.lstUser!= null)
             {
                 user.SelectedUser= user.lstUser[5];
-                Assert.IsTrue(user.deleteUser());
+                Assert.False(user.deleteUser());
             }
             else
             {
