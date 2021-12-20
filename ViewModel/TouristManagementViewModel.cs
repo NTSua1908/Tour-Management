@@ -47,6 +47,12 @@ namespace Tour_management.ViewModel
         private string _Name;
         public string Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
 
+        private string _MaxAmount;
+        public string MaxAmount { get { return _MaxAmount; } set { _MaxAmount = value; OnPropertyChanged(); } }
+
+        private string _Amount;
+        public string Amount { get { return _Amount; } set { _Amount = value; OnPropertyChanged(); } }
+
         private DateTime? _Start;
         public DateTime? Start
         {
@@ -108,6 +114,8 @@ namespace Tour_management.ViewModel
                     lstStaff = new ObservableCollection<DSNhanVien>(DataProvider.Ins.Entities.DSNhanViens.Where(p => (p.MaDoan == SelectedTouristGr.MaDoan)));
                     lstTourist = new ObservableCollection<KhachDuLich>(DataProvider.Ins.Entities.KhachDuLiches.Where(p => (p.MaDoan == SelectedTouristGr.MaDoan)));
                     lstDestination = new ObservableCollection<DSDiaDiem>(DataProvider.Ins.Entities.DSDiaDiems.Where(p => (p.MaTour == SelectedTouristGr.Tour.MaTour)));
+                    Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+                    MaxAmount = SelectedTouristGr.SoLuongToiDa.ToString();
                 }
 
             }
@@ -119,9 +127,15 @@ namespace Tour_management.ViewModel
 
             AddCusCommand = new RelayCommand<Window>((p) =>
             {
-                return SelectedTouristGr != null; //Điều kiện để button enable (return true => button enable và ngược lại)
+                return Customer != null; //Điều kiện để button enable (return true => button enable và ngược lại)
             }, (p) =>
             {
+                if (SelectedTouristGr.SoLuong == SelectedTouristGr.SoLuongToiDa)
+                {
+                    MessageBox.Show("Số lượng hành khách đã đạt tối đa");
+                    return;
+                }
+
                 KhachDuLich kdl = new KhachDuLich()
                 {
                     MaKH = Customer.MaKH,
@@ -136,6 +150,25 @@ namespace Tour_management.ViewModel
                         return;
                     }
                 }
+
+                List<DSKhachSan> lstHotel = new List<DSKhachSan>(DataProvider.Ins.Entities
+                    .DSKhachSans.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
+                foreach (DSKhachSan hotel in lstHotel)
+                {
+                    SelectedTouristGr.TongGiaKS += Convert.ToInt32(hotel.KhachSan.ChiPhi);
+                }
+
+                List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
+                    .DSPhuongTiens.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
+                foreach (DSPhuongTien phuongTien in lstPhuongTien)
+                {
+                    SelectedTouristGr.TongGiaPT += Convert.ToInt32(phuongTien.PhuongTien.ChiPhi);
+                }
+
+                SelectedTouristGr.SoLuong +=1;
+                Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+
+                MessageBox.Show(SelectedTouristGr.TongGiaPT.ToString());
 
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();
@@ -160,14 +193,12 @@ namespace Tour_management.ViewModel
                     DataProvider.Ins.Entities.DSKhachSans.Remove(hotel);
                 }
 
-
                 List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
                     .DSPhuongTiens.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
                 foreach (DSPhuongTien phuongTien in lstPhuongTien)
                 {
                     DataProvider.Ins.Entities.DSPhuongTiens.Remove(phuongTien);
                 }
-
 
                 List<DSNhanVien> lstNhanVien = new List<DSNhanVien>(DataProvider.Ins.Entities
                     .DSNhanViens.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
@@ -205,6 +236,23 @@ namespace Tour_management.ViewModel
                 if (Result == MessageBoxResult.No)
                     return;
 
+                List<DSKhachSan> lstHotel = new List<DSKhachSan>(DataProvider.Ins.Entities
+                    .DSKhachSans.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
+                foreach (DSKhachSan hotel in lstHotel)
+                {
+                    SelectedTouristGr.TongGiaKS -= Convert.ToInt32(hotel.KhachSan.ChiPhi);
+                }
+
+                List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
+                    .DSPhuongTiens.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
+                foreach (DSPhuongTien phuongTien in lstPhuongTien)
+                {
+                    SelectedTouristGr.TongGiaPT -= Convert.ToInt32(phuongTien.PhuongTien.ChiPhi);
+                }
+
+                SelectedTouristGr.SoLuong -= 1;
+                Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+
                 DataProvider.Ins.Entities.KhachDuLiches.Remove(SelectedCustomer);
                 DataProvider.Ins.Entities.SaveChanges();
                 lstTourist.Remove(SelectedCustomer);
@@ -230,7 +278,6 @@ namespace Tour_management.ViewModel
 
                 TouristViewModel viewModel = tourist.DataContext as TouristViewModel;
                 viewModel.SetTourist(SelectedTouristGr);
-
                 tourist.ShowDialog();
 
             });

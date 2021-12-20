@@ -18,6 +18,7 @@ namespace Tour_management.ViewModel
         public ICommand EditCommand { get; set; }
         public ICommand ManageCommand { get; set; }
         public ICommand AddStaffCommand { get; set; }
+        public ICommand DeleteStaffCommand { get; set; }
 
         private ObservableCollection<DoanDuLich> _lstTourist;
         public ObservableCollection<DoanDuLich> lstTourist { get { return _lstTourist; } set { _lstTourist = value; OnPropertyChanged(); } }
@@ -61,11 +62,21 @@ namespace Tour_management.ViewModel
         private Tour _SelectedTour;
         public Tour SelectedTour { get { return _SelectedTour; } set { _SelectedTour = value; OnPropertyChanged(); } }
 
+        private DSNhanVien _Selectedstaff;  //Thành phần trong list view nhân viên
+        public DSNhanVien Selectedstaff { get { return _Selectedstaff; } set { _Selectedstaff = value; OnPropertyChanged(); } }
+
         private DateTime? _Start;
         public DateTime? Start { get { return _Start; } set { _Start = value; OnPropertyChanged(); } }
 
         private DateTime? _End;
         public DateTime? End { get { return _End; } set { _End = value; OnPropertyChanged(); } }
+
+        private DateTime _minAvailDate = DateTime.UtcNow;
+        public DateTime MinAvailDate
+        {
+            get { return _minAvailDate; }
+            set { _minAvailDate = value; OnPropertyChanged("MinAvailDate"); }
+        }
 
         private string _Amount;
         public string Amount { get { return _Amount; } set { _Amount = value; OnPropertyChanged(); } }
@@ -78,6 +89,8 @@ namespace Tour_management.ViewModel
 
         private String _SelectedDuty;
         public String SelectedDuty { get { return _SelectedDuty; } set { _SelectedDuty = value; OnPropertyChanged(); } }
+
+
 
         private DoanDuLich dl;
 
@@ -106,6 +119,7 @@ namespace Tour_management.ViewModel
             ListStaffs = new ObservableCollection<DSNhanVien>();
             ListVehicles = new ObservableCollection<DSPhuongTien>();
             ButtonAdd = "Thêm";
+            MinAvailDate = DateTime.Now;
 
             lstDuty = new ObservableCollection<string>();
             lstDuty.Add("Trưởng đoàn");
@@ -127,8 +141,13 @@ namespace Tour_management.ViewModel
                         MaTour = SelectedTour.MaTour,
                         NgayKhoiHanh = Start,
                         NgayKetThuc = End,
-                        SoLuong = Convert.ToInt32(Amount),
+                        SoLuongToiDa = Convert.ToInt32(Amount),
+                        SoLuong = 0,
                         ChiTiet = Detail,
+                        TongGiaPT = 0,
+                        TongGiaKS = 0,
+                        TongGiaAU = 0,   
+                        ChiPhiKhac = 0,
                     };
 
                     DataProvider.Ins.Entities.DoanDuLiches.Add(dl);
@@ -142,6 +161,8 @@ namespace Tour_management.ViewModel
                             MaPT = SelectedVehicles[i].MaPT,
                         };
 
+                        //dl.TongGiaPT += SelectedVehicles[i].ChiPhi;
+                        
                         DataProvider.Ins.Entities.DSPhuongTiens.Add(dspt);
                     }
 
@@ -152,6 +173,8 @@ namespace Tour_management.ViewModel
                             MaDoan = dl.MaDoan,
                             MaKS = SelectedHotels[i].MaKS,
                         };
+
+                        //dl.TongGiaKS += SelectedHotels[i].ChiPhi;
 
                         DataProvider.Ins.Entities.DSKhachSans.Add(dsks);
                     }
@@ -173,15 +196,21 @@ namespace Tour_management.ViewModel
                 }
                 else if (ButtonAdd == "Sửa")
                 {
-                    DoanDuLich ddl = DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaDoan == dl.MaDoan).FirstOrDefault();
 
-                    ddl.TenDoan = Name;
-                    ddl.MaTour = SelectedTour.MaTour;
-                    ddl.NgayKhoiHanh = Start;
-                    ddl.NgayKetThuc = End;
-                    ddl.SoLuong = Convert.ToInt32(Amount);
-                    ddl.ChiTiet = Detail;
+                    DoanDuLich ddlich = DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaDoan == dl.MaDoan).FirstOrDefault();
 
+                    ddlich.TenDoan = Name;
+                    ddlich.MaTour = SelectedTour.MaTour;
+                    ddlich.NgayKhoiHanh = Start;
+                    ddlich.NgayKetThuc = End;
+                    ddlich.SoLuongToiDa = Convert.ToInt32(Amount);
+                    ddlich.ChiTiet = Detail;
+
+                    if (ddlich.SoLuong > ddlich.SoLuongToiDa)
+                    {
+                        MessageBox.Show("Không thể giảm số lượng tối đa");
+                        return;
+                    }
 
                     List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
                         .DSPhuongTiens.Where(x => x.MaDoan == dl.MaDoan));
@@ -189,21 +218,74 @@ namespace Tour_management.ViewModel
                     {
                         var dd = SelectedVehicles.Where(x => x.MaPT == item.MaPT).FirstOrDefault(); //item co con nam trong danh sach dia diem duoc chon hay khong
                         if (dd == null) //item khong con nam trong danh sach dia diem cua tour nua
+                        {
+                            ddlich.TongGiaPT -= (item.PhuongTien.ChiPhi * ddlich.SoLuong); 
                             DataProvider.Ins.Entities.DSPhuongTiens.Remove(item);
+                        }
                     }
                     foreach (PhuongTien item in SelectedVehicles)
                     {
-                        var dd = lstPhuongTien.Where(x => x.MaPT == item.MaPT).FirstOrDefault(); //Xem dia diem duoc chon da nam trong danh sach dia diem ban dau hay khong
+                        var dd = lstPhuongTien.Where(x => x.MaPT == item.MaPT).FirstOrDefault(); 
                         if (dd == null) //Neu chua co thi them vao
+                        {
                             DataProvider.Ins.Entities.DSPhuongTiens.Add(new DSPhuongTien
                             {
                                 MaPT = item.MaPT,
                                 MaDoan = dl.MaDoan,
                             });
+
+                            ddlich.TongGiaPT += Convert.ToInt32(item.ChiPhi * ddlich.SoLuong);
+                        }
                     }
 
-                    DataProvider.Ins.Entities.SaveChanges();
+                    List<DSKhachSan> lstHotel = new List<DSKhachSan>(DataProvider.Ins.Entities
+                        .DSKhachSans.Where(x => x.MaDoan == dl.MaDoan));
+                    foreach (DSKhachSan hotel in lstHotel)
+                    {
+                        var ks = SelectedHotels.Where(x => x.MaKS == hotel.MaKS).FirstOrDefault();
+                        if (ks == null)
+                        {
+                            ddlich.TongGiaKS -= (hotel.KhachSan.ChiPhi * ddlich.SoLuong);
+                            DataProvider.Ins.Entities.DSKhachSans.Remove(hotel);
+                        }
+                    }
+                    foreach (KhachSan item in SelectedHotels)
+                    {
+                        var ks = lstHotel.Where(x => x.MaKS == item.MaKS).FirstOrDefault(); //Xem dia diem duoc chon da nam trong danh sach dia diem ban dau hay khong
+                        if (ks == null) //Neu chua co thi them vao
+                        {
+                            DataProvider.Ins.Entities.DSKhachSans.Add(new DSKhachSan
+                            {
+                                MaKS = item.MaKS,
+                                MaDoan = dl.MaDoan,
+                            });
 
+                            ddlich.TongGiaKS += Convert.ToInt32(item.ChiPhi * ddlich.SoLuong);
+                        }
+                    }
+
+                    List<DSNhanVien> lstNhanVien = new List<DSNhanVien>(DataProvider.Ins.Entities
+                       .DSNhanViens.Where(x => x.MaDoan == dl.MaDoan));
+                    foreach (DSNhanVien item in lstNhanVien)
+                    {
+                        var dd = ListStaffs.Where(x => x.MaNV == item.MaNV && x.NhiemVu == item.NhiemVu).FirstOrDefault(); //item co con nam trong danh sach dia diem duoc chon hay khong
+                        if (dd == null) //item khong con nam trong danh sach dia diem cua tour nua
+                            DataProvider.Ins.Entities.DSNhanViens.Remove(item);
+                    }
+                    foreach (DSNhanVien item in ListStaffs)
+                    {
+                        var dd = lstNhanVien.Where(x => x.MaNV == item.MaNV && x.NhiemVu == item.NhiemVu).FirstOrDefault(); //Xem dia diem duoc chon da nam trong danh sach dia diem ban dau hay khong
+                        if (dd == null) //Neu chua co thi them vao
+                            DataProvider.Ins.Entities.DSNhanViens.Add(new DSNhanVien
+                            {
+                                MaNV = item.MaNV,
+                                NhiemVu = item.NhiemVu,
+                                MaDoan = dl.MaDoan,
+                            });
+                    }
+                    
+                    DataProvider.Ins.Entities.SaveChanges();
+                    MessageBox.Show(ddlich.TongGiaPT.ToString() + " " + ddlich.TongGiaKS.ToString());
                 }
             });
 
@@ -242,34 +324,20 @@ namespace Tour_management.ViewModel
 
                     }
                 }
-                //for (int i = 0; i < SelectedStaffs.Count; i++)
-                //{
-                //    if (ListStaffs != null)
-                //    {
-                //        foreach (DSNhanVien item in ListStaffs)
-                //        {
-                //            if (SelectedStaffs[i].MaNV == item.MaNV && SelectedDuty == item.NhiemVu)
-                //            {
-                //                flag = false;
-                //                break;
-                //            }
-                //            else flag = true;
-                //        }
-                //    }
-
-                //    if (flag)
-                //    {
-                //        DSNhanVien dsnv = new DSNhanVien()
-                //        {
-                //            MaNV = SelectedStaffs[i].MaNV,
-                //            NhiemVu = SelectedDuty,
-                //            NhanVien = SelectedStaffs[i],
-                //        };
-
-                //        ListStaffs.Add(dsnv);
-                //    }
-                //}
             });
+
+            DeleteStaffCommand = new RelayCommand<Window>((p) =>
+            {
+                return Selectedstaff !=null;
+            }, (p) =>
+            {
+                MessageBoxResult Result = MessageBox.Show("Bạn có chắc muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (Result == MessageBoxResult.No)
+                    return;
+
+                ListStaffs.Remove(Selectedstaff);
+            });
+
 
             ManageCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
                 TouristGroupManagment tm = new TouristGroupManagment();
@@ -284,7 +352,7 @@ namespace Tour_management.ViewModel
             Name = this.dl.TenDoan;
             Start = this.dl.NgayKhoiHanh;
             End = this.dl.NgayKetThuc;
-            Amount = this.dl.SoLuong.ToString();
+            Amount = this.dl.SoLuongToiDa.ToString();
             Detail = this.dl.ChiTiet;
             SelectedTour = this.dl.Tour;
             ButtonAdd = "Sửa";

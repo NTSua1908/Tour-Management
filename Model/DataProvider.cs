@@ -22,11 +22,11 @@ namespace Tour_management.Model
             set { _Ins = value; }
         }
 
-        public TourEntities Entities { get; set; }
+        public TourManagementEntities Entities { get; set; }
 
         private DataProvider()
         {
-            Entities = new TourEntities();
+            Entities = new TourManagementEntities();
         }
     }
 }

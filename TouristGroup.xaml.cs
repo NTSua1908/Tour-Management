@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,11 +22,25 @@ namespace Tour_management
     {
         public TouristGroup()
         {
-<<<<<<< HEAD
-            InitializeComponent();           
-=======
             InitializeComponent();
->>>>>>> 751e84a5433aaaeda255a2fe434eedea517fdbb9
         }
     }
+
+    public class FutureDateValidationRule : ValidationRule
+    {
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            DateTime time;
+            if (!DateTime.TryParse((value ?? "").ToString(),
+                CultureInfo.CurrentCulture,
+                DateTimeStyles.AssumeLocal | DateTimeStyles.AllowWhiteSpaces,
+                out time)) return new ValidationResult(false, "Không hợp lệ");
+
+            return time.Date <= DateTime.Now.Date
+                ? new ValidationResult(false, "Future date required")
+                : ValidationResult.ValidResult;
+        }
+    }
+
+
 }

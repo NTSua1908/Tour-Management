@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -38,6 +39,13 @@ namespace Tour_management.ViewModel
 
         private string _Price;
         public string Price { get { return _Price; } set { _Price = value; OnPropertyChanged(); } }
+
+        private DateTime _minAvailDate = DateTime.UtcNow;
+        public DateTime MinAvailDate
+        {
+            get { return _minAvailDate; }
+            set { _minAvailDate = value; OnPropertyChanged("MinAvailDate"); }
+        }
 
         private LoaiTour _SelectedTourType;
         public LoaiTour SelectedTourType
@@ -74,6 +82,7 @@ namespace Tour_management.ViewModel
             lstTourType = new ObservableCollection<LoaiTour>(DataProvider.Ins.Entities.LoaiTours);
             lstTourType.Add(new LoaiTour() { TenLoaiTour = "Null" }); //Search ca 2 loai
             lstPickedDestination = new ObservableCollection<DiaDiem>();
+            MinAvailDate = DateTime.Now;
 
             //Khoi tao du lieu cho combobox
             List<DiaDiem> lstDestination = new List<DiaDiem>(DataProvider.Ins.Entities.DiaDiems);
@@ -395,4 +404,5 @@ namespace Tour_management.ViewModel
         }
         #endregion
     }
+    
 }
