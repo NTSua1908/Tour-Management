@@ -108,6 +108,7 @@ namespace Tour_management.ViewModel
             AllTourStatistics();
             AllTourgroupStatistics();
             NumberofTourGroup();
+
             AxisYCollectionNumberofTourGroup = new AxesCollection
             {
                 new Axis { Title = "Số đoàn", LabelFormatter= formatter }
@@ -124,33 +125,51 @@ namespace Tour_management.ViewModel
             }, (p) =>
             {
                 AllTourStatistics();
+                AllTourgroupStatistics();
+                NumberofTourGroup();
             });
         }
 
         private void NumberofTourGroup()
-        {   
-            if(SelectedTour==null)
-            {
-                return;
-            }    
+        {
+            if(SelectedTour == null)
+                return;   
+
             SeriesSelectionNumberofTourGroup = new SeriesCollection();
             int month = getMonth(ToDay, FromDay) + 1;
+
+            
+
             LineSeries line = new LineSeries(); //Với mỗi tour là một đường trong biểu đồ
             line.ScalesYAt = 0;
             ChartValues<decimal> Number = new ChartValues<decimal>();
+            for (int i = 0; i <= month; i++) //số tháng
+            {
+                Number.Add(0); //Khởi tạo giá trị mặc định là 0
+            }
             List<DoanDuLich> lstGroup = new List<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaTour == SelectedTour.MaTour));
             foreach (DoanDuLich doan in lstGroup)
             {
                 if (doan.NgayKetThuc.Value >= FromDay && doan.NgayKetThuc.Value <= ToDay)
                 {
                     Number[getMonth(FromDay, doan.NgayKetThuc.Value) + 1] += 1;
-                }                
-                
+                }
+
             }
             line.Values = Number;
-            line.Title = Number.ToString();
+            //line.Title = Number.ToString();
+            line.Title = SelectedTour.TenTour;
             SeriesSelectionNumberofTourGroup.Add(line);
-            
+
+            AxisYCollectionNumberofTourGroup = new AxesCollection
+            {
+                new Axis { Title = "Số đoàn", LabelFormatter= formatter }
+            };
+            AxisXCollectionNumberofTourGroup = new AxesCollection()
+            {
+                new Axis{Title = "Doanh thu", MinValue=0, MaxValue= month }
+            };
+
         }
         private void AllTourStatistics()
         {
@@ -218,18 +237,21 @@ namespace Tour_management.ViewModel
 
                 ChartValues<decimal> Sales = new ChartValues<decimal>(); 
 
-                for (int i = 0; i <= month; i++) 
+                for (int i = 0; i <= month; i++)
                 {
-                    Sales.Add(0); 
+                    Sales.Add(0);
                 }
 
                 if (tourgroup.NgayKetThuc.Value >= FromDay && tourgroup.NgayKetThuc.Value <= ToDay)
                 {
-                    decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
-                    decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac; //Tien chi
-                    decimal revenue = valueIn - valueOut; 
+                    if (tourgroup.TongGiaAU != null && tourgroup.TongGiaKS != null && tourgroup.TongGiaPT != null && tourgroup.ChiPhiKhac != null)
+                    {
+                        decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
+                        decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac; //Tien chi
+                        decimal revenue = valueIn - valueOut;
 
-                    Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
+                        Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
+                    }
                 }
 
                 line.Values = Sales;
