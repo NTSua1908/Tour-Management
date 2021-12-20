@@ -48,7 +48,7 @@
 
                 <Grid Grid.Column="1">
                     <materialDesign:Card Margin="5 5 5 5">
-                        <StackPanel Margin="0 0 5 0">
+                        <StackPanel Margin="0 0 5 0" >
 
                             <TextBlock Text="Thông tin cơ bản" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
 
@@ -83,9 +83,10 @@
                             <materialDesign:Card Margin="8 10 3 0" >
                                 <DatePicker Margin="10 10 10 10" SelectedDate="{Binding End}" 
                                             materialDesign:HintAssist.Hint="Ngày kết thúc" 
-                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                            DisplayDateStart="{Binding MinAvailDate}">
 
-                                    <DatePicker.Resources>
+                                    <!--<DatePicker.Resources>
                                         <Style TargetType="{x:Type DatePickerTextBox}">
                                             <Setter Property="Control.Template">
                                                 <Setter.Value>
@@ -97,16 +98,37 @@
                                                 </Setter.Value>
                                             </Setter>
                                         </Style>
-                                    </DatePicker.Resources>
+                                    </DatePicker.Resources>-->
 
                                 </DatePicker>
                             </materialDesign:Card>
 
                             <materialDesign:Card Margin="8 10 3 0">
-                                <TextBox  materialDesign:HintAssist.Hint="Số lượng"
+                                    <TextBox  materialDesign:HintAssist.Hint="Chi phí ăn uống"
+                                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                              VerticalAlignment="Center" Margin="10 10 10 10"
+                                              Text="{Binding CostAU, UpdateSourceTrigger=PropertyChanged}"
+                                              materialDesign:TextFieldAssist.SuffixText="VND/Người"/>
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+                                </materialDesign:Card>
+
+                            
+
+                            <materialDesign:Card Margin="8 10 3 0">
+                                <TextBox  materialDesign:HintAssist.Hint="Số lượng khách hàng"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                                          VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"/>
+                                          VerticalAlignment="Center" Margin="10 10 10 10"                                          
+                                          Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"
+                                          materialDesign:TextFieldAssist.SuffixText="Người"/>
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PreviewTextInput">
@@ -118,6 +140,25 @@
                                 </i:Interaction.Triggers>
 
                             </materialDesign:Card>
+
+                            <materialDesign:Card Margin="8 10 3 0" Background="LightYellow">
+                                <TextBox  materialDesign:HintAssist.Hint="Chi phí khác"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"                                          
+                                          Text="{Binding OtherCost, UpdateSourceTrigger=PropertyChanged}"
+                                          materialDesign:TextFieldAssist.SuffixText="VND"/>
+
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="PreviewTextInput">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="PreviewKeyDown">
+                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+
+                            </materialDesign:Card>
+
                         </StackPanel>
                     </materialDesign:Card>
                 </Grid>
@@ -293,6 +334,7 @@
                                          materialDesign:HintAssist.Hint="Chi tiết"
                                          Text="{Binding Detail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                                 </materialDesign:Card>
+
                             </Grid>
                         </materialDesign:Card>
                     </Grid>

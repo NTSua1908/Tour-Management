@@ -81,6 +81,12 @@ namespace Tour_management.ViewModel
         private string _Amount;
         public string Amount { get { return _Amount; } set { _Amount = value; OnPropertyChanged(); } }
 
+        private string _CostAU;
+        public string CostAU { get { return _CostAU; } set { _CostAU = value; OnPropertyChanged(); } }
+
+        private string _OtherCost;
+        public string OtherCost { get { return _OtherCost; } set { _OtherCost = value; OnPropertyChanged(); } }
+
         private string _Detail;
         public string Detail { get { return _Detail; } set { _Detail = value; OnPropertyChanged(); } }
 
@@ -89,8 +95,6 @@ namespace Tour_management.ViewModel
 
         private String _SelectedDuty;
         public String SelectedDuty { get { return _SelectedDuty; } set { _SelectedDuty = value; OnPropertyChanged(); } }
-
-
 
         private DoanDuLich dl;
 
@@ -146,9 +150,14 @@ namespace Tour_management.ViewModel
                         ChiTiet = Detail,
                         TongGiaPT = 0,
                         TongGiaKS = 0,
-                        TongGiaAU = 0,   
+                        TongGiaAU = Convert.ToInt32(CostAU),
                         ChiPhiKhac = 0,
                     };
+
+                    if (!String.IsNullOrEmpty(OtherCost))
+                    {
+                        dl.ChiPhiKhac = Convert.ToInt32(OtherCost);
+                    }
 
                     DataProvider.Ins.Entities.DoanDuLiches.Add(dl);
                     DataProvider.Ins.Entities.SaveChanges();
@@ -193,6 +202,7 @@ namespace Tour_management.ViewModel
                     }
 
                     DataProvider.Ins.Entities.SaveChanges();
+                    MessageBox.Show(dl.TongGiaAU.ToString());
                 }
                 else if (ButtonAdd == "Sửa")
                 {
@@ -206,10 +216,22 @@ namespace Tour_management.ViewModel
                     ddlich.SoLuongToiDa = Convert.ToInt32(Amount);
                     ddlich.ChiTiet = Detail;
 
+                    int ChiPhiAnUong = Convert.ToInt32(CostAU);
+
                     if (ddlich.SoLuong > ddlich.SoLuongToiDa)
                     {
                         MessageBox.Show("Không thể giảm số lượng tối đa");
                         return;
+                    }
+
+                    if (!String.IsNullOrEmpty(OtherCost))
+                    {
+                        ddlich.ChiPhiKhac = Convert.ToInt32(OtherCost);
+                    }
+
+                    if (ddlich.SoLuong > 0)
+                    {
+                        ddlich.TongGiaAU = ChiPhiAnUong * ddlich.SoLuong;
                     }
 
                     List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
@@ -285,7 +307,7 @@ namespace Tour_management.ViewModel
                     }
                     
                     DataProvider.Ins.Entities.SaveChanges();
-                    MessageBox.Show(ddlich.TongGiaPT.ToString() + " " + ddlich.TongGiaKS.ToString());
+                    MessageBox.Show(ddlich.TongGiaAU.ToString());
                 }
             });
 
@@ -356,6 +378,8 @@ namespace Tour_management.ViewModel
             Detail = this.dl.ChiTiet;
             SelectedTour = this.dl.Tour;
             ButtonAdd = "Sửa";
+            CostAU = (this.dl.TongGiaAU % this.dl.SoLuong).ToString();
+            OtherCost = this.dl.ChiPhiKhac.ToString();
 
             ListStaffs = new ObservableCollection<DSNhanVien>(DataProvider.Ins.Entities.DSNhanViens.Where(p => (p.MaDoan == dl.MaDoan)));
             ListVehicles = new ObservableCollection<DSPhuongTien>(DataProvider.Ins.Entities.DSPhuongTiens.Where(p => (p.MaDoan == dl.MaDoan)));

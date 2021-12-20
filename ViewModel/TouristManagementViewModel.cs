@@ -53,6 +53,9 @@ namespace Tour_management.ViewModel
         private string _Amount;
         public string Amount { get { return _Amount; } set { _Amount = value; OnPropertyChanged(); } }
 
+        private string _ChiPhiAU;
+        public string ChiPhiAU { get { return _ChiPhiAU; } set { _ChiPhiAU = value; OnPropertyChanged(); } }
+
         private DateTime? _Start;
         public DateTime? Start
         {
@@ -167,11 +170,12 @@ namespace Tour_management.ViewModel
 
                 SelectedTouristGr.SoLuong +=1;
                 Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
-
-                MessageBox.Show(SelectedTouristGr.TongGiaPT.ToString());
+                SelectedTouristGr.TongGiaAU *= SelectedTouristGr.SoLuong;
 
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();
+
+                MessageBox.Show(SelectedTouristGr.TongGiaAU.ToString());
 
                 lstTourist.Add(kdl);
             });
@@ -252,9 +256,12 @@ namespace Tour_management.ViewModel
 
                 SelectedTouristGr.SoLuong -= 1;
                 Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+                SelectedTouristGr.TongGiaAU *= SelectedTouristGr.SoLuong;
 
                 DataProvider.Ins.Entities.KhachDuLiches.Remove(SelectedCustomer);
                 DataProvider.Ins.Entities.SaveChanges();
+
+                MessageBox.Show(SelectedTouristGr.TongGiaAU.ToString());
                 lstTourist.Remove(SelectedCustomer);
             });
 

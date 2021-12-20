@@ -9,10 +9,6 @@
     <viewmodel:UserManagementViewModel x:Key="userVM"/>
     <viewmodel:TouristViewModel x:Key="touristVM"/>
     <viewmodel:TouristManagementViewModel x:Key="touristGrVM"/>
-<<<<<<< HEAD
-=======
-    <viewmodel:TouristManagementViewModel x:Key="touristGroupVM"/>
->>>>>>> 2141db2a21d14ef671026b32aa4e66ce996813b9
     <viewmodel:HotelViewModel x:Key="hotelVM"/>
     <viewmodel:DestinationViewModel x:Key="destinationVM"/>
     <viewmodel:VehicleViewModel x:Key="vehicleVM"/>
