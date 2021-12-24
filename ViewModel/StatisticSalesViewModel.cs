@@ -199,7 +199,8 @@ namespace Tour_management.ViewModel
                             continue;
                         decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo; //Tien thu
                         decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac; //Tien chi
-                        decimal revenue = valueIn - valueOut; //Doanh thu
+                        decimal discount = (int)doan.SoLuongGiamGia * (decimal) 0.3 * (decimal)doan.Tour.GiaTour * (decimal)doan.Tour.LoaiTour.HeSo;//Tien giam gia (giam 30%)
+                        decimal revenue = valueIn - (valueOut + discount); //Doanh thu
 
                         //if (getMonth(FromDay, doan.NgayKetThuc.Value) > 0)
                         //    MessageBox.Show(FromDay.ToString() + " " + doan.NgayKetThuc.ToString());
@@ -247,7 +248,8 @@ namespace Tour_management.ViewModel
                     {
                         decimal valueIn = (int)tourgroup.SoLuong * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Tien thu
                         decimal valueOut = (decimal)tourgroup.TongGiaAU + (decimal)tourgroup.TongGiaKS + (decimal)tourgroup.TongGiaPT + (decimal)tourgroup.ChiPhiKhac; //Tien chi
-                        decimal revenue = valueIn - valueOut;
+                        decimal discount = (int)tourgroup.SoLuongGiamGia * (decimal)0.3 * (decimal)tourgroup.Tour.GiaTour * (decimal)tourgroup.Tour.LoaiTour.HeSo; //Giam 30%
+                        decimal revenue = valueIn - valueOut - discount;
 
                         Sales[getMonth(FromDay, tourgroup.NgayKetThuc.Value) + 1] += revenue;
                     }

@@ -76,6 +76,7 @@ create table DoanDuLich(
 	TongGiaKS money,
 	TongGiaAU money,
 	ChiPhiKhac money,
+	SoLuongGiamGia int
 )
 
 create table KhachDuLich(
@@ -95,6 +96,11 @@ create table KhachHang(
 	MaLoaiKhach int,
 	HanVisa datetime,
 	HanPassort datetime,
+	SoLanDiTour int
+)
+create table KhachHangThanThiet(
+	MaTT int IDENTITY(1,1) primary key,
+	MaKH int
 )
 
 create table LoaiKhach(
@@ -140,6 +146,7 @@ alter table DSNhanVien add constraint fk_DSNV_NV foreign key (MaNV) references N
 alter table KhachDuLich add constraint fk_KDL_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
 alter table KhachDuLich add constraint fk_KDL_KH foreign key (MaKH) references KhachHang (MaKH);
 alter table KhachHang add constraint fk_KH_LoaiKH foreign key (MaLoaiKhach) references LoaiKhach (MaLoaiKhach);
+alter table KhachHangThanThiet add constraint fk_KHTT_KH foreign key (MaKH) references KhachHang (MaKH);
 alter table DSPhuongTien add constraint fk_DSPT_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
 alter table DSPhuongTien add constraint fk_DSPT_PT foreign key (MaPT) references PhuongTien (MaPT);
 alter table DSKhachSan add constraint fk_DSKS_DDL foreign key (MaDoan) references DoanDuLich (MaDoan);
@@ -183,19 +190,19 @@ Insert into NhanVien values(N'Trần Thanh Nghĩa','Nam', 0367941633, 123578910)
 Insert into NhanVien values(N'Trần Thanh Sua','Nam', 0367941633, 123578910);
 Insert into NhanVien values(N'Trần Thiện Nghĩa','Nam', 0367941633, 123578910);
 
-Insert into KhachHang values(N'Nguyễn Văn A','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null);
-Insert into KhachHang values(N'Nguyễn Văn B','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null);
-Insert into KhachHang values(N'Nguyễn Văn C','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null);
-Insert into KhachHang values('Alex','Nam',18,1234567,N'An Phú An Giang',123456789,2,null,null);
-Insert into KhachHang values('JohnSon','Nam',18,1234567,N'An Phú An Giang',123456789,2,null,null);
+Insert into KhachHang values(N'Nguyễn Văn A','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null, 0);
+Insert into KhachHang values(N'Nguyễn Văn B','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null, 0);
+Insert into KhachHang values(N'Nguyễn Văn C','Nam',18,1234567,N'An Phú An Giang',123456789,1,null,null, 0);
+Insert into KhachHang values('Alex','Nam',18,1234567,N'An Phú An Giang',123456789,2,null,null, 0);
+Insert into KhachHang values('JohnSon','Nam',18,1234567,N'An Phú An Giang',123456789,2,null,null, 0);
 
 Insert into Tour values(N'An Phú - HCM',1,10000);
 Insert into Tour values(N'An Phú - An Giang',1,20000);
 Insert into Tour values(N'Đà Nẵng - Đà Lạt',2,10000);
 
-insert into DoanDuLich values(N'Đoàn AG-HCM',1,'13/9/2021','15/9/2021',50, 50,'', 100, 100, 200, 0);
-insert into DoanDuLich values(N'Đoàn DN-DL',3,'13/9/2021','15/9/2021',50, 35, '', 200, 100, 100, 0);
-insert into DoanDuLich values(N'Đoàn Ap-AG',2,'13/9/2021','15/9/2021',50, 48, '', 100, 100, 300, 0);
+insert into DoanDuLich values(N'Đoàn AG-HCM',1,'13/9/2021','15/9/2021',50, 50,'', 100, 100, 200, 0, 0);
+insert into DoanDuLich values(N'Đoàn DN-DL',3,'13/9/2021','15/9/2021',50, 35, '', 200, 100, 100, 0, 0);
+insert into DoanDuLich values(N'Đoàn Ap-AG',2,'13/9/2021','15/9/2021',50, 48, '', 100, 100, 300, 0, 0);
 
 insert into DSDiaDiem values(1,1);
 insert into DSDiaDiem values(1,2);

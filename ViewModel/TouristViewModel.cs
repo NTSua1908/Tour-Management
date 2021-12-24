@@ -146,8 +146,9 @@ namespace Tour_management.ViewModel
                         ChiTiet = Detail,
                         TongGiaPT = 0,
                         TongGiaKS = 0,
-                        TongGiaAU = 0,   
+                        TongGiaAU = 0,
                         ChiPhiKhac = 0,
+                        SoLuongGiamGia = 0
                     };
 
                     DataProvider.Ins.Entities.DoanDuLiches.Add(dl);
@@ -285,7 +286,7 @@ namespace Tour_management.ViewModel
                     }
                     
                     DataProvider.Ins.Entities.SaveChanges();
-                    MessageBox.Show(ddlich.TongGiaPT.ToString() + " " + ddlich.TongGiaKS.ToString());
+                    //MessageBox.Show(ddlich.TongGiaPT.ToString() + " " + ddlich.TongGiaKS.ToString());
                 }
             });
 

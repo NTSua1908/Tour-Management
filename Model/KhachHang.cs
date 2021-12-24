@@ -18,6 +18,7 @@ namespace Tour_management.Model
         public KhachHang()
         {
             this.KhachDuLiches = new HashSet<KhachDuLich>();
+            this.KhachHangThanThiets = new HashSet<KhachHangThanThiet>();
         }
     
         public int MaKH { get; set; }
@@ -30,9 +31,12 @@ namespace Tour_management.Model
         public Nullable<int> MaLoaiKhach { get; set; }
         public Nullable<System.DateTime> HanVisa { get; set; }
         public Nullable<System.DateTime> HanPassort { get; set; }
+        public Nullable<int> SoLanDiTour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KhachDuLich> KhachDuLiches { get; set; }
         public virtual LoaiKhach LoaiKhach { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KhachHangThanThiet> KhachHangThanThiets { get; set; }
     }
 }

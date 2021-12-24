@@ -103,6 +103,9 @@
     <Compile Include="DestinationManagement.xaml.cs">
       <DependentUpon>DestinationManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoyalCustomersManagement.xaml.cs">
+      <DependentUpon>LoyalCustomersManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\DiaDiem.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
@@ -128,6 +131,9 @@
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\KhachHang.cs">
+      <DependentUpon>TourManagement.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KhachHangThanThiet.cs">
       <DependentUpon>TourManagement.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\KhachSan.cs">
@@ -213,6 +219,7 @@
     </Compile>
     <Compile Include="ViewModel\AreaViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\LoyalCustomersViewModel.cs" />
     <Compile Include="ViewModel\StatisticSalesViewModel.cs" />
     <Compile Include="ViewModel\TouristManagementViewModel.cs" />
     <Compile Include="ViewModel\TouristViewModel.cs" />
@@ -251,6 +258,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoyalCustomersManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

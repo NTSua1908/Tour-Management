@@ -34,6 +34,7 @@ namespace Tour_management.ViewModel
         public ICommand AddUserCommand { get; set; }
         public ICommand AddGroupCommand { get; set; }
         public ICommand StaffAnalysisCommand { get; set; }
+        public ICommand LoyalCustomerCommand { get; set; }
 
         private User _user;
         public User user { get { return _user; } set { _user = value; OnPropertyChanged(); } }
@@ -68,6 +69,11 @@ namespace Tour_management.ViewModel
 
                     Login(p);
                 }
+            });
+
+            LoyalCustomerCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
+                LoyalCustomersManagement loyal = new LoyalCustomersManagement();
+                loyal.ShowDialog();
             });
 
             AreaCommand = new RelayCommand<Window>((p) => { return true; }, (p) => {
@@ -127,8 +133,10 @@ namespace Tour_management.ViewModel
             });
 
             ManageUserCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
-                UserManagement user = new UserManagement();
-                user.ShowDialog();
+                UserManagement userMangement = new UserManagement();
+                UserManagementViewModel viewModel = userMangement.DataContext as UserManagementViewModel;
+                viewModel.setUser(user);
+                userMangement.ShowDialog();
             });
             
             TourTypeCommand = new RelayCommand<Window>((p) => { return isAdmin(); }, (p) => {
@@ -179,11 +187,20 @@ namespace Tour_management.ViewModel
                     if (doan.NgayKetThuc.Value.Year == DateTime.Now.Year && doan.NgayKetThuc.Value.Month <= DateTime.Now.Month)
                     {
 
-                        //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
-
                         if (doan.TongGiaAU == null || doan.TongGiaKS == null || doan.TongGiaPT == null || doan.ChiPhiKhac == null)
                             continue;
-                        decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+                        decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo; //Tien thu
+                        decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac; //Tien chi
+                        decimal discount = (int)doan.SoLuongGiamGia * (decimal)0.3 * (decimal)doan.Tour.GiaTour * (decimal)doan.Tour.LoaiTour.HeSo;//Tien giam gia (giam 30%)
+                        decimal revenue = valueIn - (valueOut + discount); //Doanh thu
+
+                        DoanhThu[doan.NgayKetThuc.Value.Month] += revenue;
+
+                        //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
+
+                        //if (doan.TongGiaAU == null || doan.TongGiaKS == null || doan.TongGiaPT == null || doan.ChiPhiKhac == null)
+                        //    continue;
+                        //decimal valueIn = (int)doan.SoLuong * (decimal)item.GiaTour * (decimal)item.LoaiTour.HeSo;
 
                         //decimal valueOut = (decimal)doan.TongGiaAU + (decimal)doan.TongGiaKS + (decimal)doan.TongGiaPT + (decimal)doan.ChiPhiKhac;
                         //decimal revenue = valueIn - valueOut;

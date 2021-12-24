@@ -116,6 +116,7 @@ namespace Tour_management.ViewModel
                     lstDestination = new ObservableCollection<DSDiaDiem>(DataProvider.Ins.Entities.DSDiaDiems.Where(p => (p.MaTour == SelectedTouristGr.Tour.MaTour)));
                     Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
                     MaxAmount = SelectedTouristGr.SoLuongToiDa.ToString();
+                    //MessageBox.Show(SelectedTouristGr.SoLuongGiamGia + "");
                 }
 
             }
@@ -151,6 +152,26 @@ namespace Tour_management.ViewModel
                     }
                 }
 
+                //cap nhat so lan di tour cua khach hang
+                KhachHang kh = DataProvider.Ins.Entities.KhachHangs.Where(x => x.MaKH == Customer.MaKH).FirstOrDefault(); ;
+                kh.SoLanDiTour += 1;
+
+                if (kh.SoLanDiTour == 5)
+                {
+                    KhachHangThanThiet thanThiet = new KhachHangThanThiet
+                    {
+                        MaKH = Customer.MaKH
+                    };
+                    DataProvider.Ins.Entities.KhachHangThanThiets.Add(thanThiet);
+                }
+
+                //Them giảm giá nếu số lần đi tour chia hết cho 5
+                if (kh.SoLanDiTour % 5 == 0)
+                {
+                    DoanDuLich dl = DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
+                    dl.SoLuongGiamGia += 1;
+                }
+                DataProvider.Ins.Entities.SaveChanges();
                 List<DSKhachSan> lstHotel = new List<DSKhachSan>(DataProvider.Ins.Entities
                     .DSKhachSans.Where(x => x.MaDoan == SelectedTouristGr.MaDoan));
                 foreach (DSKhachSan hotel in lstHotel)
@@ -168,7 +189,7 @@ namespace Tour_management.ViewModel
                 SelectedTouristGr.SoLuong +=1;
                 Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
 
-                MessageBox.Show(SelectedTouristGr.TongGiaPT.ToString());
+                //MessageBox.Show(SelectedTouristGr.TongGiaPT.ToString());
 
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();
@@ -252,6 +273,21 @@ namespace Tour_management.ViewModel
 
                 SelectedTouristGr.SoLuong -= 1;
                 Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+
+                //cap nhat so lan di tour cua khach hang
+                KhachHang kh = DataProvider.Ins.Entities.KhachHangs.Where(x => x.MaKH == SelectedCustomer.MaKH).FirstOrDefault(); ;
+                if (kh.SoLanDiTour % 5 == 0)
+                {
+                    DoanDuLich dl = DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
+                    dl.SoLuongGiamGia -= 1;
+                }    
+                
+                kh.SoLanDiTour -= 1;
+                if (kh.SoLanDiTour == 4)
+                {
+                    KhachHangThanThiet thanThiet = DataProvider.Ins.Entities.KhachHangThanThiets.Where(x => x.MaKH == SelectedCustomer.MaKH).FirstOrDefault();
+                    DataProvider.Ins.Entities.KhachHangThanThiets.Remove(thanThiet);
+                }
 
                 DataProvider.Ins.Entities.KhachDuLiches.Remove(SelectedCustomer);
                 DataProvider.Ins.Entities.SaveChanges();

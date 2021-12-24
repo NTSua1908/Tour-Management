@@ -47,15 +47,19 @@ namespace Tour_management.ViewModel
         public LoaiUser SelectedUserType { get { return _SelectedUserType; } set { _SelectedUserType = value; OnPropertyChanged(); } }
 
         private User _SelectedUser;
-        public User SelectedUser {
-            get {
+        public User SelectedUser
+        {
+            get
+            {
                 return _SelectedUser;
-            } set {
+            }
+            set
+            {
                 _SelectedUser = value;
                 OnPropertyChanged();
                 if (SelectedUser != null)
                 {
-                    Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));        
+                    Avatar = new BitmapImage(new Uri("pack://application:,,,/Tour%20management;component/Resources/avatar" + SelectedUser.Avatar + ".png", UriKind.Absolute));
                     DisplayName = SelectedUser.HoTen;
                     Age = SelectedUser.Tuoi.ToString();
                     CMND = SelectedUser.CMND;
@@ -64,6 +68,8 @@ namespace Tour_management.ViewModel
                 }
             }
         }
+
+        private User user;
 
         public UserManagementViewModel()
         {
@@ -91,7 +97,7 @@ namespace Tour_management.ViewModel
                 || string.IsNullOrEmpty(CMND) || string.IsNullOrEmpty(Phone) || SelectedUser == null
                 || SelectedUserType == null || SelectedUserType.TenLoai.Equals("Null"))
                 {
-                    return false; 
+                    return false;
                 }
 
                 return true;
@@ -122,7 +128,7 @@ namespace Tour_management.ViewModel
 
             DeleteCommand = new RelayCommand<Window>((p) =>
             {
-                return SelectedUser != null;
+                return SelectedUser != null && SelectedUser.ID != user.ID;
             }, (p) =>
             {
                 //Hoi lai cho chac
@@ -137,7 +143,8 @@ namespace Tour_management.ViewModel
             SearchCommand = new RelayCommand<Window>((p) =>
             {
                 return true;
-            }, (p) => {
+            }, (p) =>
+            {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstUser);
                 view.Filter = UserFilter;
             });
@@ -272,5 +279,10 @@ namespace Tour_management.ViewModel
             else e.CancelCommand();
         }
         #endregion
+
+        public void setUser(User user)
+        {
+            this.user = user;
+        }
     }
 }
