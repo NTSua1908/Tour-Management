@@ -18,4 +18,5 @@
     <viewmodel:TourViewModel x:Key="tourVM"/>
     <viewmodel:Staff_sNumberTourViewModel x:Key="staffNumberVM"/>
     <viewmodel:StatisticSalesViewModel x:Key="statisticsVM"/>
+    <viewmodel:LoyalCustomersViewModel x:Key="loyalCustomersVM"/>
 </ResourceDictionary>

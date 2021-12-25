@@ -93,6 +93,9 @@
                                     </Style.Triggers>
                                 </Style>
                             </StackPanel.Resources>
+                            <Button ToolTip="Khách hàng thân thiết" Command="{Binding LoyalCustomerCommand}" CommandParameter="{Binding ElementName=main}" >
+                                <materialDesign:PackIcon Kind="TagHeart" Foreground="AliceBlue"/>
+                            </Button>
                             <Button ToolTip="Danh sách khu vực" Command="{Binding AreaCommand}" CommandParameter="{Binding ElementName=main}" >
                                 <materialDesign:PackIcon Kind="MapMarkerRadiusOutline" Foreground="AliceBlue"/>
                             </Button>
