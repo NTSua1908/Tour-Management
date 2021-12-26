@@ -8,19 +8,19 @@
         <EntityTypeShape EntityType="TourModel.DiaDiem" Width="1.5" PointX="3" PointY="4" />
         <EntityTypeShape EntityType="TourModel.DoanDuLich" Width="1.5" PointX="5.25" PointY="8.5" />
         <EntityTypeShape EntityType="TourModel.DSDiaDiem" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="TourModel.DSKhachSan" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="TourModel.DSKhachSan" Width="1.5" PointX="10.5" PointY="9.75" />
         <EntityTypeShape EntityType="TourModel.DSNhanVien" Width="1.5" PointX="7.5" PointY="6.625" />
-        <EntityTypeShape EntityType="TourModel.DSPhuongTien" Width="1.5" PointX="10.5" PointY="9.75" />
-        <EntityTypeShape EntityType="TourModel.KhachDuLich" Width="1.5" PointX="7.5" PointY="12.75" />
-        <EntityTypeShape EntityType="TourModel.KhachHang" Width="1.5" PointX="5.25" PointY="17.875" />
-        <EntityTypeShape EntityType="TourModel.KhachHangThanThiet" Width="1.5" PointX="7.5" PointY="19" />
-        <EntityTypeShape EntityType="TourModel.KhachSan" Width="1.5" PointX="5.25" PointY="14.5" />
+        <EntityTypeShape EntityType="TourModel.DSPhuongTien" Width="1.5" PointX="7.5" PointY="12.75" />
+        <EntityTypeShape EntityType="TourModel.KhachDuLich" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="TourModel.KhachHang" Width="1.5" PointX="5.25" PointY="13.875" />
+        <EntityTypeShape EntityType="TourModel.KhachHangThanThiet" Width="1.5" PointX="7.5" PointY="16" />
+        <EntityTypeShape EntityType="TourModel.KhachSan" Width="1.5" PointX="8.25" PointY="2.375" />
         <EntityTypeShape EntityType="TourModel.KhuVuc" Width="1.5" PointX="0.75" PointY="4.125" />
-        <EntityTypeShape EntityType="TourModel.LoaiKhach" Width="1.5" PointX="3" PointY="19" />
+        <EntityTypeShape EntityType="TourModel.LoaiKhach" Width="1.5" PointX="3" PointY="15" />
         <EntityTypeShape EntityType="TourModel.LoaiTour" Width="1.5" PointX="0.75" PointY="7.125" />
         <EntityTypeShape EntityType="TourModel.LoaiUser" Width="1.5" PointX="10.75" PointY="1.625" />
         <EntityTypeShape EntityType="TourModel.NhanVien" Width="1.5" PointX="5.25" PointY="1.625" />
-        <EntityTypeShape EntityType="TourModel.PhuongTien" Width="1.5" PointX="8.25" PointY="3.875" />
+        <EntityTypeShape EntityType="TourModel.PhuongTien" Width="1.5" PointX="5.25" PointY="18.625" />
         <EntityTypeShape EntityType="TourModel.Tour" Width="1.5" PointX="3" PointY="6.875" />
         <EntityTypeShape EntityType="TourModel.User" Width="1.5" PointX="13" PointY="1" />
         <AssociationConnector Association="TourModel.fk_DD_KhuVuc" />

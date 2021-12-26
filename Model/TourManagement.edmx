@@ -45,6 +45,8 @@
           </Key>
           <Property Name="MaDSKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKS" Type="int" />
+          <Property Name="SoNgay" Type="int" />
+          <Property Name="SoDem" Type="int" />
           <Property Name="MaDoan" Type="int" />
         </EntityType>
         <EntityType Name="DSNhanVien">
@@ -81,7 +83,7 @@
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
           <Property Name="Tuoi" Type="int" />
           <Property Name="CMND_Passport" Type="varchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="nvarchar" MaxLength="50" />
           <Property Name="MaLoaiKhach" Type="int" />
           <Property Name="HanVisa" Type="datetime" />
@@ -101,7 +103,8 @@
           </Key>
           <Property Name="MaKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenKS" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="NguoiDaiDien" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="varchar" MaxLength="50" />
           <Property Name="ChiPhi" Type="money" />
           <Property Name="MaKhuVuc" Type="int" />
@@ -150,7 +153,9 @@
             <PropertyRef Name="MaPT" />
           </Key>
           <Property Name="MaPT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCongTy" Type="nvarchar" MaxLength="50" />
           <Property Name="TenPT" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="50" />
           <Property Name="ChiPhi" Type="money" />
         </EntityType>
         <EntityType Name="Tour">
@@ -221,30 +226,6 @@
             </Principal>
             <Dependent Role="DSDiaDiem">
               <PropertyRef Name="MaTour" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_DSKS_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DoanDuLich">
-              <PropertyRef Name="MaDoan" />
-            </Principal>
-            <Dependent Role="DSKhachSan">
-              <PropertyRef Name="MaDoan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_DSKS_KS">
-          <End Role="KhachSan" Type="Self.KhachSan" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachSan">
-              <PropertyRef Name="MaKS" />
-            </Principal>
-            <Dependent Role="DSKhachSan">
-              <PropertyRef Name="MaKS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -414,14 +395,6 @@
           <AssociationSet Name="fk_DSDD_Tour" Association="Self.fk_DSDD_Tour">
             <End Role="Tour" EntitySet="Tour" />
             <End Role="DSDiaDiem" EntitySet="DSDiaDiem" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_DDL" Association="Self.fk_DSKS_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLich" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSan" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_KS" Association="Self.fk_DSKS_KS">
-            <End Role="KhachSan" EntitySet="KhachSan" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSan" />
           </AssociationSet>
           <AssociationSet Name="fk_DSNV_DDL" Association="Self.fk_DSNV_DDL">
             <End Role="DoanDuLich" EntitySet="DoanDuLich" />
@@ -612,6 +585,8 @@
           <Property Name="MaDoan" Type="Int32" />
           <NavigationProperty Name="DoanDuLich" Relationship="TourModel.fk_DSKS_DDL" FromRole="DSKhachSan" ToRole="DoanDuLich" />
           <NavigationProperty Name="KhachSan" Relationship="TourModel.fk_DSKS_KS" FromRole="DSKhachSan" ToRole="KhachSan" />
+          <Property Name="SoNgay" Type="Int32" />
+          <Property Name="SoDem" Type="Int32" />
         </EntityType>
         <EntityType Name="DSNhanVien">
           <Key>
@@ -653,7 +628,7 @@
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Tuoi" Type="Int32" />
           <Property Name="CMND_Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaLoaiKhach" Type="Int32" />
           <Property Name="HanVisa" Type="DateTime" Precision="3" />
@@ -677,7 +652,8 @@
           </Key>
           <Property Name="MaKS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenKS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NguoiDaiDien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ChiPhi" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="MaKhuVuc" Type="Int32" />
@@ -734,7 +710,9 @@
             <PropertyRef Name="MaPT" />
           </Key>
           <Property Name="MaPT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCongTy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TenPT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ChiPhi" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="DSPhuongTiens" Relationship="TourModel.fk_DSPT_PT" FromRole="PhuongTien" ToRole="DSPhuongTien" />
         </EntityType>
@@ -969,7 +947,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1015,6 +993,8 @@
           <EntitySetMapping Name="DSKhachSans">
             <EntityTypeMapping TypeName="TourModel.DSKhachSan">
               <MappingFragment StoreEntitySet="DSKhachSan">
+                <ScalarProperty Name="SoDem" ColumnName="SoDem" />
+                <ScalarProperty Name="SoNgay" ColumnName="SoNgay" />
                 <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
                 <ScalarProperty Name="MaKS" ColumnName="MaKS" />
                 <ScalarProperty Name="MaDSKS" ColumnName="MaDSKS" />
@@ -1081,6 +1061,7 @@
                 <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
                 <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NguoiDaiDien" ColumnName="NguoiDaiDien" />
                 <ScalarProperty Name="TenKS" ColumnName="TenKS" />
                 <ScalarProperty Name="MaKS" ColumnName="MaKS" />
               </MappingFragment>
@@ -1134,7 +1115,9 @@
             <EntityTypeMapping TypeName="TourModel.PhuongTien">
               <MappingFragment StoreEntitySet="PhuongTien">
                 <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="TenPT" ColumnName="TenPT" />
+                <ScalarProperty Name="TenCongTy" ColumnName="TenCongTy" />
                 <ScalarProperty Name="MaPT" ColumnName="MaPT" />
               </MappingFragment>
             </EntityTypeMapping>

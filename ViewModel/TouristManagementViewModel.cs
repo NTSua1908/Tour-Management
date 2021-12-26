@@ -120,12 +120,8 @@ namespace Tour_management.ViewModel
                     lstDestination = new ObservableCollection<DSDiaDiem>(DataProvider.Ins.Entities.DSDiaDiems.Where(p => (p.MaTour == SelectedTouristGr.Tour.MaTour)));
                     Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
                     MaxAmount = SelectedTouristGr.SoLuongToiDa.ToString();
-<<<<<<< HEAD
                     Start2 = SelectedTouristGr.NgayKhoiHanh;
                     End2 = SelectedTouristGr.NgayKetThuc;
-=======
-                    //MessageBox.Show(SelectedTouristGr.SoLuongGiamGia + "");
->>>>>>> c54b68c8eb936153a2af3065208ff847feb0b518
                 }
 
             }
