@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -55,6 +57,9 @@ namespace Tour_management.ViewModel
 
         private ObservableCollection<DSPhuongTien> _ListVehicles;
         public ObservableCollection<DSPhuongTien> ListVehicles { get { return _ListVehicles; } set { _ListVehicles = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<DSKhachSan> _ListHotels;
+        public ObservableCollection<DSKhachSan> ListHotels { get { return _ListHotels; } set { _ListHotels = value; OnPropertyChanged(); } }
 
         private string _Name;
         public string Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
@@ -113,6 +118,11 @@ namespace Tour_management.ViewModel
         }
         public TouristViewModel()
         {
+
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             lstTour = new ObservableCollection<Tour>(DataProvider.Ins.Entities.Tours);
             lstVehicle = new ObservableCollection<PhuongTien>(DataProvider.Ins.Entities.PhuongTiens);
             lstHotel = new ObservableCollection<KhachSan>(DataProvider.Ins.Entities.KhachSans);
@@ -124,13 +134,14 @@ namespace Tour_management.ViewModel
             ListVehicles = new ObservableCollection<DSPhuongTien>();
             ButtonAdd = "Thêm";
             MinAvailDate = DateTime.Now;
+                        
 
             lstDuty = new ObservableCollection<string>();
             lstDuty.Add("Trưởng đoàn");
             lstDuty.Add("Phó đoàn");
             lstDuty.Add("Tài xế");
             lstDuty.Add("Phục vụ");
-            lstDuty.Add("Hướng dẫn viên");
+            lstDuty.Add("Hướng dẫn viên");           
 
             AddCommand = new RelayCommand<Window>((p) =>
             {
@@ -139,6 +150,7 @@ namespace Tour_management.ViewModel
             {
                 if (ButtonAdd == "Thêm")
                 {
+                    MessageBox.Show(Start.Value.TimeOfDay.ToString());
                     DoanDuLich dl = new DoanDuLich()
                     {
                         TenDoan = Name,
@@ -224,10 +236,10 @@ namespace Tour_management.ViewModel
                         return;
                     }
 
-                    if (!String.IsNullOrEmpty(OtherCost))
-                    {
-                        ddlich.ChiPhiKhac = Convert.ToInt32(OtherCost);
-                    }
+                    //if (!String.IsNullOrEmpty(OtherCost))
+                    //{
+                    //    ddlich.ChiPhiKhac = Convert.ToInt32(OtherCost);
+                    //
 
                     if (ddlich.SoLuong > 0)
                     {
@@ -377,23 +389,22 @@ namespace Tour_management.ViewModel
             Amount = this.dl.SoLuongToiDa.ToString();
             Detail = this.dl.ChiTiet;
             SelectedTour = this.dl.Tour;
-            ButtonAdd = "Sửa";
-            CostAU = (this.dl.TongGiaAU % this.dl.SoLuong).ToString();
+            ButtonAdd = "Sửa";            
             OtherCost = this.dl.ChiPhiKhac.ToString();
 
             ListStaffs = new ObservableCollection<DSNhanVien>(DataProvider.Ins.Entities.DSNhanViens.Where(p => (p.MaDoan == dl.MaDoan)));
             ListVehicles = new ObservableCollection<DSPhuongTien>(DataProvider.Ins.Entities.DSPhuongTiens.Where(p => (p.MaDoan == dl.MaDoan)));
+            ListHotels = new ObservableCollection<DSKhachSan>(DataProvider.Ins.Entities.DSKhachSans.Where(p => (p.MaDoan == dl.MaDoan)));
 
-            //for (int i = 0; i < lstVehicle.Count; i++)
-            //{
-            //    for (int j = 0; j < ListVehicles.Count; j++)
-            //    {
-            //        if (lstVehicle[i].MaPT == ListVehicles[j].MaPT)
-            //        {
-            //            IsSelected = true;
-            //        }
-            //    }
-            //}
+            foreach (var item in ListVehicles)
+            {
+                SelectedVehicles.Add(item.PhuongTien);
+            }
+
+            foreach (var item in ListHotels)
+            {
+                SelectedHotels.Add(item.KhachSan);
+            }
 
         }
 
@@ -452,7 +463,7 @@ namespace Tour_management.ViewModel
         private bool isCommandEnable()
         {
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Amount)
-                || Start == null || End == null || SelectedVehicles == null
+                 || SelectedVehicles == null
                 || SelectedHotels == null || ListStaffs == null)
             {
                 return false;

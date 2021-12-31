@@ -193,6 +193,10 @@ Insert into Tour values(N'An Phú - HCM',1,10000);
 Insert into Tour values(N'An Phú - An Giang',1,20000);
 Insert into Tour values(N'Đà Nẵng - Đà Lạt',2,10000);
 
+insert into DoanDuLich values(N'Đoàn AG-HCM',1,'13/9/2021','15/9/2021',50, 50,'', 100, 100, 200, 0);
+insert into DoanDuLich values(N'Đoàn DN-DL',3,'13/9/2021','15/9/2021',50, 35, '', 200, 100, 100, 0);
+insert into DoanDuLich values(N'Đoàn Ap-AG',2,'13/9/2021','15/9/2021',50, 48, '', 100, 100, 300, 0);
+
 insert into DSDiaDiem values(1,1);
 insert into DSDiaDiem values(1,2);
 insert into DSDiaDiem values(2,1);
@@ -209,4 +213,3 @@ insert into DSKhachSan values(2,1);
 insert into DSNhanVien values(1,1,N'Hướng dẫn viên');
 insert into DSNhanVien values(1,2,N'Tài xế');
 insert into DSNhanVien values(2,1,N'Phục vụ');
-

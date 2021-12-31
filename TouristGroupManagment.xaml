@@ -271,7 +271,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="30" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="30"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
@@ -279,8 +280,36 @@
                             <TextBlock Text="Danh sách khách" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
                         </Grid>
 
-                        <Grid Grid.Row="1">
-                            <materialDesign:Card VerticalAlignment="Stretch" Margin="5 15 5 5">
+                        <Grid Grid.Row="1" Margin="5 15 5 5">
+                            <Grid>
+                                <materialDesign:Card>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <TextBox Grid.Column="0" Margin="5 0 0 0"
+                                             materialDesign:HintAssist.Hint="Tên khách hàng"
+                                             BorderThickness="0"         
+                                             VerticalAlignment="Center" 
+                                             Text="{Binding TouristName}"/>
+
+                                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}"
+                                            Command="{Binding SearchTouristCommand}"
+                                                HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                                        </Button>
+
+                                    </Grid>
+                                </materialDesign:Card>
+                            </Grid>
+                        </Grid>
+
+
+                        <Grid Grid.Row="2">
+                            <materialDesign:Card VerticalAlignment="Stretch" Margin="5 0 5 0">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*" />
@@ -322,18 +351,20 @@
                                 </Grid>
                             </materialDesign:Card>
                         </Grid>
-
-                        <Grid Grid.Row="2" Margin="5 5 5 0">
-                            <TextBox materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0" 
-                                HorizontalAlignment="Right" 
+                        
+                        <Grid Grid.Row="3" Margin="5 8 5 0">
+                            <TextBox 
+                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
+                                     BorderThickness="0"                                  
                                      Text="{Binding Amount}"
+                                     HorizontalAlignment="Right"
                                      FontSize="15"
                                      IsEnabled="False"
                                      materialDesign:TextFieldAssist.SuffixText="{Binding MaxAmount}">
                             </TextBox>
                         </Grid>
-                        
-                        <materialDesign:Card Grid.Row="3" VerticalAlignment="Stretch" Margin="5 10 5 5">
+
+                        <materialDesign:Card Grid.Row="4" VerticalAlignment="Stretch" Margin="5 5 5 5">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                                 <ListView ItemsSource="{Binding lstTourist}" SelectedItem="{Binding SelectedCustomer, Mode=OneWayToSource}">
                                     <ListView.View>

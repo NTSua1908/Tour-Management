@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Tour_management.ViewModel;
 
 namespace Tour_management
 {
@@ -20,9 +21,28 @@ namespace Tour_management
     /// </summary>
     public partial class TouristGroup : Window
     {
+        TouristViewModel touristView = new TouristViewModel();
         public TouristGroup()
         {
             InitializeComponent();
+            this.DataContext = touristView;
+
+        }
+
+        public void CreateSelectedVehicles()
+        {
+            foreach (var item in touristView.ListVehicles)
+            {
+                listVehicle.SelectedItems.Add(item.PhuongTien);
+            }
+        }
+
+        public void CreateSelectedHotels()
+        {
+            foreach (var item in touristView.ListHotels)
+            {
+                listHotels.SelectedItems.Add(item.KhachSan);
+            }
         }
     }
 
@@ -41,6 +61,4 @@ namespace Tour_management
                 : ValidationResult.ValidResult;
         }
     }
-
-
 }

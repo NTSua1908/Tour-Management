@@ -69,39 +69,65 @@
 
                             </materialDesign:Card>
 
-                            <materialDesign:Card Margin="8 10 3 0" >
-                                <DatePicker
-                                    x:Name="FutureDatePicker"
-                                    Margin="10 10 10 10" materialDesign:HintAssist.Hint="Ngày bắt đầu" 
-                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                    SelectedDate="{Binding Start}"
-                                    DisplayDateStart="{Binding MinAvailDate}">
-                                </DatePicker>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
 
-                            </materialDesign:Card>
+                                <materialDesign:Card Grid.Row="0" Margin="8 10 3 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
 
-                            <materialDesign:Card Margin="8 10 3 0" >
-                                <DatePicker Margin="10 10 10 10" SelectedDate="{Binding End}" 
-                                            materialDesign:HintAssist.Hint="Ngày kết thúc" 
-                                            Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                            DisplayDateStart="{Binding MinAvailDate}">
+                                        <DatePicker Grid.Column="0" Margin="10 10 10 10"
+                                                    x:Name="FutureDatePicker"
+                                                    materialDesign:HintAssist.Hint="Ngày bắt đầu" 
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    SelectedDate="{Binding Start}"      
+                                                    DisplayDateStart="{Binding MinAvailDate}" 
+                                                    SelectedDateFormat="Short">
 
-                                    <!--<DatePicker.Resources>
-                                        <Style TargetType="{x:Type DatePickerTextBox}">
-                                            <Setter Property="Control.Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate>
-                                                        <TextBox x:Name="End"
-                                                                 Text="{Binding Path=SelectedDate, StringFormat='dd MM yyyy', 
-                                                                 RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}}" />
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </DatePicker.Resources>-->
+                                        </DatePicker>
 
-                                </DatePicker>
-                            </materialDesign:Card>
+                                        <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
+                                                                   materialDesign:HintAssist.Hint="Thời gian" 
+                                                                   x:Name="StartTimePicker" 
+                                                                   Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                                   Is24Hours="True"
+                                                                   SelectedTime="{Binding Start}"/>
+                                        
+                                    </Grid>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Grid.Row="1" Margin="8 10 3 0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+
+                                        <DatePicker Grid.Column="0" Margin="10 10 10 10"
+                                                    SelectedDate="{Binding End}" 
+                                                    materialDesign:HintAssist.Hint="Ngày kết thúc" 
+                                                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                                    DisplayDateStart="{Binding MinAvailDate}"
+                                                    SelectedDateFormat="Short">
+                                            
+                                        </DatePicker>
+
+                                        <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
+                                                                   materialDesign:HintAssist.Hint="Thời gian" 
+                                                                   x:Name="EndTimePicker" 
+                                                                   Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+                                                                   SelectedTime="{Binding End}"
+                                                                   Is24Hours="True" />
+                                    </Grid>
+                                </materialDesign:Card>
+
+                            </Grid>
 
                             <materialDesign:Card Margin="8 10 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Chi phí ăn uống"
@@ -185,10 +211,11 @@
                                     <materialDesign:Card  Margin="8 5 8 10">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <ListBox x:Name="listVehicle"    
-                                                Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}"
-                                                Padding="3"
-                                                ItemsSource="{Binding lstVehicle}"
-                                                DisplayMemberPath="TenPT">
+                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}"
+                                                     Padding="3"
+                                                     ItemsSource="{Binding lstVehicle}"
+                                                     DisplayMemberPath="TenPT">
+                                
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="SelectionChanged">
@@ -387,7 +414,7 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
+                                    <Button x:Name="AddButton" Grid.Column="0" Style="{StaticResource MaterialDesignRaisedButton}" 
                                         materialDesign:ButtonAssist.CornerRadius="15" ToolTip="{Binding ButtonAdd}"
                                         Margin="5 5 5 0" Content="{Binding ButtonAdd}"                                      
                                         Command="{Binding AddCommand}"

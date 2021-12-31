@@ -19,6 +19,7 @@ namespace Tour_management.ViewModel
         public ICommand EditCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
+        public ICommand SearchTouristCommand { get; set; }
 
         private ObservableCollection<DoanDuLich> _lstTouristGr;
         public ObservableCollection<DoanDuLich> lstTouristGr { get { return _lstTouristGr; } set { _lstTouristGr = value; OnPropertyChanged(); } }
@@ -46,6 +47,9 @@ namespace Tour_management.ViewModel
 
         private string _Name;
         public string Name { get { return _Name; } set { _Name = value; OnPropertyChanged(); } }
+
+        private string _TouristName;
+        public string TouristName { get { return _TouristName; } set { _TouristName = value; OnPropertyChanged(); } }
 
         private string _MaxAmount;
         public string MaxAmount { get { return _MaxAmount; } set { _MaxAmount = value; OnPropertyChanged(); } }
@@ -130,6 +134,10 @@ namespace Tour_management.ViewModel
 
             AddCusCommand = new RelayCommand<Window>((p) =>
             {
+                if (SelectedTouristGr == null)
+                {
+                    return false;
+                }
                 return Customer != null; //Điều kiện để button enable (return true => button enable và ngược lại)
             }, (p) =>
             {
@@ -276,6 +284,15 @@ namespace Tour_management.ViewModel
                 view.Filter = TouristGrFilter;
             });
 
+            SearchTouristCommand = new RelayCommand<Window>((p) =>
+            {
+                return true;
+            }, (p) =>
+            {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstTourist);
+                view.Filter = TouristFilter;
+            });
+
             EditCommand = new RelayCommand<Window>((p) =>
             {
                 return SelectedTouristGr != null; //Điều kiện để button enable (return true => button enable và ngược lại)
@@ -285,8 +302,19 @@ namespace Tour_management.ViewModel
 
                 TouristViewModel viewModel = tourist.DataContext as TouristViewModel;
                 viewModel.SetTourist(SelectedTouristGr);
+                tourist.CreateSelectedVehicles();
+                tourist.CreateSelectedHotels();
                 tourist.ShowDialog();
 
+                //Them dong nay cho no reload lai
+                lstTouristGr = new ObservableCollection<DoanDuLich>(DataProvider.Ins.Entities.DoanDuLiches);
+                lstHotel = new ObservableCollection<DSKhachSan>(DataProvider.Ins.Entities.DSKhachSans.Where(x => (x.MaDoan == SelectedTouristGr.MaDoan)));
+                lstVehicle = new ObservableCollection<DSPhuongTien>(DataProvider.Ins.Entities.DSPhuongTiens.Where(x => (x.MaDoan == SelectedTouristGr.MaDoan)));
+                lstStaff = new ObservableCollection<DSNhanVien>(DataProvider.Ins.Entities.DSNhanViens.Where(x => (x.MaDoan == SelectedTouristGr.MaDoan)));
+                lstTourist = new ObservableCollection<KhachDuLich>(DataProvider.Ins.Entities.KhachDuLiches.Where(x => (x.MaDoan == SelectedTouristGr.MaDoan)));
+                lstDestination = new ObservableCollection<DSDiaDiem>(DataProvider.Ins.Entities.DSDiaDiems.Where(x => (x.MaTour == SelectedTouristGr.Tour.MaTour)));
+                Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+                MaxAmount = SelectedTouristGr.SoLuongToiDa.ToString();
             });
 
 
@@ -295,16 +323,23 @@ namespace Tour_management.ViewModel
         private bool TouristGrFilter(object item)
         {
             DoanDuLich dl = item as DoanDuLich;
-            if (filterName(dl))
+            if (filterGroupTourName(dl))
                 return true;
+            return false;
+        }
 
+        private bool TouristFilter(object item)
+        {
+            KhachDuLich kdl = item as KhachDuLich;
+            if (filterTouristName(kdl))
+                return true;
             return false;
         }
 
         private bool StartFilter(object item)
         {
             DoanDuLich dl = item as DoanDuLich;
-            if (filterStart(dl))
+            if (filterStartDate(dl))
                 return true;
 
             return false;
@@ -313,7 +348,7 @@ namespace Tour_management.ViewModel
         private bool EndFilter(object item)
         {
             DoanDuLich dl = item as DoanDuLich;
-            if (filterEnd(dl))
+            if (filterEndDate(dl))
                 return true;
 
             return false;
@@ -321,7 +356,7 @@ namespace Tour_management.ViewModel
 
         #region Filter
 
-        private bool filterName(DoanDuLich dl)
+        private bool filterGroupTourName(DoanDuLich dl)
         {
             if (string.IsNullOrEmpty(Name) || dl.TenDoan.ToLower().Contains(Name.ToLower()))
             {
@@ -330,7 +365,16 @@ namespace Tour_management.ViewModel
             return false;
         }
 
-        private bool filterEnd(DoanDuLich dl)
+        private bool filterTouristName(KhachDuLich kdl)
+        {
+            if (string.IsNullOrEmpty(TouristName) || kdl.KhachHang.Hoten.ToLower().Contains(TouristName.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool filterEndDate(DoanDuLich dl)
         {
             if (End == null || dl.NgayKetThuc == End)
             {
@@ -339,7 +383,7 @@ namespace Tour_management.ViewModel
             return false;
         }
 
-        private bool filterStart(DoanDuLich dl)
+        private bool filterStartDate(DoanDuLich dl)
         {
             if (Start == null || dl.NgayKhoiHanh == Start)
             {
