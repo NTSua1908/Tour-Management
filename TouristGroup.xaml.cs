@@ -54,13 +54,14 @@ namespace Tour_management
 
         public void CreateSelectedHotels()
         {
-
-            //listHotel.SelectedItems.Add(listHotel.Items[1]);
-            Type type = listHotel.Items.GetType();
-
-            foreach (var item in touristView.SelectedHotels)
+            foreach (var item in listHotel.Items)
             {
-
+                Hotels hotel = item as Hotels;
+                Hotels selectedItem = touristView.SelectedHotels.Where(x => x.Hotel.MaKS == hotel.Hotel.MaKS).FirstOrDefault();
+                if (selectedItem != null)
+                {
+                    listHotel.SelectedItems.Add(item);
+                }
             }
         }
     }

@@ -302,6 +302,33 @@ namespace Tour_management.ViewModel
                     foreach (Hotels item in SelectedHotels)
                     {
                         var ks = lstKhachSan.Where(x => x.MaKS == item.Hotel.MaKS).FirstOrDefault(); //Xem dia diem duoc chon da nam trong danh sach dia diem ban dau hay khong
+
+                        if (ks != null)
+                        {
+                            //Update lại thông tin trong SelectedHotels vì txtDay, txtNight binding theo lstHotel
+                            var sks = lstHotel.Where(x => x.Hotel.MaKS == ks.MaKS).FirstOrDefault(); //Kiểm tra lstHotel - SelectedHotels
+                            if (sks != null)
+                            {
+                                if (sks.noDay != item.noDay) //Nếu Ngày trong lstHotel khác ngày trong SelectedHotels
+                                {
+                                    item.noDay = sks.noDay; //cập nhật lại thông tin SelectedHotels
+                                }
+                                if (sks.noNight != item.noNight) //Giống trên
+                                {
+                                    item.noNight = sks.noNight;
+                                }
+                            }
+
+                            //Update lại ngày đêm trong danh sách khach DB
+                            if (ks.SoNgay != item.noDay)
+                            {
+                                ks.SoNgay = item.noDay;
+                            }
+                            if (ks.SoDem != item.noNight)
+                            {
+                                ks.SoDem = item.noNight;
+                            }
+                        }
                         if (ks == null) //Neu chua co thi them vao
                         {
                             DataProvider.Ins.Entities.DSKhachSans.Add(new DSKhachSan
@@ -313,10 +340,7 @@ namespace Tour_management.ViewModel
                             });
                             //ddlich.TongGiaKS += Convert.ToInt32(item.ChiPhi * ddlich.SoLuong) * Math.Abs(getday(Start.Value.Date, End.Value.Date));
                         }
-                        else if (ks != null && ks.SoNgay != item.noDay)
-                        {
-                            
-                        }
+
                     }
 
                     List<DSNhanVien> lstNhanVien = new List<DSNhanVien>(DataProvider.Ins.Entities

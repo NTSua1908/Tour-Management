@@ -268,9 +268,9 @@
                                                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
                                                                 Text="{Binding Hotel.TenKS}" VerticalAlignment="Center">
                                                             </TextBlock>
-                                                            <TextBox x:Name="txtDay" Text="{Binding noDay}" Margin="5 0 0 0" VerticalAlignment="Center"
+                                                            <TextBox x:Name="txtDay" Text="{Binding noDay, Mode=TwoWay}" Margin="5 0 0 0" VerticalAlignment="Center"
                                                                      materialDesign:TextFieldAssist.SuffixText=" Ngày"> </TextBox>
-                                                            <TextBox x:Name="txtNight" Text="{Binding noNight}"  Margin="5 0 0 0" VerticalAlignment="Center"  
+                                                            <TextBox x:Name="txtNight" Text="{Binding noNight, Mode=TwoWay}"  Margin="5 0 0 0" VerticalAlignment="Center"  
                                                                      materialDesign:TextFieldAssist.SuffixText=" Đêm"></TextBox>
                                                         </StackPanel>
                                                     </DataTemplate>
