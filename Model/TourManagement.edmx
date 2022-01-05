@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TourModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TourModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DiaDiem">
           <Key>
             <PropertyRef Name="MaDD" />
@@ -29,6 +29,7 @@
           <Property Name="TongGiaKS" Type="money" />
           <Property Name="TongGiaAU" Type="money" />
           <Property Name="ChiPhiKhac" Type="money" />
+          <Property Name="SoLuongGiamGia" Type="int" />
         </EntityType>
         <EntityType Name="DSDiaDiem">
           <Key>
@@ -44,6 +45,8 @@
           </Key>
           <Property Name="MaDSKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaKS" Type="int" />
+          <Property Name="SoNgay" Type="int" />
+          <Property Name="SoDem" Type="int" />
           <Property Name="MaDoan" Type="int" />
         </EntityType>
         <EntityType Name="DSNhanVien">
@@ -80,11 +83,19 @@
           <Property Name="GioiTinh" Type="nvarchar" MaxLength="10" />
           <Property Name="Tuoi" Type="int" />
           <Property Name="CMND_Passport" Type="varchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="nvarchar" MaxLength="50" />
           <Property Name="MaLoaiKhach" Type="int" />
           <Property Name="HanVisa" Type="datetime" />
           <Property Name="HanPassort" Type="datetime" />
+          <Property Name="SoLanDiTour" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachHangThanThiet">
+          <Key>
+            <PropertyRef Name="MaTT" />
+          </Key>
+          <Property Name="MaTT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
         </EntityType>
         <EntityType Name="KhachSan">
           <Key>
@@ -92,7 +103,8 @@
           </Key>
           <Property Name="MaKS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenKS" Type="nvarchar" MaxLength="50" />
-          <Property Name="DiaChi" Type="nvarchar" MaxLength="50" />
+          <Property Name="NguoiDaiDien" Type="nvarchar" MaxLength="50" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="100" />
           <Property Name="SDT" Type="varchar" MaxLength="50" />
           <Property Name="ChiPhi" Type="money" />
           <Property Name="MaKhuVuc" Type="int" />
@@ -141,7 +153,9 @@
             <PropertyRef Name="MaPT" />
           </Key>
           <Property Name="MaPT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenCongTy" Type="nvarchar" MaxLength="50" />
           <Property Name="TenPT" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDT" Type="varchar" MaxLength="50" />
           <Property Name="ChiPhi" Type="money" />
         </EntityType>
         <EntityType Name="Tour">
@@ -215,30 +229,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_DSKS_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DoanDuLich">
-              <PropertyRef Name="MaDoan" />
-            </Principal>
-            <Dependent Role="DSKhachSan">
-              <PropertyRef Name="MaDoan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_DSKS_KS">
-          <End Role="KhachSan" Type="Self.KhachSan" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="KhachSan">
-              <PropertyRef Name="MaKS" />
-            </Principal>
-            <Dependent Role="DSKhachSan">
-              <PropertyRef Name="MaKS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_DSNV_DDL">
           <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
           <End Role="DSNhanVien" Type="Self.DSNhanVien" Multiplicity="*" />
@@ -320,6 +310,18 @@
             </Principal>
             <Dependent Role="KhachHang">
               <PropertyRef Name="MaLoaiKhach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_KHTT_KH">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="KhachHangThanThiet" Type="Self.KhachHangThanThiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="KhachHangThanThiet">
+              <PropertyRef Name="MaKH" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -368,6 +370,7 @@
           <EntitySet Name="DSPhuongTien" EntityType="Self.DSPhuongTien" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachDuLich" EntityType="Self.KhachDuLich" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHangThanThiet" EntityType="Self.KhachHangThanThiet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhachSan" EntityType="Self.KhachSan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KhuVuc" EntityType="Self.KhuVuc" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoaiKhach" EntityType="Self.LoaiKhach" Schema="dbo" store:Type="Tables" />
@@ -392,14 +395,6 @@
           <AssociationSet Name="fk_DSDD_Tour" Association="Self.fk_DSDD_Tour">
             <End Role="Tour" EntitySet="Tour" />
             <End Role="DSDiaDiem" EntitySet="DSDiaDiem" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_DDL" Association="Self.fk_DSKS_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLich" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSan" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_KS" Association="Self.fk_DSKS_KS">
-            <End Role="KhachSan" EntitySet="KhachSan" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSan" />
           </AssociationSet>
           <AssociationSet Name="fk_DSNV_DDL" Association="Self.fk_DSNV_DDL">
             <End Role="DoanDuLich" EntitySet="DoanDuLich" />
@@ -429,6 +424,10 @@
             <End Role="LoaiKhach" EntitySet="LoaiKhach" />
             <End Role="KhachHang" EntitySet="KhachHang" />
           </AssociationSet>
+          <AssociationSet Name="fk_KHTT_KH" Association="Self.fk_KHTT_KH">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="KhachHangThanThiet" EntitySet="KhachHangThanThiet" />
+          </AssociationSet>
           <AssociationSet Name="fk_KS_KhuVuc" Association="Self.fk_KS_KhuVuc">
             <End Role="KhuVuc" EntitySet="KhuVuc" />
             <End Role="KhachSan" EntitySet="KhachSan" />
@@ -442,11 +441,98 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TourModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TourManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DiaDiems" EntityType="TourModel.DiaDiem" />
+          <EntitySet Name="DoanDuLiches" EntityType="TourModel.DoanDuLich" />
+          <EntitySet Name="DSDiaDiems" EntityType="TourModel.DSDiaDiem" />
+          <EntitySet Name="DSKhachSans" EntityType="TourModel.DSKhachSan" />
+          <EntitySet Name="DSNhanViens" EntityType="TourModel.DSNhanVien" />
+          <EntitySet Name="DSPhuongTiens" EntityType="TourModel.DSPhuongTien" />
+          <EntitySet Name="KhachDuLiches" EntityType="TourModel.KhachDuLich" />
+          <EntitySet Name="KhachHangs" EntityType="TourModel.KhachHang" />
+          <EntitySet Name="KhachHangThanThiets" EntityType="TourModel.KhachHangThanThiet" />
+          <EntitySet Name="KhachSans" EntityType="TourModel.KhachSan" />
+          <EntitySet Name="KhuVucs" EntityType="TourModel.KhuVuc" />
+          <EntitySet Name="LoaiKhaches" EntityType="TourModel.LoaiKhach" />
+          <EntitySet Name="LoaiTours" EntityType="TourModel.LoaiTour" />
+          <EntitySet Name="LoaiUsers" EntityType="TourModel.LoaiUser" />
+          <EntitySet Name="NhanViens" EntityType="TourModel.NhanVien" />
+          <EntitySet Name="PhuongTiens" EntityType="TourModel.PhuongTien" />
+          <EntitySet Name="Tours" EntityType="TourModel.Tour" />
+          <EntitySet Name="Users" EntityType="TourModel.User" />
+          <AssociationSet Name="fk_DD_KhuVuc" Association="TourModel.fk_DD_KhuVuc">
+            <End Role="KhuVuc" EntitySet="KhuVucs" />
+            <End Role="DiaDiem" EntitySet="DiaDiems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSDD_DD" Association="TourModel.fk_DSDD_DD">
+            <End Role="DiaDiem" EntitySet="DiaDiems" />
+            <End Role="DSDiaDiem" EntitySet="DSDiaDiems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DDL_Tour" Association="TourModel.fk_DDL_Tour">
+            <End Role="Tour" EntitySet="Tours" />
+            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSKS_DDL" Association="TourModel.fk_DSKS_DDL">
+            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
+            <End Role="DSKhachSan" EntitySet="DSKhachSans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSNV_DDL" Association="TourModel.fk_DSNV_DDL">
+            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
+            <End Role="DSNhanVien" EntitySet="DSNhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSPT_DDL" Association="TourModel.fk_DSPT_DDL">
+            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
+            <End Role="DSPhuongTien" EntitySet="DSPhuongTiens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KDL_DDL" Association="TourModel.fk_KDL_DDL">
+            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
+            <End Role="KhachDuLich" EntitySet="KhachDuLiches" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSDD_Tour" Association="TourModel.fk_DSDD_Tour">
+            <End Role="Tour" EntitySet="Tours" />
+            <End Role="DSDiaDiem" EntitySet="DSDiaDiems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSKS_KS" Association="TourModel.fk_DSKS_KS">
+            <End Role="KhachSan" EntitySet="KhachSans" />
+            <End Role="DSKhachSan" EntitySet="DSKhachSans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSNV_NV" Association="TourModel.fk_DSNV_NV">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="DSNhanVien" EntitySet="DSNhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_DSPT_PT" Association="TourModel.fk_DSPT_PT">
+            <End Role="PhuongTien" EntitySet="PhuongTiens" />
+            <End Role="DSPhuongTien" EntitySet="DSPhuongTiens" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KDL_KH" Association="TourModel.fk_KDL_KH">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="KhachDuLich" EntitySet="KhachDuLiches" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KH_LoaiKH" Association="TourModel.fk_KH_LoaiKH">
+            <End Role="LoaiKhach" EntitySet="LoaiKhaches" />
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KHTT_KH" Association="TourModel.fk_KHTT_KH">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="KhachHangThanThiet" EntitySet="KhachHangThanThiets" />
+          </AssociationSet>
+          <AssociationSet Name="fk_KS_KhuVuc" Association="TourModel.fk_KS_KhuVuc">
+            <End Role="KhuVuc" EntitySet="KhuVucs" />
+            <End Role="KhachSan" EntitySet="KhachSans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Tour_LoaiTour" Association="TourModel.fk_Tour_LoaiTour">
+            <End Role="LoaiTour" EntitySet="LoaiTours" />
+            <End Role="Tour" EntitySet="Tours" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Users_LoaiUsers" Association="TourModel.fk_Users_LoaiUsers">
+            <End Role="LoaiUser" EntitySet="LoaiUsers" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="DiaDiem">
           <Key>
             <PropertyRef Name="MaDD" />
@@ -454,8 +540,8 @@
           <Property Name="MaDD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenDD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaKhuVuc" Type="Int32" />
-          <NavigationProperty Name="KhuVuc" Relationship="Self.fk_DD_KhuVuc" FromRole="DiaDiem" ToRole="KhuVuc" />
-          <NavigationProperty Name="DSDiaDiems" Relationship="Self.fk_DSDD_DD" FromRole="DiaDiem" ToRole="DSDiaDiem" />
+          <NavigationProperty Name="KhuVuc" Relationship="TourModel.fk_DD_KhuVuc" FromRole="DiaDiem" ToRole="KhuVuc" />
+          <NavigationProperty Name="DSDiaDiems" Relationship="TourModel.fk_DSDD_DD" FromRole="DiaDiem" ToRole="DSDiaDiem" />
         </EntityType>
         <EntityType Name="DoanDuLich">
           <Key>
@@ -473,11 +559,12 @@
           <Property Name="TongGiaKS" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="TongGiaAU" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ChiPhiKhac" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Tour" Relationship="Self.fk_DDL_Tour" FromRole="DoanDuLich" ToRole="Tour" />
-          <NavigationProperty Name="DSKhachSans" Relationship="Self.fk_DSKS_DDL" FromRole="DoanDuLich" ToRole="DSKhachSan" />
-          <NavigationProperty Name="DSNhanViens" Relationship="Self.fk_DSNV_DDL" FromRole="DoanDuLich" ToRole="DSNhanVien" />
-          <NavigationProperty Name="DSPhuongTiens" Relationship="Self.fk_DSPT_DDL" FromRole="DoanDuLich" ToRole="DSPhuongTien" />
-          <NavigationProperty Name="KhachDuLiches" Relationship="Self.fk_KDL_DDL" FromRole="DoanDuLich" ToRole="KhachDuLich" />
+          <Property Name="SoLuongGiamGia" Type="Int32" />
+          <NavigationProperty Name="Tour" Relationship="TourModel.fk_DDL_Tour" FromRole="DoanDuLich" ToRole="Tour" />
+          <NavigationProperty Name="DSKhachSans" Relationship="TourModel.fk_DSKS_DDL" FromRole="DoanDuLich" ToRole="DSKhachSan" />
+          <NavigationProperty Name="DSNhanViens" Relationship="TourModel.fk_DSNV_DDL" FromRole="DoanDuLich" ToRole="DSNhanVien" />
+          <NavigationProperty Name="DSPhuongTiens" Relationship="TourModel.fk_DSPT_DDL" FromRole="DoanDuLich" ToRole="DSPhuongTien" />
+          <NavigationProperty Name="KhachDuLiches" Relationship="TourModel.fk_KDL_DDL" FromRole="DoanDuLich" ToRole="KhachDuLich" />
         </EntityType>
         <EntityType Name="DSDiaDiem">
           <Key>
@@ -486,8 +573,8 @@
           <Property Name="MaDS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaDD" Type="Int32" />
           <Property Name="MaTour" Type="Int32" />
-          <NavigationProperty Name="DiaDiem" Relationship="Self.fk_DSDD_DD" FromRole="DSDiaDiem" ToRole="DiaDiem" />
-          <NavigationProperty Name="Tour" Relationship="Self.fk_DSDD_Tour" FromRole="DSDiaDiem" ToRole="Tour" />
+          <NavigationProperty Name="DiaDiem" Relationship="TourModel.fk_DSDD_DD" FromRole="DSDiaDiem" ToRole="DiaDiem" />
+          <NavigationProperty Name="Tour" Relationship="TourModel.fk_DSDD_Tour" FromRole="DSDiaDiem" ToRole="Tour" />
         </EntityType>
         <EntityType Name="DSKhachSan">
           <Key>
@@ -496,8 +583,10 @@
           <Property Name="MaDSKS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaKS" Type="Int32" />
           <Property Name="MaDoan" Type="Int32" />
-          <NavigationProperty Name="DoanDuLich" Relationship="Self.fk_DSKS_DDL" FromRole="DSKhachSan" ToRole="DoanDuLich" />
-          <NavigationProperty Name="KhachSan" Relationship="Self.fk_DSKS_KS" FromRole="DSKhachSan" ToRole="KhachSan" />
+          <NavigationProperty Name="DoanDuLich" Relationship="TourModel.fk_DSKS_DDL" FromRole="DSKhachSan" ToRole="DoanDuLich" />
+          <NavigationProperty Name="KhachSan" Relationship="TourModel.fk_DSKS_KS" FromRole="DSKhachSan" ToRole="KhachSan" />
+          <Property Name="SoNgay" Type="Int32" />
+          <Property Name="SoDem" Type="Int32" />
         </EntityType>
         <EntityType Name="DSNhanVien">
           <Key>
@@ -507,8 +596,8 @@
           <Property Name="MaNV" Type="Int32" />
           <Property Name="MaDoan" Type="Int32" />
           <Property Name="NhiemVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DoanDuLich" Relationship="Self.fk_DSNV_DDL" FromRole="DSNhanVien" ToRole="DoanDuLich" />
-          <NavigationProperty Name="NhanVien" Relationship="Self.fk_DSNV_NV" FromRole="DSNhanVien" ToRole="NhanVien" />
+          <NavigationProperty Name="DoanDuLich" Relationship="TourModel.fk_DSNV_DDL" FromRole="DSNhanVien" ToRole="DoanDuLich" />
+          <NavigationProperty Name="NhanVien" Relationship="TourModel.fk_DSNV_NV" FromRole="DSNhanVien" ToRole="NhanVien" />
         </EntityType>
         <EntityType Name="DSPhuongTien">
           <Key>
@@ -517,8 +606,8 @@
           <Property Name="MaDSPT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaPT" Type="Int32" />
           <Property Name="MaDoan" Type="Int32" />
-          <NavigationProperty Name="DoanDuLich" Relationship="Self.fk_DSPT_DDL" FromRole="DSPhuongTien" ToRole="DoanDuLich" />
-          <NavigationProperty Name="PhuongTien" Relationship="Self.fk_DSPT_PT" FromRole="DSPhuongTien" ToRole="PhuongTien" />
+          <NavigationProperty Name="DoanDuLich" Relationship="TourModel.fk_DSPT_DDL" FromRole="DSPhuongTien" ToRole="DoanDuLich" />
+          <NavigationProperty Name="PhuongTien" Relationship="TourModel.fk_DSPT_PT" FromRole="DSPhuongTien" ToRole="PhuongTien" />
         </EntityType>
         <EntityType Name="KhachDuLich">
           <Key>
@@ -527,8 +616,8 @@
           <Property Name="MaKhachDL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaDoan" Type="Int32" />
           <Property Name="MaKH" Type="Int32" />
-          <NavigationProperty Name="DoanDuLich" Relationship="Self.fk_KDL_DDL" FromRole="KhachDuLich" ToRole="DoanDuLich" />
-          <NavigationProperty Name="KhachHang" Relationship="Self.fk_KDL_KH" FromRole="KhachDuLich" ToRole="KhachHang" />
+          <NavigationProperty Name="DoanDuLich" Relationship="TourModel.fk_KDL_DDL" FromRole="KhachDuLich" ToRole="DoanDuLich" />
+          <NavigationProperty Name="KhachHang" Relationship="TourModel.fk_KDL_KH" FromRole="KhachDuLich" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="KhachHang">
           <Key>
@@ -539,13 +628,23 @@
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Tuoi" Type="Int32" />
           <Property Name="CMND_Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaLoaiKhach" Type="Int32" />
           <Property Name="HanVisa" Type="DateTime" Precision="3" />
           <Property Name="HanPassort" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="KhachDuLiches" Relationship="Self.fk_KDL_KH" FromRole="KhachHang" ToRole="KhachDuLich" />
-          <NavigationProperty Name="LoaiKhach" Relationship="Self.fk_KH_LoaiKH" FromRole="KhachHang" ToRole="LoaiKhach" />
+          <Property Name="SoLanDiTour" Type="Int32" />
+          <NavigationProperty Name="KhachDuLiches" Relationship="TourModel.fk_KDL_KH" FromRole="KhachHang" ToRole="KhachDuLich" />
+          <NavigationProperty Name="LoaiKhach" Relationship="TourModel.fk_KH_LoaiKH" FromRole="KhachHang" ToRole="LoaiKhach" />
+          <NavigationProperty Name="KhachHangThanThiets" Relationship="TourModel.fk_KHTT_KH" FromRole="KhachHang" ToRole="KhachHangThanThiet" />
+        </EntityType>
+        <EntityType Name="KhachHangThanThiet">
+          <Key>
+            <PropertyRef Name="MaTT" />
+          </Key>
+          <Property Name="MaTT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" />
+          <NavigationProperty Name="KhachHang" Relationship="TourModel.fk_KHTT_KH" FromRole="KhachHangThanThiet" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="KhachSan">
           <Key>
@@ -553,12 +652,13 @@
           </Key>
           <Property Name="MaKS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenKS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DiaChi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NguoiDaiDien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ChiPhi" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="MaKhuVuc" Type="Int32" />
-          <NavigationProperty Name="DSKhachSans" Relationship="Self.fk_DSKS_KS" FromRole="KhachSan" ToRole="DSKhachSan" />
-          <NavigationProperty Name="KhuVuc" Relationship="Self.fk_KS_KhuVuc" FromRole="KhachSan" ToRole="KhuVuc" />
+          <NavigationProperty Name="DSKhachSans" Relationship="TourModel.fk_DSKS_KS" FromRole="KhachSan" ToRole="DSKhachSan" />
+          <NavigationProperty Name="KhuVuc" Relationship="TourModel.fk_KS_KhuVuc" FromRole="KhachSan" ToRole="KhuVuc" />
         </EntityType>
         <EntityType Name="KhuVuc">
           <Key>
@@ -566,8 +666,8 @@
           </Key>
           <Property Name="MaKhuVuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenKhuVuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DiaDiems" Relationship="Self.fk_DD_KhuVuc" FromRole="KhuVuc" ToRole="DiaDiem" />
-          <NavigationProperty Name="KhachSans" Relationship="Self.fk_KS_KhuVuc" FromRole="KhuVuc" ToRole="KhachSan" />
+          <NavigationProperty Name="DiaDiems" Relationship="TourModel.fk_DD_KhuVuc" FromRole="KhuVuc" ToRole="DiaDiem" />
+          <NavigationProperty Name="KhachSans" Relationship="TourModel.fk_KS_KhuVuc" FromRole="KhuVuc" ToRole="KhachSan" />
         </EntityType>
         <EntityType Name="LoaiKhach">
           <Key>
@@ -575,7 +675,7 @@
           </Key>
           <Property Name="MaLoaiKhach" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiKhach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="KhachHangs" Relationship="Self.fk_KH_LoaiKH" FromRole="LoaiKhach" ToRole="KhachHang" />
+          <NavigationProperty Name="KhachHangs" Relationship="TourModel.fk_KH_LoaiKH" FromRole="LoaiKhach" ToRole="KhachHang" />
         </EntityType>
         <EntityType Name="LoaiTour">
           <Key>
@@ -584,7 +684,7 @@
           <Property Name="MaLoaiTour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoaiTour" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="HeSo" Type="Double" />
-          <NavigationProperty Name="Tours" Relationship="Self.fk_Tour_LoaiTour" FromRole="LoaiTour" ToRole="Tour" />
+          <NavigationProperty Name="Tours" Relationship="TourModel.fk_Tour_LoaiTour" FromRole="LoaiTour" ToRole="Tour" />
         </EntityType>
         <EntityType Name="LoaiUser">
           <Key>
@@ -592,7 +692,7 @@
           </Key>
           <Property Name="MaLoaiUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TenLoai" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="Self.fk_Users_LoaiUsers" FromRole="LoaiUser" ToRole="Users" />
+          <NavigationProperty Name="Users" Relationship="TourModel.fk_Users_LoaiUsers" FromRole="LoaiUser" ToRole="User" />
         </EntityType>
         <EntityType Name="NhanVien">
           <Key>
@@ -603,16 +703,18 @@
           <Property Name="GioiTinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DSNhanViens" Relationship="Self.fk_DSNV_NV" FromRole="NhanVien" ToRole="DSNhanVien" />
+          <NavigationProperty Name="DSNhanViens" Relationship="TourModel.fk_DSNV_NV" FromRole="NhanVien" ToRole="DSNhanVien" />
         </EntityType>
         <EntityType Name="PhuongTien">
           <Key>
             <PropertyRef Name="MaPT" />
           </Key>
           <Property Name="MaPT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenCongTy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="TenPT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ChiPhi" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DSPhuongTiens" Relationship="Self.fk_DSPT_PT" FromRole="PhuongTien" ToRole="DSPhuongTien" />
+          <NavigationProperty Name="DSPhuongTiens" Relationship="TourModel.fk_DSPT_PT" FromRole="PhuongTien" ToRole="DSPhuongTien" />
         </EntityType>
         <EntityType Name="Tour">
           <Key>
@@ -622,9 +724,9 @@
           <Property Name="TenTour" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="MaLoaiTour" Type="Int32" />
           <Property Name="GiaTour" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DoanDuLiches" Relationship="Self.fk_DDL_Tour" FromRole="Tour" ToRole="DoanDuLich" />
-          <NavigationProperty Name="DSDiaDiems" Relationship="Self.fk_DSDD_Tour" FromRole="Tour" ToRole="DSDiaDiem" />
-          <NavigationProperty Name="LoaiTour" Relationship="Self.fk_Tour_LoaiTour" FromRole="Tour" ToRole="LoaiTour" />
+          <NavigationProperty Name="DoanDuLiches" Relationship="TourModel.fk_DDL_Tour" FromRole="Tour" ToRole="DoanDuLich" />
+          <NavigationProperty Name="DSDiaDiems" Relationship="TourModel.fk_DSDD_Tour" FromRole="Tour" ToRole="DSDiaDiem" />
+          <NavigationProperty Name="LoaiTour" Relationship="TourModel.fk_Tour_LoaiTour" FromRole="Tour" ToRole="LoaiTour" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -639,11 +741,11 @@
           <Property Name="Taikhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MaLoaiUser" Type="Int32" />
-          <NavigationProperty Name="LoaiUser" Relationship="Self.fk_Users_LoaiUsers" FromRole="Users" ToRole="LoaiUser" />
+          <NavigationProperty Name="LoaiUser" Relationship="TourModel.fk_Users_LoaiUsers" FromRole="User" ToRole="LoaiUser" />
         </EntityType>
         <Association Name="fk_DD_KhuVuc">
-          <End Role="KhuVuc" Type="Self.KhuVuc" Multiplicity="0..1" />
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="*" />
+          <End Type="TourModel.KhuVuc" Role="KhuVuc" Multiplicity="0..1" />
+          <End Type="TourModel.DiaDiem" Role="DiaDiem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhuVuc">
               <PropertyRef Name="MaKhuVuc" />
@@ -654,8 +756,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSDD_DD">
-          <End Role="DiaDiem" Type="Self.DiaDiem" Multiplicity="0..1" />
-          <End Role="DSDiaDiem" Type="Self.DSDiaDiem" Multiplicity="*" />
+          <End Type="TourModel.DiaDiem" Role="DiaDiem" Multiplicity="0..1" />
+          <End Type="TourModel.DSDiaDiem" Role="DSDiaDiem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DiaDiem">
               <PropertyRef Name="MaDD" />
@@ -666,8 +768,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DDL_Tour">
-          <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="*" />
+          <End Type="TourModel.Tour" Role="Tour" Multiplicity="0..1" />
+          <End Type="TourModel.DoanDuLich" Role="DoanDuLich" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tour">
               <PropertyRef Name="MaTour" />
@@ -678,8 +780,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSKS_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
+          <End Type="TourModel.DoanDuLich" Role="DoanDuLich" Multiplicity="0..1" />
+          <End Type="TourModel.DSKhachSan" Role="DSKhachSan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoanDuLich">
               <PropertyRef Name="MaDoan" />
@@ -690,8 +792,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSNV_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="DSNhanVien" Type="Self.DSNhanVien" Multiplicity="*" />
+          <End Type="TourModel.DoanDuLich" Role="DoanDuLich" Multiplicity="0..1" />
+          <End Type="TourModel.DSNhanVien" Role="DSNhanVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoanDuLich">
               <PropertyRef Name="MaDoan" />
@@ -702,8 +804,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSPT_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="DSPhuongTien" Type="Self.DSPhuongTien" Multiplicity="*" />
+          <End Type="TourModel.DoanDuLich" Role="DoanDuLich" Multiplicity="0..1" />
+          <End Type="TourModel.DSPhuongTien" Role="DSPhuongTien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoanDuLich">
               <PropertyRef Name="MaDoan" />
@@ -714,8 +816,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_KDL_DDL">
-          <End Role="DoanDuLich" Type="Self.DoanDuLich" Multiplicity="0..1" />
-          <End Role="KhachDuLich" Type="Self.KhachDuLich" Multiplicity="*" />
+          <End Type="TourModel.DoanDuLich" Role="DoanDuLich" Multiplicity="0..1" />
+          <End Type="TourModel.KhachDuLich" Role="KhachDuLich" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DoanDuLich">
               <PropertyRef Name="MaDoan" />
@@ -726,8 +828,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSDD_Tour">
-          <End Role="Tour" Type="Self.Tour" Multiplicity="0..1" />
-          <End Role="DSDiaDiem" Type="Self.DSDiaDiem" Multiplicity="*" />
+          <End Type="TourModel.Tour" Role="Tour" Multiplicity="0..1" />
+          <End Type="TourModel.DSDiaDiem" Role="DSDiaDiem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tour">
               <PropertyRef Name="MaTour" />
@@ -738,8 +840,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSKS_KS">
-          <End Role="KhachSan" Type="Self.KhachSan" Multiplicity="0..1" />
-          <End Role="DSKhachSan" Type="Self.DSKhachSan" Multiplicity="*" />
+          <End Type="TourModel.KhachSan" Role="KhachSan" Multiplicity="0..1" />
+          <End Type="TourModel.DSKhachSan" Role="DSKhachSan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachSan">
               <PropertyRef Name="MaKS" />
@@ -750,8 +852,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSNV_NV">
-          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
-          <End Role="DSNhanVien" Type="Self.DSNhanVien" Multiplicity="*" />
+          <End Type="TourModel.NhanVien" Role="NhanVien" Multiplicity="0..1" />
+          <End Type="TourModel.DSNhanVien" Role="DSNhanVien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NhanVien">
               <PropertyRef Name="MaNV" />
@@ -762,8 +864,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_DSPT_PT">
-          <End Role="PhuongTien" Type="Self.PhuongTien" Multiplicity="0..1" />
-          <End Role="DSPhuongTien" Type="Self.DSPhuongTien" Multiplicity="*" />
+          <End Type="TourModel.PhuongTien" Role="PhuongTien" Multiplicity="0..1" />
+          <End Type="TourModel.DSPhuongTien" Role="DSPhuongTien" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PhuongTien">
               <PropertyRef Name="MaPT" />
@@ -774,8 +876,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_KDL_KH">
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
-          <End Role="KhachDuLich" Type="Self.KhachDuLich" Multiplicity="*" />
+          <End Type="TourModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+          <End Type="TourModel.KhachDuLich" Role="KhachDuLich" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhachHang">
               <PropertyRef Name="MaKH" />
@@ -786,8 +888,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_KH_LoaiKH">
-          <End Role="LoaiKhach" Type="Self.LoaiKhach" Multiplicity="0..1" />
-          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
+          <End Type="TourModel.LoaiKhach" Role="LoaiKhach" Multiplicity="0..1" />
+          <End Type="TourModel.KhachHang" Role="KhachHang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiKhach">
               <PropertyRef Name="MaLoaiKhach" />
@@ -797,9 +899,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_KHTT_KH">
+          <End Type="TourModel.KhachHang" Role="KhachHang" Multiplicity="0..1" />
+          <End Type="TourModel.KhachHangThanThiet" Role="KhachHangThanThiet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="KhachHangThanThiet">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_KS_KhuVuc">
-          <End Role="KhuVuc" Type="Self.KhuVuc" Multiplicity="0..1" />
-          <End Role="KhachSan" Type="Self.KhachSan" Multiplicity="*" />
+          <End Type="TourModel.KhuVuc" Role="KhuVuc" Multiplicity="0..1" />
+          <End Type="TourModel.KhachSan" Role="KhachSan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="KhuVuc">
               <PropertyRef Name="MaKhuVuc" />
@@ -810,8 +924,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Tour_LoaiTour">
-          <End Role="LoaiTour" Type="Self.LoaiTour" Multiplicity="0..1" />
-          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <End Type="TourModel.LoaiTour" Role="LoaiTour" Multiplicity="0..1" />
+          <End Type="TourModel.Tour" Role="Tour" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiTour">
               <PropertyRef Name="MaLoaiTour" />
@@ -822,101 +936,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Users_LoaiUsers">
-          <End Role="LoaiUser" Type="Self.LoaiUser" Multiplicity="0..1" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <End Type="TourModel.LoaiUser" Role="LoaiUser" Multiplicity="0..1" />
+          <End Type="TourModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LoaiUser">
               <PropertyRef Name="MaLoaiUser" />
             </Principal>
-            <Dependent Role="Users">
+            <Dependent Role="User">
               <PropertyRef Name="MaLoaiUser" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="TourManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="DiaDiems" EntityType="Self.DiaDiem" />
-          <EntitySet Name="DoanDuLiches" EntityType="Self.DoanDuLich" />
-          <EntitySet Name="DSDiaDiems" EntityType="Self.DSDiaDiem" />
-          <EntitySet Name="DSKhachSans" EntityType="Self.DSKhachSan" />
-          <EntitySet Name="DSNhanViens" EntityType="Self.DSNhanVien" />
-          <EntitySet Name="DSPhuongTiens" EntityType="Self.DSPhuongTien" />
-          <EntitySet Name="KhachDuLiches" EntityType="Self.KhachDuLich" />
-          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
-          <EntitySet Name="KhachSans" EntityType="Self.KhachSan" />
-          <EntitySet Name="KhuVucs" EntityType="Self.KhuVuc" />
-          <EntitySet Name="LoaiKhaches" EntityType="Self.LoaiKhach" />
-          <EntitySet Name="LoaiTours" EntityType="Self.LoaiTour" />
-          <EntitySet Name="LoaiUsers" EntityType="Self.LoaiUser" />
-          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
-          <EntitySet Name="PhuongTiens" EntityType="Self.PhuongTien" />
-          <EntitySet Name="Tours" EntityType="Self.Tour" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="fk_DD_KhuVuc" Association="Self.fk_DD_KhuVuc">
-            <End Role="KhuVuc" EntitySet="KhuVucs" />
-            <End Role="DiaDiem" EntitySet="DiaDiems" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSDD_DD" Association="Self.fk_DSDD_DD">
-            <End Role="DiaDiem" EntitySet="DiaDiems" />
-            <End Role="DSDiaDiem" EntitySet="DSDiaDiems" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DDL_Tour" Association="Self.fk_DDL_Tour">
-            <End Role="Tour" EntitySet="Tours" />
-            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_DDL" Association="Self.fk_DSKS_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSans" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSNV_DDL" Association="Self.fk_DSNV_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
-            <End Role="DSNhanVien" EntitySet="DSNhanViens" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSPT_DDL" Association="Self.fk_DSPT_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
-            <End Role="DSPhuongTien" EntitySet="DSPhuongTiens" />
-          </AssociationSet>
-          <AssociationSet Name="fk_KDL_DDL" Association="Self.fk_KDL_DDL">
-            <End Role="DoanDuLich" EntitySet="DoanDuLiches" />
-            <End Role="KhachDuLich" EntitySet="KhachDuLiches" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSDD_Tour" Association="Self.fk_DSDD_Tour">
-            <End Role="Tour" EntitySet="Tours" />
-            <End Role="DSDiaDiem" EntitySet="DSDiaDiems" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSKS_KS" Association="Self.fk_DSKS_KS">
-            <End Role="KhachSan" EntitySet="KhachSans" />
-            <End Role="DSKhachSan" EntitySet="DSKhachSans" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSNV_NV" Association="Self.fk_DSNV_NV">
-            <End Role="NhanVien" EntitySet="NhanViens" />
-            <End Role="DSNhanVien" EntitySet="DSNhanViens" />
-          </AssociationSet>
-          <AssociationSet Name="fk_DSPT_PT" Association="Self.fk_DSPT_PT">
-            <End Role="PhuongTien" EntitySet="PhuongTiens" />
-            <End Role="DSPhuongTien" EntitySet="DSPhuongTiens" />
-          </AssociationSet>
-          <AssociationSet Name="fk_KDL_KH" Association="Self.fk_KDL_KH">
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-            <End Role="KhachDuLich" EntitySet="KhachDuLiches" />
-          </AssociationSet>
-          <AssociationSet Name="fk_KH_LoaiKH" Association="Self.fk_KH_LoaiKH">
-            <End Role="LoaiKhach" EntitySet="LoaiKhaches" />
-            <End Role="KhachHang" EntitySet="KhachHangs" />
-          </AssociationSet>
-          <AssociationSet Name="fk_KS_KhuVuc" Association="Self.fk_KS_KhuVuc">
-            <End Role="KhuVuc" EntitySet="KhuVucs" />
-            <End Role="KhachSan" EntitySet="KhachSans" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Tour_LoaiTour" Association="Self.fk_Tour_LoaiTour">
-            <End Role="LoaiTour" EntitySet="LoaiTours" />
-            <End Role="Tour" EntitySet="Tours" />
-          </AssociationSet>
-          <AssociationSet Name="fk_Users_LoaiUsers" Association="Self.fk_Users_LoaiUsers">
-            <End Role="LoaiUser" EntitySet="LoaiUsers" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -925,179 +956,194 @@
           <EntitySetMapping Name="DiaDiems">
             <EntityTypeMapping TypeName="TourModel.DiaDiem">
               <MappingFragment StoreEntitySet="DiaDiem">
-                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
-                <ScalarProperty Name="TenDD" ColumnName="TenDD" />
                 <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
+                <ScalarProperty Name="TenDD" ColumnName="TenDD" />
+                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DoanDuLiches">
             <EntityTypeMapping TypeName="TourModel.DoanDuLich">
               <MappingFragment StoreEntitySet="DoanDuLich">
-                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
-                <ScalarProperty Name="TenDoan" ColumnName="TenDoan" />
-                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
-                <ScalarProperty Name="NgayKhoiHanh" ColumnName="NgayKhoiHanh" />
-                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
-                <ScalarProperty Name="SoLuongToiDa" ColumnName="SoLuongToiDa" />
-                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
-                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
-                <ScalarProperty Name="TongGiaPT" ColumnName="TongGiaPT" />
-                <ScalarProperty Name="TongGiaKS" ColumnName="TongGiaKS" />
-                <ScalarProperty Name="TongGiaAU" ColumnName="TongGiaAU" />
+                <ScalarProperty Name="SoLuongGiamGia" ColumnName="SoLuongGiamGia" />
                 <ScalarProperty Name="ChiPhiKhac" ColumnName="ChiPhiKhac" />
+                <ScalarProperty Name="TongGiaAU" ColumnName="TongGiaAU" />
+                <ScalarProperty Name="TongGiaKS" ColumnName="TongGiaKS" />
+                <ScalarProperty Name="TongGiaPT" ColumnName="TongGiaPT" />
+                <ScalarProperty Name="ChiTiet" ColumnName="ChiTiet" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="SoLuongToiDa" ColumnName="SoLuongToiDa" />
+                <ScalarProperty Name="NgayKetThuc" ColumnName="NgayKetThuc" />
+                <ScalarProperty Name="NgayKhoiHanh" ColumnName="NgayKhoiHanh" />
+                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
+                <ScalarProperty Name="TenDoan" ColumnName="TenDoan" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DSDiaDiems">
             <EntityTypeMapping TypeName="TourModel.DSDiaDiem">
               <MappingFragment StoreEntitySet="DSDiaDiem">
-                <ScalarProperty Name="MaDS" ColumnName="MaDS" />
-                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
                 <ScalarProperty Name="MaTour" ColumnName="MaTour" />
+                <ScalarProperty Name="MaDD" ColumnName="MaDD" />
+                <ScalarProperty Name="MaDS" ColumnName="MaDS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DSKhachSans">
             <EntityTypeMapping TypeName="TourModel.DSKhachSan">
               <MappingFragment StoreEntitySet="DSKhachSan">
-                <ScalarProperty Name="MaDSKS" ColumnName="MaDSKS" />
-                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
+                <ScalarProperty Name="SoDem" ColumnName="SoDem" />
+                <ScalarProperty Name="SoNgay" ColumnName="SoNgay" />
                 <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
+                <ScalarProperty Name="MaDSKS" ColumnName="MaDSKS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DSNhanViens">
             <EntityTypeMapping TypeName="TourModel.DSNhanVien">
               <MappingFragment StoreEntitySet="DSNhanVien">
-                <ScalarProperty Name="MaDSNV" ColumnName="MaDSNV" />
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
                 <ScalarProperty Name="NhiemVu" ColumnName="NhiemVu" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="MaDSNV" ColumnName="MaDSNV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DSPhuongTiens">
             <EntityTypeMapping TypeName="TourModel.DSPhuongTien">
               <MappingFragment StoreEntitySet="DSPhuongTien">
-                <ScalarProperty Name="MaDSPT" ColumnName="MaDSPT" />
-                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
                 <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
+                <ScalarProperty Name="MaDSPT" ColumnName="MaDSPT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachDuLiches">
             <EntityTypeMapping TypeName="TourModel.KhachDuLich">
               <MappingFragment StoreEntitySet="KhachDuLich">
-                <ScalarProperty Name="MaKhachDL" ColumnName="MaKhachDL" />
-                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
                 <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaDoan" ColumnName="MaDoan" />
+                <ScalarProperty Name="MaKhachDL" ColumnName="MaKhachDL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
             <EntityTypeMapping TypeName="TourModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
-                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
-                <ScalarProperty Name="Hoten" ColumnName="Hoten" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
-                <ScalarProperty Name="CMND_Passport" ColumnName="CMND_Passport" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
-                <ScalarProperty Name="HanVisa" ColumnName="HanVisa" />
+                <ScalarProperty Name="SoLanDiTour" ColumnName="SoLanDiTour" />
                 <ScalarProperty Name="HanPassort" ColumnName="HanPassort" />
+                <ScalarProperty Name="HanVisa" ColumnName="HanVisa" />
+                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="CMND_Passport" ColumnName="CMND_Passport" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="Hoten" ColumnName="Hoten" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangThanThiets">
+            <EntityTypeMapping TypeName="TourModel.KhachHangThanThiet">
+              <MappingFragment StoreEntitySet="KhachHangThanThiet">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaTT" ColumnName="MaTT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachSans">
             <EntityTypeMapping TypeName="TourModel.KhachSan">
               <MappingFragment StoreEntitySet="KhachSan">
-                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
-                <ScalarProperty Name="TenKS" ColumnName="TenKS" />
-                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
                 <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
+                <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="NguoiDaiDien" ColumnName="NguoiDaiDien" />
+                <ScalarProperty Name="TenKS" ColumnName="TenKS" />
+                <ScalarProperty Name="MaKS" ColumnName="MaKS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhuVucs">
             <EntityTypeMapping TypeName="TourModel.KhuVuc">
               <MappingFragment StoreEntitySet="KhuVuc">
-                <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
                 <ScalarProperty Name="TenKhuVuc" ColumnName="TenKhuVuc" />
+                <ScalarProperty Name="MaKhuVuc" ColumnName="MaKhuVuc" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiKhaches">
             <EntityTypeMapping TypeName="TourModel.LoaiKhach">
               <MappingFragment StoreEntitySet="LoaiKhach">
-                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
                 <ScalarProperty Name="TenLoaiKhach" ColumnName="TenLoaiKhach" />
+                <ScalarProperty Name="MaLoaiKhach" ColumnName="MaLoaiKhach" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiTours">
             <EntityTypeMapping TypeName="TourModel.LoaiTour">
               <MappingFragment StoreEntitySet="LoaiTour">
-                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
-                <ScalarProperty Name="TenLoaiTour" ColumnName="TenLoaiTour" />
                 <ScalarProperty Name="HeSo" ColumnName="HeSo" />
+                <ScalarProperty Name="TenLoaiTour" ColumnName="TenLoaiTour" />
+                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiUsers">
             <EntityTypeMapping TypeName="TourModel.LoaiUser">
               <MappingFragment StoreEntitySet="LoaiUser">
-                <ScalarProperty Name="MaLoaiUser" ColumnName="MaLoaiUser" />
                 <ScalarProperty Name="TenLoai" ColumnName="TenLoai" />
+                <ScalarProperty Name="MaLoaiUser" ColumnName="MaLoaiUser" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhanViens">
             <EntityTypeMapping TypeName="TourModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
-                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
-                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
-                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
                 <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhuongTiens">
             <EntityTypeMapping TypeName="TourModel.PhuongTien">
               <MappingFragment StoreEntitySet="PhuongTien">
-                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
-                <ScalarProperty Name="TenPT" ColumnName="TenPT" />
                 <ScalarProperty Name="ChiPhi" ColumnName="ChiPhi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="TenPT" ColumnName="TenPT" />
+                <ScalarProperty Name="TenCongTy" ColumnName="TenCongTy" />
+                <ScalarProperty Name="MaPT" ColumnName="MaPT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tours">
             <EntityTypeMapping TypeName="TourModel.Tour">
               <MappingFragment StoreEntitySet="Tour">
-                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
-                <ScalarProperty Name="TenTour" ColumnName="TenTour" />
-                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
                 <ScalarProperty Name="GiaTour" ColumnName="GiaTour" />
+                <ScalarProperty Name="MaLoaiTour" ColumnName="MaLoaiTour" />
+                <ScalarProperty Name="TenTour" ColumnName="TenTour" />
+                <ScalarProperty Name="MaTour" ColumnName="MaTour" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="TourModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
-                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
-                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
-                <ScalarProperty Name="CMND" ColumnName="CMND" />
-                <ScalarProperty Name="SDT" ColumnName="SDT" />
-                <ScalarProperty Name="Taikhoan" ColumnName="Taikhoan" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="MaLoaiUser" ColumnName="MaLoaiUser" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Taikhoan" ColumnName="Taikhoan" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="CMND" ColumnName="CMND" />
+                <ScalarProperty Name="Tuoi" ColumnName="Tuoi" />
+                <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

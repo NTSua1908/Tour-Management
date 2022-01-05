@@ -104,6 +104,8 @@
                                             <GridViewColumn Header="Ngày khởi hành" DisplayMemberBinding="{Binding NgayKhoiHanh}"></GridViewColumn>
                                             <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding NgayKetThuc}"></GridViewColumn>
                                             <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
+                                            <GridViewColumn Header="Tiền khách sạn" DisplayMemberBinding="{Binding TongGiaKS}"></GridViewColumn>
+                                            <GridViewColumn Header="Tiền phương tiện" DisplayMemberBinding="{Binding TongGiaPT}"></GridViewColumn>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

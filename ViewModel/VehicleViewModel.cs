@@ -25,11 +25,23 @@ namespace Tour_management.ViewModel
             get { return _lstVehicle; }
             set { _lstVehicle = value ; OnPropertyChanged(); }
         }
+        private string _TenCT;
+        public string TenCT
+        {
+            get { return _TenCT; }
+            set { _TenCT = value; OnPropertyChanged(); }
+        }
         private string _TenPT;
         public string TenPT
         {
             get { return _TenPT; }
             set { _TenPT = value; OnPropertyChanged(); }
+        }
+        private string _Phone;
+        public string Phone
+        {
+            get { return _Phone; }
+            set { _Phone = value; OnPropertyChanged(); }
         }
         private string _ChiPhi;
         public string ChiPhi
@@ -49,7 +61,9 @@ namespace Tour_management.ViewModel
                 {
                     TenPT = SelectedItem.TenPT;
                     ChiPhi = string.Format("{0:N0}", SelectedItem.ChiPhi);
-                }    
+                    Phone = SelectedItem.SDT;
+                    TenCT = SelectedItem.TenCongTy;
+                }
             }
         }
         public VehicleViewModel()
@@ -71,7 +85,9 @@ namespace Tour_management.ViewModel
                 PhuongTien pt = new PhuongTien()
                 {
                     TenPT=TenPT,
-                    ChiPhi = Convert.ToDecimal(ChiPhi)
+                    ChiPhi = Convert.ToDecimal(ChiPhi),
+                    TenCongTy = TenCT,
+                    SDT = Phone
                 };
 
                 DataProvider.Ins.Entities.PhuongTiens.Add(pt);
@@ -90,13 +106,17 @@ namespace Tour_management.ViewModel
                 PhuongTien pt = DataProvider.Ins.Entities.PhuongTiens.Where(w => w.MaPT == SelectedItem.MaPT).FirstOrDefault();
                 pt.TenPT = TenPT;
                 pt.ChiPhi = Convert.ToDecimal(ChiPhi);
+                pt.TenCongTy = TenCT;
+                pt.SDT = Phone;
                 DataProvider.Ins.Entities.SaveChanges();
 
                 lstVehicle[index] = new PhuongTien()
                 {
                     MaPT = pt.MaPT,
                     TenPT = TenPT,
-                    ChiPhi = Convert.ToDecimal(ChiPhi)
+                    ChiPhi = Convert.ToDecimal(ChiPhi),
+                    TenCongTy = TenCT,
+                    SDT = Phone
                 };
                 SelectedItem = lstVehicle[index];
 
@@ -139,7 +159,8 @@ namespace Tour_management.ViewModel
         }
         private bool isCommandEnable()
         {
-            if (string.IsNullOrEmpty(TenPT) || string.IsNullOrEmpty(ChiPhi) )
+            if (string.IsNullOrEmpty(TenPT) || string.IsNullOrEmpty(ChiPhi)
+                || string.IsNullOrEmpty(TenCT) || string.IsNullOrEmpty(Phone))
             {
                 return false;
             }
@@ -149,7 +170,7 @@ namespace Tour_management.ViewModel
         private bool VehicleFilter(object item)
         {
             PhuongTien pt = item as PhuongTien;
-            if (filterTenPT(pt) && filterChiPhi(pt))
+            if (filterTenPT(pt) && filterChiPhi(pt) && filterTenCT(pt) && filterPhone(pt))
             {
                 return true;
             }
@@ -159,6 +180,22 @@ namespace Tour_management.ViewModel
         private bool filterTenPT(PhuongTien pt)
         {
             if (string.IsNullOrEmpty(TenPT) || pt.TenPT.ToLower().Contains(TenPT.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool filterTenCT(PhuongTien pt)
+        {
+            if (string.IsNullOrEmpty(TenCT) || pt.TenCongTy.ToLower().Contains(TenCT.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
+        private bool filterPhone(PhuongTien pt)
+        {
+            if (string.IsNullOrEmpty(Phone) || pt.SDT.ToLower().Contains(Phone.ToLower()))
             {
                 return true;
             }

@@ -22,6 +22,7 @@ namespace Tour_management.Model
     
         public int MaKS { get; set; }
         public string TenKS { get; set; }
+        public string NguoiDaiDien { get; set; }
         public string DiaChi { get; set; }
         public string SDT { get; set; }
         public Nullable<decimal> ChiPhi { get; set; }

@@ -21,7 +21,9 @@ namespace Tour_management.Model
         }
     
         public int MaPT { get; set; }
+        public string TenCongTy { get; set; }
         public string TenPT { get; set; }
+        public string SDT { get; set; }
         public Nullable<decimal> ChiPhi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

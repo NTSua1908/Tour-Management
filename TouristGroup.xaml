@@ -56,11 +56,11 @@
                                 <TextBox materialDesign:HintAssist.Hint="Tên đoàn du lịch"  
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
-                                          Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                                          Text="{Binding TouristName, UpdateSourceTrigger=PropertyChanged}"/>
                             </materialDesign:Card>
 
                             <materialDesign:Card Margin="8 10 3 0" >
-                                <ComboBox  materialDesign:HintAssist.Hint="Chọn Tour" ItemsSource="{Binding lstTour}"
+                                <ComboBox  materialDesign:HintAssist.Hint="Chọn Tour" ItemsSource="{Binding lstTourdb}"
                                            DisplayMemberPath="TenTour" 
                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                            VerticalAlignment="Center" Margin="10 10 10 10"  
@@ -86,7 +86,7 @@
                                                     x:Name="FutureDatePicker"
                                                     materialDesign:HintAssist.Hint="Ngày bắt đầu" 
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
-                                                    SelectedDate="{Binding Start}"      
+                                                    SelectedDate="{Binding DateStart}"      
                                                     DisplayDateStart="{Binding MinAvailDate}" 
                                                     SelectedDateFormat="Short">
 
@@ -97,7 +97,7 @@
                                                                    x:Name="StartTimePicker" 
                                                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                                                                    Is24Hours="True"
-                                                                   SelectedTime="{Binding Start}"/>
+                                                                   SelectedTime="{Binding DateStart}"/>
                                         
                                     </Grid>
                                 </materialDesign:Card>
@@ -110,7 +110,7 @@
                                         </Grid.ColumnDefinitions>
 
                                         <DatePicker Grid.Column="0" Margin="10 10 10 10"
-                                                    SelectedDate="{Binding End}" 
+                                                    SelectedDate="{Binding DateEnd}" 
                                                     materialDesign:HintAssist.Hint="Ngày kết thúc" 
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                                     DisplayDateStart="{Binding MinAvailDate}"
@@ -122,7 +122,7 @@
                                                                    materialDesign:HintAssist.Hint="Thời gian" 
                                                                    x:Name="EndTimePicker" 
                                                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
-                                                                   SelectedTime="{Binding End}"
+                                                                   SelectedTime="{Binding DateEnd}"
                                                                    Is24Hours="True" />
                                     </Grid>
                                 </materialDesign:Card>
@@ -213,7 +213,7 @@
                                             <ListBox x:Name="listVehicle"    
                                                      Style="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}"
                                                      Padding="3"
-                                                     ItemsSource="{Binding lstVehicle}"
+                                                     ItemsSource="{Binding lstVehicledb}"
                                                      DisplayMemberPath="TenPT">
                                 
 
@@ -256,16 +256,29 @@
 
                                 <Grid Grid.Row="1">
                                     <materialDesign:Card  Margin="8 5 8 10">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                                            <ListBox x:Name="listHotels"
-                                         Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
-                                                Padding="3" 
-                                                ItemsSource="{Binding lstHotel}"
-                                                DisplayMemberPath="TenKS" >
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                            <ListBox x:Name="listHotel" Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"
+                                                Width="350"
+                                                ItemsSource="{Binding lstHotel}">
+                                               
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock 
+                                                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden" 
+                                                                Text="{Binding Hotel.TenKS}" VerticalAlignment="Center">
+                                                            </TextBlock>
+                                                            <TextBox x:Name="txtDay" Text="{Binding noDay}" Margin="5 0 0 0" VerticalAlignment="Center"
+                                                                     materialDesign:TextFieldAssist.SuffixText=" Ngày"> </TextBox>
+                                                            <TextBox x:Name="txtNight" Text="{Binding noNight}"  Margin="5 0 0 0" VerticalAlignment="Center"  
+                                                                     materialDesign:TextFieldAssist.SuffixText=" Đêm"></TextBox>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="SelectionChanged">
-                                                        <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectedHotel" Value="{Binding Path=SelectedItems, ElementName=listHotels}"/>
+                                                        <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectedHotel" Value="{Binding Path=SelectedItems, ElementName=listHotel}"/>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
 
@@ -304,7 +317,7 @@
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
-                                        <ComboBox  materialDesign:HintAssist.Hint="Nhiệm vụ" ItemsSource="{Binding lstDuty}"
+                                        <ComboBox  materialDesign:HintAssist.Hint="Nhiệm vụ" ItemsSource="{Binding lstDutydb}"
                                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                                    VerticalAlignment="Center" Margin="10 0 10 10"  
                                                    SelectedItem="{Binding SelectedDuty, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
@@ -323,7 +336,7 @@
                                     <materialDesign:Card  Margin="8 5 8 10">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <ListBox x:Name="Staff" Style="{StaticResource MaterialDesignFilterChipAccentOutlineListBox}"                                                     
-                                                Padding="3" ItemsSource="{Binding lstStaff}" DisplayMemberPath="TenNV">
+                                                Padding="3" ItemsSource="{Binding lstStaffdb}" DisplayMemberPath="TenNV">
 
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="SelectionChanged">

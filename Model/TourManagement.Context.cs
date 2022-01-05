@@ -33,6 +33,7 @@ namespace Tour_management.Model
         public virtual DbSet<DSPhuongTien> DSPhuongTiens { get; set; }
         public virtual DbSet<KhachDuLich> KhachDuLiches { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
+        public virtual DbSet<KhachHangThanThiet> KhachHangThanThiets { get; set; }
         public virtual DbSet<KhachSan> KhachSans { get; set; }
         public virtual DbSet<KhuVuc> KhuVucs { get; set; }
         public virtual DbSet<LoaiKhach> LoaiKhaches { get; set; }

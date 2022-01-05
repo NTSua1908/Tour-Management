@@ -12,15 +12,11 @@ namespace Tour_management.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class DSKhachSan
+    public partial class KhachHangThanThiet
     {
-        public int MaDSKS { get; set; }
-        public Nullable<int> MaKS { get; set; }
-        public Nullable<int> MaDoan { get; set; }
-        public Nullable<int> SoNgay { get; set; }
-        public Nullable<int> SoDem { get; set; }
+        public int MaTT { get; set; }
+        public Nullable<int> MaKH { get; set; }
     
-        public virtual DoanDuLich DoanDuLich { get; set; }
-        public virtual KhachSan KhachSan { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }

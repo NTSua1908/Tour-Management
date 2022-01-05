@@ -12,23 +12,20 @@ using Tour_management.Model;
 
 namespace Tour_management.ViewModel
 {
-    public class CustomerViewModel : BaseViewModel
+    class LoyalCustomersViewModel : BaseViewModel
     {
-        public ICommand AddCommand { get; set; }
-        public ICommand EditCommand { get; set; }
-        public ICommand DeleteCommand { get; set; }
         public ICommand SearchCommand { get; set; }
         public ICommand ReloadCommand { get; set; }
 
         private bool _isForeign;
         public bool isForeign { get { return _isForeign; } set { _isForeign = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<KhachHang> _lstCustomer;
-        public ObservableCollection<KhachHang> lstCustomer { get { return _lstCustomer; } set { _lstCustomer = value; OnPropertyChanged(); } }
+        private ObservableCollection<KhachHangThanThiet> _lstLoyalCustomer;
+        public ObservableCollection<KhachHangThanThiet> lstLoyalCustomer { get { return _lstLoyalCustomer; } set { _lstLoyalCustomer = value; OnPropertyChanged(); } }
 
         private ObservableCollection<LoaiKhach> _lstCustomerType;
         public ObservableCollection<LoaiKhach> lstCustomerType { get { return _lstCustomerType; } set { _lstCustomerType = value; OnPropertyChanged(); } }
-        
+
         private ObservableCollection<string> _lstGender;
         public ObservableCollection<string> lstGender { get { return _lstGender; } set { _lstGender = value; OnPropertyChanged(); } }
 
@@ -42,9 +39,11 @@ namespace Tour_management.ViewModel
         public string SelectedGender { get { return _SelectedGender; } set { _SelectedGender = value; OnPropertyChanged(); } }
 
         private LoaiKhach _SelectedCustomerType;
-        public LoaiKhach SelectedCustomerType { 
-            get { return _SelectedCustomerType; } 
-            set {
+        public LoaiKhach SelectedCustomerType
+        {
+            get { return _SelectedCustomerType; }
+            set
+            {
                 _SelectedCustomerType = value;
                 OnPropertyChanged();
 
@@ -54,7 +53,7 @@ namespace Tour_management.ViewModel
                     isForeign = true;
                 }
                 else isForeign = false;
-            } 
+            }
         }
 
         private string _CMND;
@@ -72,30 +71,35 @@ namespace Tour_management.ViewModel
         private DateTime? _Passport;
         public DateTime? Passport { get { return _Passport; } set { _Passport = value; OnPropertyChanged(); } }
 
-        public KhachHang _SelectedItem;
-        public KhachHang SelectedItem { get { return _SelectedItem; } 
-            set { 
-                _SelectedItem = value; 
+        public KhachHangThanThiet _SelectedItem;
+        public KhachHangThanThiet SelectedItem
+        {
+            get { return _SelectedItem; }
+            set
+            {
+                _SelectedItem = value;
                 OnPropertyChanged();
                 if (SelectedItem != null)
                 {
-                    Name = SelectedItem.Hoten;
-                    Age =  SelectedItem.Tuoi.ToString();
-                    CMND = SelectedItem.CMND_Passport.ToString();
-                    Phone = SelectedItem.SDT.ToString();
-                    Address = SelectedItem.DiaChi;
-                    Visa = SelectedItem.HanVisa;
-                    Passport = SelectedItem.HanPassort;
-                    SelectedGender = SelectedItem.GioiTinh;
-                    SelectedCustomerType = SelectedItem.LoaiKhach;
+                    Name = SelectedItem.KhachHang.Hoten;
+                    Age = SelectedItem.KhachHang.Tuoi.ToString();
+                    CMND = SelectedItem.KhachHang.CMND_Passport.ToString();
+                    Phone = SelectedItem.KhachHang.SDT.ToString();
+                    Address = SelectedItem.KhachHang.DiaChi;
+                    Visa = SelectedItem.KhachHang.HanVisa;
+                    Passport = SelectedItem.KhachHang.HanPassort;
+                    SelectedGender = SelectedItem.KhachHang.GioiTinh;
+                    SelectedCustomerType = SelectedItem.KhachHang.LoaiKhach;
                 }
-        } }
+            }
+        }
 
-        public CustomerViewModel()
+        public LoyalCustomersViewModel()
         {
-            lstCustomer = new ObservableCollection<KhachHang>(DataProvider.Ins.Entities.KhachHangs);
+            lstLoyalCustomer = new ObservableCollection<KhachHangThanThiet>(DataProvider.Ins.Entities.KhachHangThanThiets);
             lstCustomerType = new ObservableCollection<LoaiKhach>(DataProvider.Ins.Entities.LoaiKhaches);
-            lstCustomerType.Add(new LoaiKhach() { 
+            lstCustomerType.Add(new LoaiKhach()
+            {
                 TenLoaiKhach = "Null" //Người dùng chọn mục này khi muốn tìm kiếm người dùng thuộc tất cả loại khách
             });
             lstGender = new ObservableCollection<string>();
@@ -109,159 +113,27 @@ namespace Tour_management.ViewModel
                 return true;
             }, (p) =>
             {
-                lstCustomer = new ObservableCollection<KhachHang>(DataProvider.Ins.Entities.KhachHangs);
-            });
-
-            AddCommand = new RelayCommand<Window>((p) =>
-            {
-                return isCommandEnable(); //Điều kiện để button enable (return true => button enable và ngược lại)
-            }, (p) => //Đây là đoạn xử lý khi button được nhấn Các command sau tương tự
-            {
-                addCustomer();
-            });
-
-            EditCommand = new RelayCommand<Window>((p) =>
-            {
-                return isCommandEnable() && SelectedItem != null;
-            }, (p) =>
-            {
-                int index = lstCustomer.IndexOf(SelectedItem);
-
-                KhachHang kh = DataProvider.Ins.Entities.KhachHangs.Where(w => w.MaKH == SelectedItem.MaKH).FirstOrDefault();
-                kh.Hoten = Name;
-                kh.DiaChi = Address;
-                kh.GioiTinh = SelectedGender;
-                kh.LoaiKhach = SelectedCustomerType;
-                kh.CMND_Passport = CMND;
-                kh.Tuoi = Convert.ToInt32(Age);
-                kh.SDT = Phone;
-                kh.HanPassort = Passport;
-                kh.HanVisa = Visa;
-
-                DataProvider.Ins.Entities.SaveChanges();
-                
-                lstCustomer[index] = new KhachHang()
-                {
-                    MaKH = kh.MaKH,
-                    Hoten = Name,
-                    DiaChi = Address,
-                    GioiTinh = SelectedGender,
-                    LoaiKhach = SelectedCustomerType,
-                    CMND_Passport = CMND,
-                    Tuoi = Convert.ToInt32(Age),
-                    SDT = Phone,
-                    HanPassort = Passport,
-                    HanVisa = Visa
-                };
-                SelectedItem = lstCustomer[index];
-
-                if (SelectedItem == null)
-                {
-                    MessageBox.Show("NULL");
-                }
+                lstLoyalCustomer = new ObservableCollection<KhachHangThanThiet>(DataProvider.Ins.Entities.KhachHangThanThiets);
             });
 
             SearchCommand = new RelayCommand<Window>((p) =>
             {
                 return true;
-            },  (p) =>{
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstCustomer);
+            }, (p) => {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstLoyalCustomer);
                 view.Filter = CustomerFilter;
-            });
-
-            DeleteCommand = new RelayCommand<Window>((p) =>
-            {
-                return SelectedItem != null;
-            }, (p) =>
-            {
-                //Hoi lai cho chac
-                MessageBoxResult Result = MessageBox.Show("Bạn có chắc muốn xóa?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (Result == MessageBoxResult.No)
-                    return;
-
-                deleteCustomer();
-
             });
         }
 
-        /// <summary>
-        /// Lọc danh sách khách hàng, lấy mỗi khách hàng trong list ra xét, return true nếu thỏa và ngược lại
-        /// </summary>
-        /// <param name="item">Mỗi item trong trường hợp này là một khách hàng</param>
-        /// <returns></returns>
         private bool CustomerFilter(object item)
         {
             KhachHang kh = item as KhachHang;
             if (filterAge(kh) && filterName(kh) && filterGender(kh)
                 && filterCMND(kh) && filterPhone(kh) && filterAddress(kh)
                 && filterVisa(kh) && filterPassport(kh) && filterType(kh))
-                    return true;
+                return true;
 
             return false;
-        }
-
-        public bool addCustomer()
-        {
-            try
-            {
-                KhachHang kh = new KhachHang()
-                {
-                    Hoten = Name,
-                    DiaChi = Address,
-                    GioiTinh = SelectedGender,
-                    LoaiKhach = SelectedCustomerType,
-                    CMND_Passport = CMND,
-                    Tuoi = Convert.ToInt32(Age),
-                    SDT = Phone,
-                    HanPassort = Passport,
-                    HanVisa = Visa
-                };
-
-                DataProvider.Ins.Entities.KhachHangs.Add(kh);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstCustomer.Add(kh);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public bool deleteCustomer()
-        {
-            try
-            {
-                //Tìm tất cả các bảng có liên quan đến khách hàng và xóa nó trước khi xóa khách hàng đó (cẩn thận!!!)
-
-                //Bảng khách du lịch là bảng có liên quan!!!
-                List<KhachDuLich> lstKhach = new List<KhachDuLich>(DataProvider.Ins.Entities
-                    .KhachDuLiches.Where(x => x.MaKH == SelectedItem.MaKH).ToList());
-
-                foreach (KhachDuLich item in lstKhach)
-                {
-                    DataProvider.Ins.Entities.KhachDuLiches.Remove(item);
-                }
-
-                //xoa nguoi dung khoi khach hang than thiet
-                List<KhachHangThanThiet> lstThanThiet = new List<KhachHangThanThiet>(DataProvider.Ins.Entities
-                    .KhachHangThanThiets.Where(x => x.MaKH == SelectedItem.MaKH).ToList());
-                foreach (KhachHangThanThiet item in lstThanThiet)
-                {
-                    DataProvider.Ins.Entities.KhachHangThanThiets.Remove(item);
-                }
-
-                DataProvider.Ins.Entities.KhachHangs.Remove(SelectedItem);
-                DataProvider.Ins.Entities.SaveChanges();
-
-                lstCustomer.Remove(SelectedItem);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         #region Filter
@@ -396,19 +268,5 @@ namespace Tour_management.ViewModel
             else e.CancelCommand();
         }
         #endregion
-
-        private bool isCommandEnable() //Đúng chỉ khi những thông tin cần thiết đã được nhập
-        {
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Age) || string.IsNullOrEmpty(CMND)
-                || string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Address) 
-                || SelectedGender == null || SelectedCustomerType == null
-                || SelectedGender.Equals("Null") || SelectedCustomerType.TenLoaiKhach.Equals("Null")
-                || (SelectedCustomerType.TenLoaiKhach.Equals("Foreign") && (Visa == null || Passport == null))) //Nếu là nước ngoài thì visa và passort phải được nhập
-                {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

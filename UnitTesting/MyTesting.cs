@@ -213,7 +213,7 @@ namespace UnitTesting
             user.Password = "1234";
             user.RePassword = "1234";
             user.SelectedUserType = user.lstUserType[1];
-            Assert.IsTrue(user.addUser());
+            Assert.IsFalse(user.addUser());
         }
         //Test add user có số tuổi = 60
         [Test]
@@ -245,7 +245,7 @@ namespace UnitTesting
             user.Password = "1234";
             user.RePassword = "1234";
             user.SelectedUserType = user.lstUserType[1];
-            Assert.IsTrue(user.addUser());
+            Assert.IsFalse(user.addUser());
         }
         //Test add user có số tuổi nhỏ hơn 60
         [Test]

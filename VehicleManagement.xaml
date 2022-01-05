@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"
-        Title="Danh sách phương tiện" Height="450" Width="800"
+        Title="Danh sách phương tiện" Height="650" Width="930"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -54,7 +54,7 @@
                         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel Margin="0 0 5 0">
 
-                                <TextBlock Text="Phương tiện" TextAlignment="Center" Margin="10 15 10 0" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="Phương tiện" TextAlignment="Center" Margin="10 15 10 10" FontSize="20" FontWeight="Bold"/>
                                 <Border BorderBrush="Black" BorderThickness="2" Height="90" Width="90"
                                  CornerRadius="100" Background="Transparent">
                                     <Ellipse Height="86" Width="86">
@@ -63,6 +63,12 @@
                                         </Ellipse.Fill>
                                     </Ellipse>
                                 </Border>
+                                <materialDesign:Card Margin="3 20 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Tên công ty"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding TenCT, UpdateSourceTrigger=PropertyChanged}"/>
+                                </materialDesign:Card>
                                 <materialDesign:Card Margin="3 20 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Tên phương tiện"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -74,6 +80,24 @@
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
                                           Text="{Binding ChiPhi, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="PreviewKeyDown">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="DataObject.Pasting">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="TextBoxPasting"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </materialDesign:Card>
+                                <materialDesign:Card Margin="3 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Số điện thoại"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                          VerticalAlignment="Center" Margin="10 10 10 10"
+                                          Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PreviewTextInput">
                                                 <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
@@ -155,6 +179,8 @@
                                         <GridViewColumn Header="Mã phương tiện" DisplayMemberBinding="{Binding MaPT}"></GridViewColumn>
                                         <GridViewColumn Header="Tên phương tiện" DisplayMemberBinding="{Binding TenPT}"></GridViewColumn>
                                         <GridViewColumn Header="Chi phí" DisplayMemberBinding="{Binding ChiPhi, StringFormat=N0}"></GridViewColumn>
+                                        <GridViewColumn Header="Tên công ty" DisplayMemberBinding="{Binding TenCongTy}"></GridViewColumn>
+                                        <GridViewColumn Header="SĐT" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>

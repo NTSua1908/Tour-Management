@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Tour_management.ViewModel;
+using Tour_management.Model;
 
 namespace Tour_management
 {
@@ -25,23 +26,41 @@ namespace Tour_management
         public TouristGroup()
         {
             InitializeComponent();
-            this.DataContext = touristView;
-
+            this.DataContext = touristView;                        
         }
 
         public void CreateSelectedVehicles()
         {
-            foreach (var item in touristView.ListVehicles)
+
+            foreach (var item in touristView.SelectedVehicles)
             {
-                listVehicle.SelectedItems.Add(item.PhuongTien);
+                listVehicle.SelectedItems.Add(item);
             }
+
+            //foreach (var item in touristView.SelectedVehicles)
+            //{
+            //    for (int i = 0; i < listVehicle.Items.Count; i++)
+            //    {
+            //        if (listVehicle.Items[i] == item)
+            //        {
+            //            MessageBox.Show("here");
+            //            listVehicle.SelectedItems.Add(listVehicle.Items[i]);
+            //        }
+            //    }
+            //}
+
+            //listVehicle.SelectedItems.Add(listVehicle.Items[1]);
         }
 
         public void CreateSelectedHotels()
         {
-            foreach (var item in touristView.ListHotels)
+
+            //listHotel.SelectedItems.Add(listHotel.Items[1]);
+            Type type = listHotel.Items.GetType();
+
+            foreach (var item in touristView.SelectedHotels)
             {
-                listHotels.SelectedItems.Add(item.KhachSan);
+
             }
         }
     }
