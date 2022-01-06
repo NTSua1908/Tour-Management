@@ -84,14 +84,14 @@
                         <Grid Grid.Row="2" Margin="0 5 0 0">
                             <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 0 5 0">
                                 <DatePicker materialDesign:HintAssist.Hint=" Lọc theo ngày khởi hành" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}" 
-                                            SelectedDate="{Binding Start}"/>
+                                            SelectedDate="{Binding FilStart}"/>
                             </materialDesign:Card>
                         </Grid>
 
                         <Grid Grid.Row="3" Margin="0 5 0 0">
                             <materialDesign:Card Grid.Row="2" VerticalAlignment="Stretch" Margin="5 0 5 0">
                                 <DatePicker materialDesign:HintAssist.Hint="Lọc theo ngày kết thúc" materialDesign:HintAssist.IsFloating="False"  Style="{StaticResource MaterialDesignOutlinedDatePicker}"
-                                            SelectedDate="{Binding End}"/>
+                                            SelectedDate="{Binding FilEnd}"/>
                             </materialDesign:Card>
                         </Grid>
 
@@ -101,8 +101,8 @@
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Tên đoàn" DisplayMemberBinding="{Binding TenDoan}"></GridViewColumn>
-                                            <GridViewColumn Header="Ngày khởi hành" DisplayMemberBinding="{Binding NgayKhoiHanh}"></GridViewColumn>
-                                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding NgayKetThuc}"></GridViewColumn>
+                                            <GridViewColumn Header="Ngày khởi hành" DisplayMemberBinding="{Binding NgayKhoiHanh, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}"></GridViewColumn>
+                                            <GridViewColumn Header="Ngày kết thúc" DisplayMemberBinding="{Binding NgayKetThuc, StringFormat='{}{0:dd-MM-yyyy HH:mm}'}"></GridViewColumn>
                                             <GridViewColumn Header="Số lượng" DisplayMemberBinding="{Binding SoLuong}"></GridViewColumn>
                                             <GridViewColumn Header="Tiền khách sạn" DisplayMemberBinding="{Binding TongGiaKS}"></GridViewColumn>
                                             <GridViewColumn Header="Tiền phương tiện" DisplayMemberBinding="{Binding TongGiaPT}"></GridViewColumn>

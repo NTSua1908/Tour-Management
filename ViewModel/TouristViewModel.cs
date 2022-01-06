@@ -244,22 +244,10 @@ namespace Tour_management.ViewModel
                     ddlich.SoLuongToiDa = Convert.ToInt32(Amount);
                     ddlich.ChiTiet = Detail;
 
-                    int ChiPhiAnUong = Convert.ToInt32(CostAU);
-
                     if (ddlich.SoLuong > ddlich.SoLuongToiDa)
                     {
                         MessageBox.Show("Không thể giảm số lượng tối đa");
                         return;
-                    }
-
-                    //if (!String.IsNullOrEmpty(OtherCost))
-                    //{
-                    //    ddlich.ChiPhiKhac = Convert.ToInt32(OtherCost);
-                    //
-
-                    if (ddlich.SoLuong > 0)
-                    {
-                        ddlich.TongGiaAU = ChiPhiAnUong * ddlich.SoLuong;
                     }
 
                     List<DSPhuongTien> lstPhuongTien = new List<DSPhuongTien>(DataProvider.Ins.Entities
@@ -429,6 +417,7 @@ namespace Tour_management.ViewModel
             DateStart = this.dl.NgayKhoiHanh;
             DateEnd = this.dl.NgayKetThuc;
             Amount = this.dl.SoLuongToiDa.ToString();
+            CostAU = this.dl.TongGiaAU.ToString();
             Detail = this.dl.ChiTiet;
             SelectedTour = this.dl.Tour;
             ButtonAdd = "Sửa";
@@ -520,7 +509,7 @@ namespace Tour_management.ViewModel
         private bool isCommandEnable()
         {
             if (string.IsNullOrEmpty(TouristName) || string.IsNullOrEmpty(Amount)
-                 || SelectedVehicles == null
+                 || SelectedVehicles == null || DateEnd == null || DateStart == null
                 || SelectedHotels == null || ListStaffs == null)
             {
                 return false;
