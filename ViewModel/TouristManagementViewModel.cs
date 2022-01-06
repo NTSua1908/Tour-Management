@@ -201,17 +201,20 @@ namespace Tour_management.ViewModel
                    
                 }
 
+                //Cập nhật số lượng khách du lịch trong đoàn
+                SelectedTouristGr.SoLuong += 1;
+                Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+
                 DoanDuLich tour = DataProvider.Ins.Entities.DoanDuLiches.Where(w => w.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
 
                 tour.TongGiaKS += Convert.ToDecimal(GiaKs) ;
+                tour.SoLuong = SelectedTouristGr.SoLuong;
 
                 //SelectedTouristGr.TongGiaKS = GiaKs;
 
                 DataProvider.Ins.Entities.SaveChanges();
 
-                //Cập nhật số lượng khách du lịch trong đoàn
-                SelectedTouristGr.SoLuong +=1;
-                Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
+                
                 
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();
@@ -325,11 +328,13 @@ namespace Tour_management.ViewModel
                 decimal GiaKs = 0;
                 foreach (DSKhachSan hotel in lstHotel)
                 {
-                    GiaKs += Convert.ToDecimal(hotel.KhachSan.ChiPhi)  *((decimal)(hotel.SoNgay * 0.5) + ((decimal)(hotel.SoDem * 0.5)));
+                    GiaKs += Convert.ToDecimal(hotel.KhachSan.ChiPhi)*((decimal)(hotel.SoNgay * 0.5) + ((decimal)(hotel.SoDem * 0.5)));
                 }
 
                 DoanDuLich tour = DataProvider.Ins.Entities.DoanDuLiches.Where(w => w.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
-                tour.TongGiaKS -= Convert.ToDecimal(GiaKs) ;
+                tour.TongGiaKS -= Convert.ToDecimal(GiaKs);
+                tour.SoLuong = SelectedTouristGr.SoLuong;
+                SelectedTouristGr.TongGiaKS = tour.TongGiaKS;
 
                 DataProvider.Ins.Entities.KhachDuLiches.Remove(SelectedCustomer);
                 DataProvider.Ins.Entities.SaveChanges();

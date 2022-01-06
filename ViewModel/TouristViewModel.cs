@@ -238,7 +238,7 @@ namespace Tour_management.ViewModel
                 }
                 else if (ButtonAdd == "Sửa")
                 {
-
+                    KSPrice = 0;
                     DoanDuLich ddlich = DataProvider.Ins.Entities.DoanDuLiches.Where(x => x.MaDoan == dl.MaDoan).FirstOrDefault();
 
                     ddlich.TenDoan = TouristName;
@@ -277,7 +277,7 @@ namespace Tour_management.ViewModel
                                 MaDoan = dl.MaDoan,
                             });
 
-                            ddlich.TongGiaPT += (item.ChiPhi * Math.Abs(getday(DateStart.Value.Date, DateEnd.Value.Date)));
+                            ddlich.TongGiaPT += item.ChiPhi * Math.Abs(getday(DateStart.Value.Date, DateEnd.Value.Date));
                         }
                     }
 
@@ -288,7 +288,7 @@ namespace Tour_management.ViewModel
                         var ks = SelectedHotels.Where(x => x.Hotel.MaKS == hotel.MaKS).FirstOrDefault();
                         if (ks == null)
                         {
-                            ddlich.TongGiaKS -= ((hotel.KhachSan.ChiPhi) * ((decimal)(hotel.SoNgay* 0.5) + (decimal)(hotel.SoDem * 0.5))) * ddlich.SoLuong;
+                            //ddlich.TongGiaKS -= ((hotel.KhachSan.ChiPhi) * ((decimal)(hotel.SoNgay* 0.5) + (decimal)(hotel.SoDem * 0.5))) * ddlich.SoLuong;
                             DataProvider.Ins.Entities.DSKhachSans.Remove(hotel);
                         }
                     }
@@ -310,6 +310,7 @@ namespace Tour_management.ViewModel
                                 {
                                     item.noNight = sks.noNight;
                                 }
+                                  
                             }
 
                             //Update lại ngày đêm trong danh sách khach DB
@@ -331,10 +332,13 @@ namespace Tour_management.ViewModel
                                 SoNgay = item.noDay,
                                 SoDem = item.noNight,                                
                             });
-                            ddlich.TongGiaKS += (Convert.ToDecimal(item.Hotel.ChiPhi) * ((decimal)(item.noDay * 0.5) + (decimal)(item.noNight * 0.5))) * ddlich.SoLuong;
+                            //ddlich.TongGiaKS += (Convert.ToDecimal(item.Hotel.ChiPhi) * ((decimal)(item.noDay * 0.5) + (decimal)(item.noNight * 0.5))) * ddlich.SoLuong;
                         }
 
+
+                        KSPrice += Convert.ToDecimal(item.Hotel.ChiPhi) * ((decimal)(item.noDay * 0.5) + (decimal)(item.noNight * 0.5));
                     }
+                    ddlich.TongGiaKS = KSPrice * ddlich.SoLuong;
 
                     List<DSNhanVien> lstNhanVien = new List<DSNhanVien>(DataProvider.Ins.Entities
                        .DSNhanViens.Where(x => x.MaDoan == dl.MaDoan));
