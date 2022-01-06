@@ -106,7 +106,8 @@ namespace Tour_management.ViewModel
 
         private decimal? _PTPrice;
         public decimal? PTPrice { get { return _PTPrice; } set { _PTPrice = value; OnPropertyChanged(); } }
-
+        private decimal? _KSPrice;
+        public decimal? KSPrice { get { return _KSPrice; } set { _KSPrice = value; OnPropertyChanged(); } }
         private DoanDuLich dl;
         private decimal getday(DateTime? StartDay, DateTime? EndDate)
         {
@@ -191,6 +192,7 @@ namespace Tour_management.ViewModel
                     DataProvider.Ins.Entities.DoanDuLiches.Add(dl);
                     DataProvider.Ins.Entities.SaveChanges();
                     PTPrice = 0;
+                    KSPrice = 0;
                     for (int i = 0; i < SelectedVehicles.Count; i++)
                     {
                         DSPhuongTien dspt = new DSPhuongTien()
@@ -199,7 +201,7 @@ namespace Tour_management.ViewModel
                             MaPT = SelectedVehicles[i].MaPT,
                         };
 
-                        //PTPrice += (SelectedVehicles[i].ChiPhi * Math.Abs(getday(Start.Value.Date, End.Value.Date)));
+                        PTPrice += (SelectedVehicles[i].ChiPhi * Math.Abs(getday(DateStart.Value.Date, DateEnd.Value.Date)));
 
                         DataProvider.Ins.Entities.DSPhuongTiens.Add(dspt);
                     }
@@ -213,10 +215,10 @@ namespace Tour_management.ViewModel
                             SoNgay = SelectedHotels[i].noDay,
                             SoDem = SelectedHotels[i].noNight,
                         };
-
+                        //KSPrice += SelectedHotels[i].Hotel.ChiPhi * ((decimal)(SelectedHotels[i].noDay * 0.5) + ((decimal)(SelectedHotels[i].noNight * 0.5)));
                         DataProvider.Ins.Entities.DSKhachSans.Add(dsks);
                     }
-
+                    
                     for (int i = 0; i < ListStaffs.Count; i++)
                     {
                         //Thêm danh sách nhân viên tham gia đoàn vào Database
@@ -230,7 +232,9 @@ namespace Tour_management.ViewModel
                         DataProvider.Ins.Entities.DSNhanViens.Add(dsnv);
                     }
                     dl.TongGiaPT = PTPrice;
+                    //dl.TongGiaKS = KSPrice;
                     DataProvider.Ins.Entities.SaveChanges();
+                    
                 }
                 else if (ButtonAdd == "Sửa")
                 {
@@ -243,6 +247,7 @@ namespace Tour_management.ViewModel
                     ddlich.NgayKetThuc = DateEnd;
                     ddlich.SoLuongToiDa = Convert.ToInt32(Amount);
                     ddlich.ChiTiet = Detail;
+                    
 
                     if (ddlich.SoLuong > ddlich.SoLuongToiDa)
                     {
@@ -257,7 +262,7 @@ namespace Tour_management.ViewModel
                         var dd = SelectedVehicles.Where(x => x.MaPT == item.MaPT).FirstOrDefault(); //item co con nam trong danh sach dia diem duoc chon hay khong
                         if (dd == null) //item khong con nam trong danh sach dia diem cua tour nua
                         {
-                            //ddlich.TongGiaPT -= (item.PhuongTien.ChiPhi * Math.Abs(getday(Start.Value.Date, End.Value.Date)));
+                            ddlich.TongGiaPT -= (item.PhuongTien.ChiPhi * Math.Abs(getday(DateStart.Value.Date, DateEnd.Value.Date)));
                             DataProvider.Ins.Entities.DSPhuongTiens.Remove(item);
                         }
                     }
@@ -272,7 +277,7 @@ namespace Tour_management.ViewModel
                                 MaDoan = dl.MaDoan,
                             });
 
-                            //ddlich.TongGiaPT += (item.ChiPhi * Math.Abs(getday(Start.Value.Date, End.Value.Date)));
+                            ddlich.TongGiaPT += (item.ChiPhi * Math.Abs(getday(DateStart.Value.Date, DateEnd.Value.Date)));
                         }
                     }
 
@@ -283,7 +288,7 @@ namespace Tour_management.ViewModel
                         var ks = SelectedHotels.Where(x => x.Hotel.MaKS == hotel.MaKS).FirstOrDefault();
                         if (ks == null)
                         {
-                            //ddlich.TongGiaKS -= (hotel.KhachSan.ChiPhi * ddlich.SoLuong) * Math.Abs(getday(Start.Value.Date, End.Value.Date));
+                            ddlich.TongGiaKS -= ((hotel.KhachSan.ChiPhi) * ((decimal)(hotel.SoNgay* 0.5) + (decimal)(hotel.SoDem * 0.5))) * ddlich.SoLuong;
                             DataProvider.Ins.Entities.DSKhachSans.Remove(hotel);
                         }
                     }
@@ -324,9 +329,9 @@ namespace Tour_management.ViewModel
                                 MaKS = item.Hotel.MaKS,
                                 MaDoan = dl.MaDoan,
                                 SoNgay = item.noDay,
-                                SoDem = item.noNight,
+                                SoDem = item.noNight,                                
                             });
-                            //ddlich.TongGiaKS += Convert.ToInt32(item.ChiPhi * ddlich.SoLuong) * Math.Abs(getday(Start.Value.Date, End.Value.Date));
+                            ddlich.TongGiaKS += (Convert.ToDecimal(item.Hotel.ChiPhi) * ((decimal)(item.noDay * 0.5) + (decimal)(item.noNight * 0.5))) * ddlich.SoLuong;
                         }
 
                     }

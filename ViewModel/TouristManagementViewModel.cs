@@ -197,13 +197,13 @@ namespace Tour_management.ViewModel
                 decimal GiaKs = 0;
                 foreach (DSKhachSan hotel in lstHotel)
                 {
-                    GiaKs += Convert.ToInt32(hotel.KhachSan.ChiPhi);
+                    GiaKs += Convert.ToDecimal(hotel.KhachSan.ChiPhi) * ((decimal)(hotel.SoNgay * 0.5) + ((decimal)(hotel.SoDem * 0.5)));
                    
                 }
 
                 DoanDuLich tour = DataProvider.Ins.Entities.DoanDuLiches.Where(w => w.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
 
-                tour.TongGiaKS += Convert.ToDecimal(GiaKs) * Math.Abs(getday(Start2.Value.Date, End2.Value.Date));
+                tour.TongGiaKS += Convert.ToDecimal(GiaKs) ;
 
                 //SelectedTouristGr.TongGiaKS = GiaKs;
 
@@ -212,33 +212,33 @@ namespace Tour_management.ViewModel
                 //Cập nhật số lượng khách du lịch trong đoàn
                 SelectedTouristGr.SoLuong +=1;
                 Amount = (SelectedTouristGr.SoLuong).ToString() + "/";
-
+                
                 DataProvider.Ins.Entities.KhachDuLiches.Add(kdl);
                 DataProvider.Ins.Entities.SaveChanges();
                 lstTourist.Add(kdl);
 
-                //int index = lstTouristGr.IndexOf(SelectedTouristGr);
-                //lstTouristGr[index] = new DoanDuLich()
-                //{
-                //    ChiPhiKhac = SelectedTouristGr.ChiPhiKhac,
-                //    MaDoan = SelectedTouristGr.MaDoan,
-                //    ChiTiet = SelectedTouristGr.ChiTiet,
-                //    SoLuong = SelectedTouristGr.SoLuong,
-                //    MaTour = SelectedTouristGr.MaTour,
-                //    TenDoan = SelectedTouristGr.TenDoan,
-                //    DSKhachSans = SelectedTouristGr.DSKhachSans,
-                //    DSNhanViens = SelectedTouristGr.DSNhanViens,
-                //    DSPhuongTiens = SelectedTouristGr.DSPhuongTiens,
-                //    KhachDuLiches = SelectedTouristGr.KhachDuLiches,
-                //    NgayKetThuc = SelectedTouristGr.NgayKetThuc,
-                //    NgayKhoiHanh = SelectedTouristGr.NgayKhoiHanh,
-                //    SoLuongToiDa = SelectedTouristGr.SoLuongToiDa,
-                //    TongGiaKS =  tour.TongGiaKS,
-                //    TongGiaAU = SelectedTouristGr.TongGiaAU,
-                //    TongGiaPT = SelectedTouristGr.TongGiaPT,
-                //    Tour = SelectedTouristGr.Tour
-                //};
-                //SelectedTouristGr = lstTouristGr[index];
+                int index = lstTouristGr.IndexOf(SelectedTouristGr);
+                lstTouristGr[index] = new DoanDuLich()
+                {
+                    ChiPhiKhac = SelectedTouristGr.ChiPhiKhac,
+                    MaDoan = SelectedTouristGr.MaDoan,
+                    ChiTiet = SelectedTouristGr.ChiTiet,
+                    SoLuong = SelectedTouristGr.SoLuong,
+                    MaTour = SelectedTouristGr.MaTour,
+                    TenDoan = SelectedTouristGr.TenDoan,
+                    DSKhachSans = SelectedTouristGr.DSKhachSans,
+                    DSNhanViens = SelectedTouristGr.DSNhanViens,
+                    DSPhuongTiens = SelectedTouristGr.DSPhuongTiens,
+                    KhachDuLiches = SelectedTouristGr.KhachDuLiches,
+                    NgayKetThuc = SelectedTouristGr.NgayKetThuc,
+                    NgayKhoiHanh = SelectedTouristGr.NgayKhoiHanh,
+                    SoLuongToiDa = SelectedTouristGr.SoLuongToiDa,
+                    TongGiaKS = tour.TongGiaKS,
+                    TongGiaAU = SelectedTouristGr.TongGiaAU,
+                    TongGiaPT = SelectedTouristGr.TongGiaPT,
+                    Tour = SelectedTouristGr.Tour
+                };
+                SelectedTouristGr = lstTouristGr[index];
             });
             
             DeleteCommand = new RelayCommand<Window>((p) =>
@@ -325,11 +325,11 @@ namespace Tour_management.ViewModel
                 decimal GiaKs = 0;
                 foreach (DSKhachSan hotel in lstHotel)
                 {
-                    GiaKs += Convert.ToInt32(hotel.KhachSan.ChiPhi);
+                    GiaKs += Convert.ToDecimal(hotel.KhachSan.ChiPhi)  *((decimal)(hotel.SoNgay * 0.5) + ((decimal)(hotel.SoDem * 0.5)));
                 }
 
                 DoanDuLich tour = DataProvider.Ins.Entities.DoanDuLiches.Where(w => w.MaDoan == SelectedTouristGr.MaDoan).FirstOrDefault();
-                tour.TongGiaKS -= Convert.ToDecimal(GiaKs) * Math.Abs(getday(Start2.Value.Date, End2.Value.Date));
+                tour.TongGiaKS -= Convert.ToDecimal(GiaKs) ;
 
                 DataProvider.Ins.Entities.KhachDuLiches.Remove(SelectedCustomer);
                 DataProvider.Ins.Entities.SaveChanges();
@@ -337,27 +337,27 @@ namespace Tour_management.ViewModel
                 lstTourist.Remove(SelectedCustomer);
                 int index = lstTouristGr.IndexOf(SelectedTouristGr);
 
-                //lstTouristGr[index] = new DoanDuLich()
-                //{
-                //    ChiPhiKhac = SelectedTouristGr.ChiPhiKhac,
-                //    MaDoan = SelectedTouristGr.MaDoan,
-                //    ChiTiet = SelectedTouristGr.ChiTiet,
-                //    SoLuong = SelectedTouristGr.SoLuong,
-                //    MaTour = SelectedTouristGr.MaTour,
-                //    TenDoan = SelectedTouristGr.TenDoan,
-                //    DSKhachSans = SelectedTouristGr.DSKhachSans,
-                //    DSNhanViens = SelectedTouristGr.DSNhanViens,
-                //    DSPhuongTiens = SelectedTouristGr.DSPhuongTiens,
-                //    KhachDuLiches = SelectedTouristGr.KhachDuLiches,
-                //    NgayKetThuc = SelectedTouristGr.NgayKetThuc,
-                //    NgayKhoiHanh = SelectedTouristGr.NgayKhoiHanh,
-                //    SoLuongToiDa = SelectedTouristGr.SoLuongToiDa,
-                //    TongGiaKS = tour.TongGiaKS,
-                //    TongGiaAU = SelectedTouristGr.TongGiaAU,
-                //    TongGiaPT = SelectedTouristGr.TongGiaPT,
-                //    Tour = SelectedTouristGr.Tour
-                //};
-                //SelectedTouristGr = lstTouristGr[index];
+                lstTouristGr[index] = new DoanDuLich()
+                {
+                    ChiPhiKhac = SelectedTouristGr.ChiPhiKhac,
+                    MaDoan = SelectedTouristGr.MaDoan,
+                    ChiTiet = SelectedTouristGr.ChiTiet,
+                    SoLuong = SelectedTouristGr.SoLuong,
+                    MaTour = SelectedTouristGr.MaTour,
+                    TenDoan = SelectedTouristGr.TenDoan,
+                    DSKhachSans = SelectedTouristGr.DSKhachSans,
+                    DSNhanViens = SelectedTouristGr.DSNhanViens,
+                    DSPhuongTiens = SelectedTouristGr.DSPhuongTiens,
+                    KhachDuLiches = SelectedTouristGr.KhachDuLiches,
+                    NgayKetThuc = SelectedTouristGr.NgayKetThuc,
+                    NgayKhoiHanh = SelectedTouristGr.NgayKhoiHanh,
+                    SoLuongToiDa = SelectedTouristGr.SoLuongToiDa,
+                    TongGiaKS = tour.TongGiaKS,
+                    TongGiaAU = SelectedTouristGr.TongGiaAU,
+                    TongGiaPT = SelectedTouristGr.TongGiaPT,
+                    Tour = SelectedTouristGr.Tour
+                };
+                SelectedTouristGr = lstTouristGr[index];
             });
 
             SearchCommand = new RelayCommand<Window>((p) =>
