@@ -6,7 +6,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:Tour_management"
         mc:Ignorable="d"              
-        Title="Tạo đoàn du lịch" Width="1000"
+        Title="Tạo đoàn du lịch" Width="1000" Height="600"
         
         DataContext="{StaticResource touristVM}"
         
@@ -48,41 +48,42 @@
 
                 <Grid Grid.Column="1">
                     <materialDesign:Card Margin="5 5 5 5">
-                        <StackPanel Margin="0 0 5 0" >
+                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                            <StackPanel Margin="0 0 5 0" >
 
-                            <TextBlock Text="Thông tin cơ bản" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
+                                <TextBlock Text="Thông tin cơ bản" TextAlignment="Center" FontSize="20" Margin="10 15 10 0" FontWeight="Bold"></TextBlock>
 
-                            <materialDesign:Card Margin="8 20 3 0" >
-                                <TextBox materialDesign:HintAssist.Hint="Tên đoàn du lịch"  
+                                <materialDesign:Card Margin="8 20 3 0" >
+                                    <TextBox materialDesign:HintAssist.Hint="Tên đoàn du lịch"  
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"
                                           Text="{Binding TouristName, UpdateSourceTrigger=PropertyChanged}"/>
-                            </materialDesign:Card>
+                                </materialDesign:Card>
 
-                            <materialDesign:Card Margin="8 10 3 0" >
-                                <ComboBox  materialDesign:HintAssist.Hint="Chọn Tour" ItemsSource="{Binding lstTourdb}"
+                                <materialDesign:Card Margin="8 10 3 0" >
+                                    <ComboBox  materialDesign:HintAssist.Hint="Chọn Tour" ItemsSource="{Binding lstTourdb}"
                                            DisplayMemberPath="TenTour" 
                                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                            VerticalAlignment="Center" Margin="10 10 10 10"  
                                            SelectedItem="{Binding SelectedTour, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                                </ComboBox>
+                                    </ComboBox>
 
-                            </materialDesign:Card>
+                                </materialDesign:Card>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
 
-                                <materialDesign:Card Grid.Row="0" Margin="8 10 3 0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                                    <materialDesign:Card Grid.Row="0" Margin="8 10 3 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
 
-                                        <DatePicker Grid.Column="0" Margin="10 10 10 10"
+                                            <DatePicker Grid.Column="0" Margin="10 10 10 10"
                                                     x:Name="FutureDatePicker"
                                                     materialDesign:HintAssist.Hint="Ngày bắt đầu" 
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -90,46 +91,46 @@
                                                     DisplayDateStart="{Binding MinAvailDate}" 
                                                     SelectedDateFormat="Short">
 
-                                        </DatePicker>
+                                            </DatePicker>
 
-                                        <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
+                                            <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
                                                                    materialDesign:HintAssist.Hint="Thời gian" 
                                                                    x:Name="StartTimePicker" 
                                                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                                                                    Is24Hours="True"
                                                                    SelectedTime="{Binding DateStart}"/>
-                                        
-                                    </Grid>
-                                </materialDesign:Card>
 
-                                <materialDesign:Card Grid.Row="1" Margin="8 10 3 0">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1.5*"></ColumnDefinition>
-                                            <ColumnDefinition Width="*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
+                                        </Grid>
+                                    </materialDesign:Card>
 
-                                        <DatePicker Grid.Column="0" Margin="10 10 10 10"
+                                    <materialDesign:Card Grid.Row="1" Margin="8 10 3 0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+
+                                            <DatePicker Grid.Column="0" Margin="10 10 10 10"
                                                     SelectedDate="{Binding DateEnd}" 
                                                     materialDesign:HintAssist.Hint="Ngày kết thúc" 
                                                     Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                                     DisplayDateStart="{Binding MinAvailDate}"
                                                     SelectedDateFormat="Short">
-                                            
-                                        </DatePicker>
 
-                                        <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
+                                            </DatePicker>
+
+                                            <materialDesign:TimePicker Grid.Column="1" Margin="0 10 10 10" 
                                                                    materialDesign:HintAssist.Hint="Thời gian" 
                                                                    x:Name="EndTimePicker" 
                                                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
                                                                    SelectedTime="{Binding DateEnd}"
                                                                    Is24Hours="True" />
-                                    </Grid>
-                                </materialDesign:Card>
+                                        </Grid>
+                                    </materialDesign:Card>
 
-                            </Grid>
+                                </Grid>
 
-                            <materialDesign:Card Margin="8 10 3 0">
+                                <materialDesign:Card Margin="8 10 3 0">
                                     <TextBox  materialDesign:HintAssist.Hint="Chi phí ăn uống"
                                               Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                               VerticalAlignment="Center" Margin="10 10 10 10"
@@ -147,45 +148,47 @@
 
                                 </materialDesign:Card>
 
-                            
 
-                            <materialDesign:Card Margin="8 10 3 0">
-                                <TextBox  materialDesign:HintAssist.Hint="Số lượng khách hàng"
+
+                                <materialDesign:Card Margin="8 10 3 0">
+                                    <TextBox  materialDesign:HintAssist.Hint="Số lượng khách hàng"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"                                          
                                           Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}"
                                           materialDesign:TextFieldAssist.SuffixText="Người"/>
 
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewTextInput">
-                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="PreviewKeyDown">
-                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
 
-                            </materialDesign:Card>
+                                </materialDesign:Card>
 
-                            <materialDesign:Card Margin="8 10 3 0" Background="LightYellow">
-                                <TextBox  materialDesign:HintAssist.Hint="Chi phí khác"
+                                <materialDesign:Card Margin="8 10 3 0" Background="LightYellow">
+                                    <TextBox  materialDesign:HintAssist.Hint="Chi phí khác"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                                           VerticalAlignment="Center" Margin="10 10 10 10"                                          
                                           Text="{Binding OtherCost, UpdateSourceTrigger=PropertyChanged}"
                                           materialDesign:TextFieldAssist.SuffixText="VND"/>
 
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="PreviewTextInput">
-                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
-                                    </i:EventTrigger>
-                                    <i:EventTrigger EventName="PreviewKeyDown">
-                                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="PreviewTextInput">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="NumericInput"/>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="PreviewKeyDown">
+                                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="PreviewKeyDown"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
 
-                            </materialDesign:Card>
+                                </materialDesign:Card>
 
-                        </StackPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+
                     </materialDesign:Card>
                 </Grid>
 

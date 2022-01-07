@@ -70,7 +70,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Button Style="{DynamicResource MaterialDesignToolButton}"
-                                            Command="{Binding SearchCommand}">
+                                            Command="{Binding SearchCommand}" IsDefault="True">
                                         <materialDesign:PackIcon Kind="Search" Opacity=".56" />
                                     </Button>
                                     <TextBox Grid.Column="1" Margin="8 0 0 0"
@@ -292,17 +292,17 @@
                                         </Grid.ColumnDefinitions>
 
 
-                                        <TextBox Grid.Column="0" Margin="5 0 0 0"
-                                             materialDesign:HintAssist.Hint="Tên khách hàng"
+                                        <Button Grid.Column="0" Style="{DynamicResource MaterialDesignToolButton}"
+                                            Command="{Binding SearchTouristCommand}"
+                                                HorizontalAlignment="Right" VerticalAlignment="Bottom" IsDefault="True">
+                                            <materialDesign:PackIcon Kind="Search" Opacity=".56" />
+                                        </Button>
+
+                                        <TextBox Grid.Column="1" Margin="5 0 0 0"
+                                             materialDesign:HintAssist.Hint="Tìm tên khách hàng"
                                              BorderThickness="0"         
                                              VerticalAlignment="Center" 
                                              Text="{Binding TouristName}"/>
-
-                                        <Button Grid.Column="1" Style="{DynamicResource MaterialDesignToolButton}"
-                                            Command="{Binding SearchTouristCommand}"
-                                                HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                            <materialDesign:PackIcon Kind="Search" Opacity=".56" />
-                                        </Button>
 
                                     </Grid>
                                 </materialDesign:Card>

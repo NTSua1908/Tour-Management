@@ -381,8 +381,8 @@ namespace Tour_management.ViewModel
                 return true;
             }, (p) =>
             {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstTourist);
-                view.Filter = TouristFilter;
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lstCustomer);
+                view.Filter = CustomerFilter;
             });
 
             EditCommand = new RelayCommand<Window>((p) =>
@@ -425,10 +425,10 @@ namespace Tour_management.ViewModel
             return false;
         }
 
-        private bool TouristFilter(object item)
+        private bool CustomerFilter(object item)
         {
-            KhachDuLich kdl = item as KhachDuLich;
-            if (filterTouristName(kdl))
+            KhachHang kh = item as KhachHang;
+            if (filterCustomerName(kh))
                 return true;
             return false;
         }
@@ -462,9 +462,9 @@ namespace Tour_management.ViewModel
             return false;
         }
 
-        private bool filterTouristName(KhachDuLich kdl)
+        private bool filterCustomerName(KhachHang kh)
         {
-            if (string.IsNullOrEmpty(TouristName) || kdl.KhachHang.Hoten.ToLower().Contains(TouristName.ToLower()))
+            if (string.IsNullOrEmpty(TouristName) || kh.Hoten.ToLower().Contains(TouristName.ToLower()))
             {
                 return true;
             }

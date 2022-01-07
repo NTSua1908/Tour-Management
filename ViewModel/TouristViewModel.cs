@@ -191,6 +191,7 @@ namespace Tour_management.ViewModel
 
                     DataProvider.Ins.Entities.DoanDuLiches.Add(dl);
                     DataProvider.Ins.Entities.SaveChanges();
+
                     PTPrice = 0;
                     KSPrice = 0;
                     for (int i = 0; i < SelectedVehicles.Count; i++)
@@ -234,6 +235,7 @@ namespace Tour_management.ViewModel
                     dl.TongGiaPT = PTPrice;
                     //dl.TongGiaKS = KSPrice;
                     DataProvider.Ins.Entities.SaveChanges();
+                    MessageBox.Show("Thêm thành công");
                     
                 }
                 else if (ButtonAdd == "Sửa")
@@ -338,6 +340,7 @@ namespace Tour_management.ViewModel
 
                         KSPrice += Convert.ToDecimal(item.Hotel.ChiPhi) * ((decimal)(item.noDay * 0.5) + (decimal)(item.noNight * 0.5));
                     }
+
                     ddlich.TongGiaKS = KSPrice * ddlich.SoLuong;
 
                     List<DSNhanVien> lstNhanVien = new List<DSNhanVien>(DataProvider.Ins.Entities
@@ -361,6 +364,7 @@ namespace Tour_management.ViewModel
                     }
 
                     DataProvider.Ins.Entities.SaveChanges();
+                    MessageBox.Show("Sửa thành công");
                 }
             });
 
